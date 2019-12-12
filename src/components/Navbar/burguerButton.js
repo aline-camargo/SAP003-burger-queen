@@ -3,10 +3,10 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-const BurguerButton = () => {
+const BurguerButton = (props) => {
     return (
         <button className={css(styles.button, styles.big)} type="button" data-toggle="collapse" 
-        // onClick={props.handleClick}
+        onClick={props.onClick}
         >
                 <FontAwesomeIcon icon={faBars} className={css(styles.icon)}/>
         </button>

@@ -46,10 +46,12 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        width: '40vw',
-        padding: '1em 0',
-        borderLeft: '5px solid #E17409',
         justifyContent: 'space-between',
+        width: '40vw',
+        height: '100%',
+        padding: '1em 0',
+        marginTop: '60px',
+        borderLeft: '5px solid #E17409',
     }
 });
 
