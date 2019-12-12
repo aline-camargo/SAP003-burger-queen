@@ -5,7 +5,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const BurguerButton = () => {
     return (
-        <button className={css(styles.button)} type="button" data-toggle="collapse" 
+        <button className={css(styles.button, styles.big)} type="button" data-toggle="collapse" 
         // onClick={props.handleClick}
         >
                 <FontAwesomeIcon icon={faBars} className={css(styles.icon)}/>
@@ -18,6 +18,11 @@ const styles = StyleSheet.create({
         height: 'max-content',
         background: 'none',
         border: 'none',
+    },
+    big: {
+        '@media (min-width: 1025px)': {
+            display: 'none',
+        }
     },
     icon: {
         fontSize: '200%',

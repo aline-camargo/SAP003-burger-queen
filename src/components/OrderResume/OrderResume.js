@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import Title from './title';
 import Input from './input';
 import List from './orderList';
-import Total from './totalArea';
 import Button from '../buttons/confirmButton';
 
 const ResumeArea = () => {
+    const [ input, setInput ] = useState('');
+    const [ inputN, setInputN ] = useState(0);
+    
+    const handleSubmit = () => {
+        console.log(input, inputN)
+    }
+    
     return (
         <aside className={css(styles.container)}>
             <Title />
@@ -15,17 +21,21 @@ const ResumeArea = () => {
                 title='Nome'
                 type='text'
                 placeholder='Fulano de Tal'
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
             />
             <Input 
                 id='clientTable'
                 title='Mesa'
                 type='number'
                 placeholder='00'
+                value={inputN}
+                onChange={(e) => setInputN(e.target.value)}
             />
             <List />
-            <Total />
             <Button 
                 title='Enviar para a cozinha'
+                onClick={handleSubmit}
             />
         </aside>
     );

@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 
 const Title = () => {
     return (
-        <h2 className={css(styles.title)}>Pedido</h2>
+        <h2 className={css(styles.title)}>Resumo do Pedido</h2>
     );
 };
 
