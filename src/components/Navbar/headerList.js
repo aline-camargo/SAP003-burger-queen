@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 const HeaderList = () => {
     return (
         <div className={css(styles.navList)} id="navbarNav">
-                <ul className="navbar-nav">
+                <ul className={css(styles.navbar)}>
                     <li className={css(styles.navItem)}>
                         <span className="nav-link">Novo pedido</span>
                     </li>
@@ -25,12 +25,13 @@ const HeaderList = () => {
 const styles = StyleSheet.create({
     navItem: {
         listStyle: 'none',
-        display: 'inline',
-        marginLeft: '2vw',
+        marginTop: '1%',
+        fontSize:'1.2em',
     },
     navList: {
-        width: '70vw',
+        width: '80vw',
         color: 'white',
+        display: 'none',
     }
 })
 

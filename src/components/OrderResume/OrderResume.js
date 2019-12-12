@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
         width: '40vw',
-        padding: '1em',
+        padding: '1em 0',
         borderLeft: '5px solid #E17409',
         justifyContent: 'space-between',
     }

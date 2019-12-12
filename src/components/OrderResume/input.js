@@ -12,7 +12,7 @@ const Input = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
+        width: '90%',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',

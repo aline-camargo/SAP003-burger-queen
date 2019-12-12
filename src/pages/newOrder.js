@@ -26,7 +26,8 @@ const NewOrder = () => {
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
-        height: '100vh',
+        height: '90vh',
+        marginBottom: '0',
     }
 })
 

@@ -11,8 +11,7 @@ const styles = StyleSheet.create({
     list: {
         overflow: 'auto',
         height: '55%',
-        width: '100%',
-        border: '1px solid'
+        width: '90%',
     }
 })
 
