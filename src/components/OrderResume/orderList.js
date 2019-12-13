@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { db } from '../../util/firebaseConfig';
 import { StyleSheet, css } from 'aphrodite/no-important';
 
 const List = () => {
+    // const [products, setProducts] = useState([]);
+
+    // useEffect(() => {
+    //     db.collection('new-order')
+    //     .doc('order')
+    //     .onSnapshot(querySnapshot => {
+    //         const arr = querySnapshot.data().products;
+    //         arr.forEach(id => {
+    //             db.collection('menu').doc(id).get().then(doc => console.log(doc.data()))
+    //         })
+    //         // console.log(querySnapshot.data().products);
+            
+    //     })
+    // }, [])
+
     return (
         <div id="orderList" className={css(styles.list)}>
             <div className={css(styles.total)}>
+            {/* {products.map(item => {
+                return <div>{item}</div>
+            })} */}
             <p className={css(styles.title)}>Total:</p>
             <p className={css(styles.result)}>R$ total</p>
             </div>

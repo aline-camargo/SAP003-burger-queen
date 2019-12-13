@@ -3,15 +3,8 @@ import Navbar from '../components/Navbar/navbar';
 import ResumeArea from '../components/OrderResume/OrderResume';
 import MenuArea from '../components/MenuArea/MenuArea';
 import { StyleSheet, css } from 'aphrodite/no-important';
-// import { db } from '../util/firebaseConfig';
-
 
 const NewOrder = () => {
-//     db.collection('menu-day').get().then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//       console.log(doc.id, doc.data());
-//     });
-//   })
     return (
         <main>
         <Navbar />

@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 
 const Tabs = (props) => {
     return (
-        <li className={css(styles.tabs)}><button type='button' autoFocus={props.active} className={css(styles.button)}>{props.title}</button></li>
+        <button className={css(styles.tabs, styles.button)} onClick={props.onClick} autoFocus={props.active} id={props.id}>{props.title}</button>
     )
 }
 
@@ -13,14 +13,14 @@ const styles = StyleSheet.create({
         display: 'inline',
     },
     button: {
-        background: '#e17409',
+        background: '#f7f5f5',
+        color: '#e17409',
         border: '2px solid #e17409',
         borderBottom: 'none',
-        padding: '1em',
-        color: 'white',
+        padding: '1em',   
         ':focus': {
-            background: '#f7f5f5',
-            color: '#e17409',
+            background: '#e17409',
+            color: 'white',
           },
     }
 })

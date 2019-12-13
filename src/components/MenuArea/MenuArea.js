@@ -1,20 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import Tabs from '../Tabs/tabs';
+import TabContent from '../Tabs/tabContent';
 
 const MenuArea = () => {
+    const [showItems, setShowItems] = useState(true);
+
+
+    const handleClick = (e) => {   
+        if (e.target.id === '#cafe') {    
+            setShowItems(true)
+        } else {
+            setShowItems(false)
+        }
+    }
+
     return (
         <main className={css(styles.main)}>
-        <ul className={css(styles.ul)}>
+        <div className={css(styles.ul)}>
             <Tabs 
+                id='#cafe'
                 title= 'Café da manhã'
+                onClick={handleClick}
                 active={true}
             />
             <Tabs 
+                id='#almoco'
                 title= 'Almoço e Jantar'
+                onClick={handleClick}
                 active={false}
             />
-        </ul>
+        </div>
+        <TabContent 
+            show={showItems}
+        />
         </main>
     );
 };
@@ -27,7 +46,8 @@ const styles = StyleSheet.create({
         padding: '1em',
     },
     ul: {
-        borderBottom: '2px solid #e17409'
+        borderBottom: '2px solid #e17409',
+        height: 'max-content'
     }
 })
 
