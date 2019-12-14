@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import BurguerButton from './burguerButton';
 import Brand from './brandTitle';
 import HeaderList from './headerList';
 
 const Navbar = () => {
-    const [open, didCollapse] = useState(false);
-
     const handleClick = (e) => {
         const listDisplay = e.currentTarget.nextElementSibling.nextElementSibling.style;
         if (listDisplay.display === 'none') {
