@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import Tabs from '../Tabs/tabs';
 import TabContent from '../Tabs/tabContent';
 
-const MenuArea = () => {
+const MenuArea = (props) => {
     const [showItems, setShowItems] = useState(true);
 
 
@@ -33,6 +33,7 @@ const MenuArea = () => {
         </div>
         <TabContent 
             show={showItems}
+            onClick={props.onClick}
         />
         </main>
     );

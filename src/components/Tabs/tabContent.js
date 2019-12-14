@@ -8,15 +8,6 @@ const TabContent = (props) => {
     const [cafeItems, setCafeItems] = useState([]);
     const [dayItems, setDayItems] = useState([]);
 
-    const handleClick = (e) => {
-        const value = e.currentTarget.textContent.split('R$ ');
-        console.log('title:', value[0])
-        console.log('price:', value[1])
-        // db.collection('new-order').add({
-        //     price: e.currentTarget.textContent
-        // })
-    };
-
     useEffect(() => {
         db.collection('menu').orderBy("title", "desc").get()
             .then((querySnapshot) => {
@@ -44,7 +35,7 @@ const TabContent = (props) => {
                 price={item.price}
                 id={item.id}
                 key={item.id}
-                onClick={handleClick}
+                onClick={props.onClick}
                 />
             })
         } else {
@@ -54,7 +45,7 @@ const TabContent = (props) => {
                 price={item.price}
                 id={item.id}
                 key={item.id}
-                onClick={handleClick}
+                onClick={props.onClick}
                 />
             })
         }

@@ -5,7 +5,7 @@ import Input from './input';
 import List from './orderList';
 import Button from '../buttons/confirmButton';
 
-const ResumeArea = () => {
+const ResumeArea = (props) => {
     const [ input, setInput ] = useState('');
     const [ inputN, setInputN ] = useState(0);
     
@@ -32,7 +32,9 @@ const ResumeArea = () => {
                 value={inputN}
                 onChange={(e) => setInputN(e.target.value)}
             />
-            <List />
+            <List 
+                resume={props.resume}
+            />
             <Button 
                 title='Enviar para a cozinha'
                 onClick={handleSubmit}
