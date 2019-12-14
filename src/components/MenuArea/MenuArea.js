@@ -34,6 +34,8 @@ const MenuArea = (props) => {
         <TabContent 
             show={showItems}
             onClick={props.onClick}
+            functionOk={props.functionOk}
+            functionCancel={props.functionCancel}
         />
         </main>
     );
