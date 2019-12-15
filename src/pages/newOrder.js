@@ -6,6 +6,17 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 
 const NewOrder = () => {
     const [order, setOrder] = useState([]);
+    const [flavour, setFlavour] = useState('Boi');
+    const [extras, setExtras] = useState('Queijo');
+
+    const onChangeRadio = (e) => {
+        const type = e.target.parentElement.parentElement.firstElementChild.textContent;
+        if (type === 'Sabor:') {
+            setFlavour(e.target.id);
+        } else {
+            setExtras(e.target.id);
+        }
+    }
 
     const handleBurguerClick = (e) => {
         if (e.currentTarget.name) {
@@ -18,13 +29,16 @@ const NewOrder = () => {
     const saveItems = (e) => {
         if (e.currentTarget.name) {
             const value = e.currentTarget.parentElement.parentElement.firstElementChild.textContent.split('R$ ');
+            if (extras !== 'Nenhum') {
+                value[1]++
+            }
             setOrder([
                 ...order,
                 {
                     title: value[0],
                     price: value[1],
-                    flavour: '',
-                    extras: '',
+                    flavour: flavour,
+                    extras: extras,
                 }
             ])
         } else {
@@ -54,6 +68,7 @@ const NewOrder = () => {
         <div className={css(styles.container)}>
             <MenuArea 
                 onClick={handleClick}
+                onChange={onChangeRadio}
                 functionOk={saveItems}
                 functionCancel={handleBurguerClick}
             />

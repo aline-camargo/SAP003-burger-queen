@@ -16,11 +16,13 @@ const BurguerButton = (props) => {
                     name={'flavour' + props.id}
                     title='Sabor'
                     options={props.flavour}
+                    onChange={props.onChange}
                 />
                 <Filedset 
                     name={'extras' + props.id}
                     title='Adicionais (+ R$ 1)'
                     options={props.extras}
+                    onChange={props.onChange}
                 />
                 <div className={css(styles.buttons)}>
                     <BurguerOptions 

@@ -3,20 +3,21 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import './style.css';
 
 const Filedset = (props) => {
+    // console.log(props.onChange)
     return (
         <fieldset className={css(styles.container)}>
             <legend className={css(styles.legend)}>{props.title}:</legend>
             <div className={css(styles.option)}>
-                <input className={css(styles.radio)} type="radio" name={props.name} id={props.options[0]} defaultChecked></input>
-                <label htmlFor={props.options[0]}>{props.options[0].title} {props.options[0].price}</label>
+                <input onChange={props.onChange} className={css(styles.radio)} type="radio" name={props.name} id={props.options[0].title} defaultChecked></input>
+                <label htmlFor={props.options[0].title}>{props.options[0].title} {props.options[0].price}</label>
             </div>
             <div className={css(styles.option)}>
-                <input className={css(styles.radio)} type="radio" name={props.name} id={props.options[1]}></input>
-                <label htmlFor={props.options[1]}>{props.options[1].title} {props.options[1].price}</label>
+                <input onChange={props.onChange} className={css(styles.radio)} type="radio" name={props.name} id={props.options[1].title}></input>
+                <label htmlFor={props.options[1].title}>{props.options[1].title} {props.options[1].price}</label>
             </div>
             <div className={css(styles.option)}>
-                <input className={css(styles.radio)} type="radio" name={props.name} id={props.options[2]}></input>
-                <label htmlFor={props.options[2]}>{props.options[2].title} {props.options[2].price}</label>
+                <input onChange={props.onChange} className={css(styles.radio)} type="radio" name={props.name} id={props.options[2].title}></input>
+                <label htmlFor={props.options[2].title}>{props.options[2].title} {props.options[2].price}</label>
             </div>
         </fieldset>
     );

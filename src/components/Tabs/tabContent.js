@@ -54,6 +54,7 @@ const TabContent = (props) => {
             extras={item.extras}
             flavour={item.flavour}
             onClick={props.onClick}
+            onChange={props.onChange}
             functionOk={props.functionOk}
             functionCancel={props.functionCancel}
             />
