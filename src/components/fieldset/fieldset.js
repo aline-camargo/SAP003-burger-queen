@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
         display: 'inline-flex',
         flexDirection: 'column',
         color: 'white',
-        width: '40%',
         border: 'none',
     },
     radio: {

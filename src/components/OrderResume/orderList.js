@@ -1,30 +1,48 @@
-// import React, { useState, useEffect } from 'react';
 import React from 'react';
-// import { faBars } from '@fortawesome/free-solid-svg-icons'
-
-// import { db } from '../../util/firebaseConfig';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 import { StyleSheet, css } from 'aphrodite/no-important';
 
 const List = (props) => {
+    const deleteItem = (e) => {
+        const result = props.resume.filter(item => item.id !== +e.currentTarget.id)
+        props.onDelete(result);
+    }
+
     const renderListItems = () => {
         return props.resume.map(item => {
             if(item.title.includes('Hambúrguer')) {
                 if(item.extras !== 'Nenhum') {
                     return <div key={Math.random()} className={css(styles.item)}>
                     <p className={css(styles.p)}>{item.title} ({item.flavour.substring(0, 3)}) + {item.extras}</p>
-                    <p className={css(styles.p)}>R$ {item.price}</p>
+                    <div className={css(styles.flex)}>
+                        <p className={css(styles.p)}>R$ {item.price}</p>
+                        <button type='button' className={css(styles.delete)} id={item.id} onClick={(e) => deleteItem(e)}>
+                            <FontAwesomeIcon icon={faTrashAlt} />
+                        </button>
+                    </div>
                 </div>
                 } else {
             return <div key={Math.random()} className={css(styles.item)}>
                     <p className={css(styles.p)}>{item.title} ({item.flavour.substring(0, 3)})</p>
-                    <p className={css(styles.p)}>R$ {item.price}</p>
+                    <div className={css(styles.flex)}>
+                        <p className={css(styles.p)}>R$ {item.price}</p>
+                        <button type='button' className={css(styles.delete)} id={item.id} onClick={(e) => deleteItem(e)}>
+                            <FontAwesomeIcon icon={faTrashAlt} />
+                        </button>
+                    </div>
                 </div>
                 }
             } else {
             return <div key={Math.random()} className={css(styles.item)}>
-                <p className={css(styles.p)}>{item.title}</p>
-                <p className={css(styles.p)}>R$ {item.price}</p>
-            </div>
+                    <p className={css(styles.p)}>{item.title}</p>
+                    <div className={css(styles.flex)}>
+                        <p className={css(styles.p)}>R$ {item.price}</p>
+                        <button type='button' className={css(styles.delete)} id={item.id} onClick={(e) => deleteItem(e)}>
+                            <FontAwesomeIcon icon={faTrashAlt} />
+                        </button>
+                    </div>
+                </div>
         }})
     }
 
@@ -80,6 +98,16 @@ const styles = StyleSheet.create({
     },
     p: {
         display: 'inline',
+    },
+    delete: {
+        border: 'none',
+        background: 'none',
+        fontSize: '20px',
+        marginLeft: '8px',
+        color: '#201e1e',
+    },
+    flex: {
+        display: 'flex',
     }
 })
 

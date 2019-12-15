@@ -24,18 +24,9 @@ const BurguerButton = (props) => {
                     options={props.extras}
                     onChange={props.onChange}
                 />
-                <div className={css(styles.buttons)}>
-                    <BurguerOptions 
-                        title='Cancelar'
-                        color='#e61f1f'
-                        onClick={props.functionCancel}
-                    />
-                    <BurguerOptions 
-                        title='Confirmar'
-                        color='#57ad1c'
-                        onClick={props.functionOk}
-                    />
-                </div>
+                <BurguerOptions
+                    onClick={props.functionOk}
+                />
             </div>
         </>
     );
@@ -53,6 +44,9 @@ const styles = StyleSheet.create({
     },
     options: {
         display: 'none',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        width: '100%',
         background: '#cb6023',
         padding: '1em',
         borderRadius: '6px',
@@ -69,6 +63,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         marginBottom: '10px',
+        width: '100%',
     }
 })
 

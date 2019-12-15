@@ -6,7 +6,7 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 
 const NewOrder = () => {
     const [order, setOrder] = useState([]);
-    const [flavour, setFlavour] = useState('Boi');
+    const [flavour, setFlavour] = useState('Bovino');
     const [extras, setExtras] = useState('Queijo');
 
     const onChangeRadio = (e) => {
@@ -19,16 +19,22 @@ const NewOrder = () => {
     }
 
     const handleBurguerClick = (e) => {
-        if (e.currentTarget.name) {
-            e.currentTarget.parentElement.parentElement.style.display = 'none';
+        const optionsStyle = e.currentTarget.nextElementSibling.style;
+        if (optionsStyle.display === 'none') { 
+            optionsStyle.display = 'flex';
         } else {
-        e.currentTarget.nextElementSibling.style.display = 'block';
+            optionsStyle.display = 'none';
         }
     }
 
+    const updateItems = (resume) => {
+        setOrder(resume)
+    }
+
     const saveItems = (e) => {
+        const pseudoId = new Date().getTime();
         if (e.currentTarget.name) {
-            const value = e.currentTarget.parentElement.parentElement.firstElementChild.textContent.split('R$ ');
+            const value = e.currentTarget.parentElement.firstElementChild.textContent.split('R$ ');
             if (extras !== 'Nenhum') {
                 value[1]++
             }
@@ -39,8 +45,10 @@ const NewOrder = () => {
                     price: value[1],
                     flavour: flavour,
                     extras: extras,
+                    id: pseudoId,
                 }
             ])
+            e.currentTarget.parentElement.style.display = 'none';
         } else {
             const value = e.currentTarget.textContent.split('R$ ');
             setOrder([
@@ -48,6 +56,7 @@ const NewOrder = () => {
                 {
                     title: value[0],
                     price: value[1],
+                    id: pseudoId,
                 }
             ])
         }
@@ -59,7 +68,6 @@ const NewOrder = () => {
         } else {
             saveItems(e)
     }
-        // db.collection('new-order').add(order)
     };
 
     return (
@@ -74,6 +82,7 @@ const NewOrder = () => {
             />
             <ResumeArea 
                 resume={order}
+                onUpdate={updateItems}
             />
         </div>
         </main>
