@@ -3,57 +3,77 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import { db } from '../../util/firebaseConfig';
 // import firebase from 'firebase';
 import ItemsButton from '../buttons/itemsButtons';
+import BurguerButton from '../buttons/burguerItem';
 
 const TabContent = (props) => {
     const [cafeItems, setCafeItems] = useState([]);
     const [dayItems, setDayItems] = useState([]);
+    const [burguers, setBurguers] = useState([]);
 
     useEffect(() => {
         db.collection('menu').orderBy("title", "desc").get()
             .then((querySnapshot) => {
                 const cafeItems = [];  
-                const dayItems = [];  
+                const dayItems = [];
+                const burguers = [];
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     data.id = doc.id
                     if (data.breakfast) {
                         cafeItems.push(data);
                     } else {
-                        dayItems.push(data);
+                        (data.flavour.length === 3) ? burguers.push(data) : dayItems.push(data);
                     }
                 });
             setCafeItems(cafeItems);
             setDayItems(dayItems);
+            setBurguers(burguers);
         })
     }, [])
+
+    const buttons = (itensArray) => { 
+        return itensArray.map(item => {
+            return <ItemsButton
+            title={item.title}
+            price={item.price}
+            id={item.id}
+            key={item.id}
+            onClick={props.onClick}
+            />
+    })
+    }
+
+    const burguersTemplate = (itensArray) => {
+        if(!props.show) {            
+        return itensArray.map(item => {
+            return <BurguerButton
+            title={item.title}
+            price={item.price}
+            id={item.id}
+            key={item.id}
+            extras={item.extras}
+            flavour={item.flavour}
+            onClick={props.onClick}
+            onChange={props.onChange}
+            functionOk={props.functionOk}
+            functionCancel={props.functionCancel}
+            />
+        })
+    }
+    }
     
     const renderMenu = () => {
         if (props.show) {
-            return cafeItems.map(item => {
-                return<ItemsButton
-                title={item.title}
-                price={item.price}
-                id={item.id}
-                key={item.id}
-                onClick={props.onClick}
-                />
-            })
+            return buttons(cafeItems)
         } else {
-            return  dayItems.map(item => {
-                return<ItemsButton
-                title={item.title}
-                price={item.price}
-                id={item.id}
-                key={item.id}
-                onClick={props.onClick}
-                />
-            })
+            return buttons(dayItems);
         }
     }
     
     return (
         <article className={css(styles.container)}>
             {renderMenu()}
+            {burguersTemplate(burguers)}
         </article>
     );
 };
