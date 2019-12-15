@@ -5,7 +5,7 @@ const Input = (props) => {
     return (
         <div className={css(styles.container)}>
             <label className={css(styles.label)} htmlFor={props.id}>{props.title}:</label>
-            <input value={props.value} onChange={props.onChange} className={css(styles.input)} type={props.type} placeholder={props.placeholder} id={props.id}></input>
+            <input onChange={props.onChange} className={css(styles.input)} type='text' placeholder={props.placeholder} id={props.id}></input>
         </div>
     );
 };

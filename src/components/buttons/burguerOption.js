@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const BurguerOptions = (props) => {
     return (
-        <button type='button' name="burguer-options" className={css(styles.button)} style={{background: props.color}} onClick={props.onClick}>
-            {props.title}
+        <button type='button' name="burguer-options" className={css(styles.button)} onClick={props.onClick}>
+            <FontAwesomeIcon icon={faCheck}/>
         </button>
     );
 };
@@ -13,16 +15,13 @@ const styles = StyleSheet.create({
     button: {
         color: 'white',
         border: 'none',
-        width: '100%',
-        height: '20%',
-        padding: '6%',
+        padding: '0.2em 0.3em',
         display: 'inline',
-        fontSize: '19px',
+        background: '#57ad1c',
+        fontSize: '31px',
         borderRadius: '6px',
-        margin: '4% 0',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
+        height: 'max-content',
+        alignSelf: 'self-end',
     }
 })
 

@@ -8,15 +8,16 @@ import List from './orderList';
 import Button from '../buttons/confirmButton';
 
 const ResumeArea = (props) => {
-    const [ input, setInput ] = useState('');
-    const [ inputN, setInputN ] = useState(0);
+    const [ client, setClient ] = useState('');
+    const [ table, setTable ] = useState('');
     
     const handleSubmit = () => {
 
         db.collection('new-order').add({
-            client: input,
-            table: inputN,
+            client: client,
+            table: table,
             order: props.resume,
+            time: new Date().getTime(),
         })
         .then(() =>{
             store.addNotification({
@@ -31,8 +32,8 @@ const ResumeArea = (props) => {
                   duration: 1500,
                 }
               });
-            setInput('');
-            setInputN(0);
+            setClient('');
+            setTable('');
             props.onUpdate([]);
         })
         .catch(error => {
@@ -49,8 +50,6 @@ const ResumeArea = (props) => {
                 }
               });
         });
-
-        // console.log(input, inputN, props.resume)
     }
     
     return (
@@ -59,18 +58,14 @@ const ResumeArea = (props) => {
             <Input 
                 id='clientName'
                 title='Nome'
-                type='text'
-                placeholder='Fulano de Tal'
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
+                placeholder='Nome do Cliente'
+                onChange={(e) => setClient(e.target.value)}
             />
             <Input 
                 id='clientTable'
                 title='Mesa'
-                type='number'
                 placeholder='00'
-                value={inputN}
-                onChange={(e) => setInputN(e.target.value)}
+                onChange={(e) => setTable(e.target.value)}
             />
             <List 
                 resume={props.resume}

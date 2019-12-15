@@ -82,6 +82,8 @@ const TabContent = (props) => {
 const styles = StyleSheet.create({
     container: {
         padding: '1em 0',
+        display: 'flex',
+        flexWrap: 'wrap'
     }
 })
 
