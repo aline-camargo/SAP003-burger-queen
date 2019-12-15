@@ -26,7 +26,12 @@ const NewOrder = () => {
         }
     }
 
+    const updateItems = (resume) => {
+        setOrder(resume)
+    }
+
     const saveItems = (e) => {
+        const pseudoId = new Date().getTime();
         if (e.currentTarget.name) {
             const value = e.currentTarget.parentElement.parentElement.firstElementChild.textContent.split('R$ ');
             if (extras !== 'Nenhum') {
@@ -39,6 +44,7 @@ const NewOrder = () => {
                     price: value[1],
                     flavour: flavour,
                     extras: extras,
+                    id: pseudoId,
                 }
             ])
         } else {
@@ -48,6 +54,7 @@ const NewOrder = () => {
                 {
                     title: value[0],
                     price: value[1],
+                    id: pseudoId,
                 }
             ])
         }
@@ -59,7 +66,6 @@ const NewOrder = () => {
         } else {
             saveItems(e)
     }
-        // db.collection('new-order').add(order)
     };
 
     return (
@@ -74,6 +80,7 @@ const NewOrder = () => {
             />
             <ResumeArea 
                 resume={order}
+                onUpdate={updateItems}
             />
         </div>
         </main>

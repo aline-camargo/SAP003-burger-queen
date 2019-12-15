@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { store } from 'react-notifications-component';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import { db } from '../../util/firebaseConfig';
 import Title from './title';
 import Input from './input';
 import List from './orderList';
@@ -10,7 +12,45 @@ const ResumeArea = (props) => {
     const [ inputN, setInputN ] = useState(0);
     
     const handleSubmit = () => {
-        console.log(input, inputN)
+
+        db.collection('new-order').add({
+            client: input,
+            table: inputN,
+            order: props.resume,
+        })
+        .then(() =>{
+            store.addNotification({
+                title: "Pedido enviado com sucesso!",
+                message: "Obrigada!",
+                type: "success",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animated", "fadeInDown"],
+                animationOut: ["animated", "fadeOutUp"],
+                dismiss: {
+                  duration: 1500,
+                }
+              });
+            setInput('');
+            setInputN(0);
+            props.onUpdate([]);
+        })
+        .catch(error => {
+            store.addNotification({
+                title: "Falha no envio.",
+                message: error,
+                type: "danger",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animated", "fadeInDown"],
+                animationOut: ["animated", "fadeOutUp"],
+                dismiss: {
+                  duration: 2000,
+                }
+              });
+        });
+
+        // console.log(input, inputN, props.resume)
     }
     
     return (
@@ -34,6 +74,7 @@ const ResumeArea = (props) => {
             />
             <List 
                 resume={props.resume}
+                onDelete={props.onUpdate}
             />
             <Button 
                 title='Enviar para a cozinha'
@@ -54,6 +95,9 @@ const styles = StyleSheet.create({
         padding: '1em 0',
         marginTop: '60px',
         borderLeft: '5px solid #E17409',
+        '@media (max-width: 768px)': {
+            width: '65vw',
+        }
     }
 });
 
