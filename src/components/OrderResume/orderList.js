@@ -1,19 +1,37 @@
 // import React, { useState, useEffect } from 'react';
 import React from 'react';
+// import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 // import { db } from '../../util/firebaseConfig';
 import { StyleSheet, css } from 'aphrodite/no-important';
 
 const List = (props) => {
+    const renderListItems = () => {
+        return props.resume.map(item => {
+            if(item.title.includes('Hambúrguer')) {
+                if(item.extras !== 'Nenhum') {
+                    return <div key={Math.random()} className={css(styles.item)}>
+                    <p className={css(styles.p)}>{item.title} ({item.flavour.substring(0, 3)}) + {item.extras}</p>
+                    <p className={css(styles.p)}>R$ {item.price}</p>
+                </div>
+                } else {
+            return <div key={Math.random()} className={css(styles.item)}>
+                    <p className={css(styles.p)}>{item.title} ({item.flavour.substring(0, 3)})</p>
+                    <p className={css(styles.p)}>R$ {item.price}</p>
+                </div>
+                }
+            } else {
+            return <div key={Math.random()} className={css(styles.item)}>
+                <p className={css(styles.p)}>{item.title}</p>
+                <p className={css(styles.p)}>R$ {item.price}</p>
+            </div>
+        }})
+    }
+
     return (
         <>
             <div id="orderList" className={css(styles.list)}>
-                {props.resume.map(item => {
-                    return <div key={Math.random()} className={css(styles.item)}>
-                        <p className={css(styles.p)}>{item.title}</p>
-                        <p className={css(styles.p)}>R$ {item.price}</p>
-                    </div>
-                })}
+                {renderListItems()}
             </div>
             <div className={css(styles.total)}>
                 <p className={css(styles.title)}>Total:</p>
