@@ -12,11 +12,11 @@ const ResumeArea = (props) => {
     const [ table, setTable ] = useState('');
     
     const handleSubmit = () => {
-        const notification = (props) => {
+        const notification = (obj) => {
             store.addNotification({
-                title: props.title,
-                message: props.message,
-                type: props.type,
+                title: obj.title,
+                message: obj.message,
+                type: obj.type,
                 insert: "top",
                 container: "top-center",
                 animationIn: ["animated", "fadeInDown"],
