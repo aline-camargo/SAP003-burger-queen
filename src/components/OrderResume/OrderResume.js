@@ -27,29 +27,43 @@ const ResumeArea = (props) => {
               });
         }
 
-        db.collection('new-order').add({
-            client: client,
-            table: table,
-            order: props.resume,
-            time: new Date().getTime(),
-        })
-        .then(() =>{
+        if (client === '' || table === '' || props.resume === []) {
             notification({
-                title: "Pedido enviado com sucesso!",
-                message: "Obrigada!",
-                type: "success",
-            })
-            setClient('');
-            setTable('');
-            props.onUpdate([]);
-        })
-        .catch(error => {
-            notification({
-                title: "Falha no envio",
-                message: error,
+                title: "Pedido inválido",
+                message: "Preencha todos os campos.",
                 type: "danger",
             })
-        });
+        } else {
+            notification({
+                title: "Aguarde",
+                message: "Pedido sendo enviado.",
+                type: "info",
+            })
+
+            db.collection('new-order').add({
+                client: client,
+                table: table,
+                order: props.resume,
+                time: new Date().getTime(),
+            })
+            .then(() =>{
+                notification({
+                    title: "Pedido enviado com sucesso!",
+                    message: "Obrigada!",
+                    type: "success",
+                })
+                setClient('');
+                setTable('');
+                props.onUpdate([]);
+            })
+            .catch(error => {
+                notification({
+                    title: "Falha no envio",
+                    message: error,
+                    type: "danger",
+                })
+            });
+        }
     }
     
     return (
