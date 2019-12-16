@@ -58,12 +58,14 @@ const ResumeArea = (props) => {
             <Input 
                 id='clientName'
                 title='Nome'
+                value={client}
                 placeholder='Nome do Cliente'
                 onChange={(e) => setClient(e.target.value)}
             />
             <Input 
                 id='clientTable'
                 title='Mesa'
+                value={table}
                 placeholder='00'
                 onChange={(e) => setTable(e.target.value)}
             />
