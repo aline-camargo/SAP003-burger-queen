@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 
-const HeaderList = () => {
+const HeaderList = () => {    
     return (
         <div className={css(styles.navList, styles.big)} id="navbarNav">
                 <ul className={css(styles.navbar)}>

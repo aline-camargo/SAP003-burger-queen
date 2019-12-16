@@ -7,7 +7,7 @@ import HeaderList from './headerList';
 const Navbar = () => {
     const handleClick = (e) => {
         const listDisplay = e.currentTarget.nextElementSibling.nextElementSibling.style;
-        if (listDisplay.display === 'none') {
+        if (!listDisplay.display || listDisplay.display === 'none') {
             listDisplay.display = 'block';
             // maxHeight: '200px';
             // transition: 'max-height 1s ease-in-out';

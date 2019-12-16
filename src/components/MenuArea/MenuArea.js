@@ -17,27 +17,26 @@ const MenuArea = (props) => {
 
     return (
         <main className={css(styles.main)}>
-        <div className={css(styles.ul)}>
-            <Tabs 
-                id='#cafe'
-                title= 'Café da manhã'
-                onClick={handleClick}
-                active={true}
+            <div className={css(styles.ul)}>
+                <Tabs 
+                    id='#cafe'
+                    title= 'Café da manhã'
+                    onClick={handleClick}
+                    active={true}
+                />
+                <Tabs 
+                    id='#almoco'
+                    title= 'Almoço e Jantar'
+                    onClick={handleClick}
+                    active={false}
+                />
+            </div>
+            <TabContent 
+                show={showItems}
+                onClickItem={props.onClickItem}
+                onClickBurguer={props.onClickBurguer}
+                onChange={props.onChange}
             />
-            <Tabs 
-                id='#almoco'
-                title= 'Almoço e Jantar'
-                onClick={handleClick}
-                active={false}
-            />
-        </div>
-        <TabContent 
-            show={showItems}
-            onClick={props.onClick}
-            onChange={props.onChange}
-            functionOk={props.functionOk}
-            functionCancel={props.functionCancel}
-        />
         </main>
     );
 };

@@ -3,7 +3,6 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import './style.css';
 
 const Filedset = (props) => {
-    // console.log(props.onChange)
     return (
         <fieldset className={css(styles.container)}>
             <legend className={css(styles.legend)}>{props.title}:</legend>
