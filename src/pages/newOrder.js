@@ -20,7 +20,7 @@ const NewOrder = () => {
 
     const handleBurguerClick = (e) => {
         const optionsStyle = e.currentTarget.nextElementSibling.style;
-        if (optionsStyle.display === 'none') { 
+        if (!optionsStyle.display || optionsStyle.display === 'none') { 
             optionsStyle.display = 'flex';
         } else {
             optionsStyle.display = 'none';
@@ -62,30 +62,23 @@ const NewOrder = () => {
         }
     }
 
-    const handleClick = (e) => {
-        if (e.currentTarget.textContent.includes('Hambúrguer')) {
-            handleBurguerClick(e)
-        } else {
-            saveItems(e)
-    }
-    };
-
     return (
-        <main>
-        <Navbar />
+        <>
+        <header>
+            <Navbar />
+        </header>
         <div className={css(styles.container)}>
             <MenuArea 
-                onClick={handleClick}
+                onClickItem={saveItems}
+                onClickBurguer={handleBurguerClick}
                 onChange={onChangeRadio}
-                functionOk={saveItems}
-                functionCancel={handleBurguerClick}
             />
             <ResumeArea 
                 resume={order}
                 onUpdate={updateItems}
             />
         </div>
-        </main>
+        </>
     );
 };
 

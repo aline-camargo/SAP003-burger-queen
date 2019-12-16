@@ -12,18 +12,11 @@ const ResumeArea = (props) => {
     const [ table, setTable ] = useState('');
     
     const handleSubmit = () => {
-
-        db.collection('new-order').add({
-            client: client,
-            table: table,
-            order: props.resume,
-            time: new Date().getTime(),
-        })
-        .then(() =>{
+        const notification = (props) => {
             store.addNotification({
-                title: "Pedido enviado com sucesso!",
-                message: "Obrigada!",
-                type: "success",
+                title: props.title,
+                message: props.message,
+                type: props.type,
                 insert: "top",
                 container: "top-center",
                 animationIn: ["animated", "fadeInDown"],
@@ -32,23 +25,30 @@ const ResumeArea = (props) => {
                   duration: 1500,
                 }
               });
+        }
+
+        db.collection('new-order').add({
+            client: client,
+            table: table,
+            order: props.resume,
+            time: new Date().getTime(),
+        })
+        .then(() =>{
+            notification({
+                title: "Pedido enviado com sucesso!",
+                message: "Obrigada!",
+                type: "success",
+            })
             setClient('');
             setTable('');
             props.onUpdate([]);
         })
         .catch(error => {
-            store.addNotification({
-                title: "Falha no envio.",
+            notification({
+                title: "Falha no envio",
                 message: error,
                 type: "danger",
-                insert: "top",
-                container: "top-center",
-                animationIn: ["animated", "fadeInDown"],
-                animationOut: ["animated", "fadeOutUp"],
-                dismiss: {
-                  duration: 2000,
-                }
-              });
+            })
         });
     }
     

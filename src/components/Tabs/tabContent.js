@@ -1,7 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { db } from '../../util/firebaseConfig';
-// import firebase from 'firebase';
 import ItemsButton from '../buttons/itemsButtons';
 import BurguerButton from '../buttons/burguerItem';
 
@@ -38,7 +37,7 @@ const TabContent = (props) => {
             price={item.price}
             id={item.id}
             key={item.id}
-            onClick={props.onClick}
+            onClick={props.onClickItem}
             />
     })
     }
@@ -53,10 +52,9 @@ const TabContent = (props) => {
             key={item.id}
             extras={item.extras}
             flavour={item.flavour}
-            onClick={props.onClick}
+            onClick={props.onClickBurguer}
+            functionOk={props.onClickItem}
             onChange={props.onChange}
-            functionOk={props.functionOk}
-            functionCancel={props.functionCancel}
             />
         })
     }

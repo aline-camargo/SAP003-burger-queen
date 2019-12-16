@@ -11,7 +11,7 @@ const BurguerButton = (props) => {
                 <p>{props.price}</p>
             </button>
             <div className={css(styles.options)}>
-            <h3 className={css(styles.header)}>{props.title} {props.price}</h3>
+                <h3 className={css(styles.header)}>{props.title} {props.price}</h3>
                 <Filedset 
                     name={'flavour' + props.id}
                     title='Sabor'
