@@ -14,7 +14,7 @@ const List = (props) => {
             if(item.title.includes('Hambúrguer')) {
                 if(item.extras !== 'Nenhum') {
                     return <div key={Math.random()} className={css(styles.item)}>
-                    <p className={css(styles.p)}>{item.title} ({item.flavour.substring(0, 3)}) + {item.extras}</p>
+                    <p className={css(styles.p)}><span className={css(styles.quantity)}>{item.quantity}</span>{item.title} ({item.flavour.substring(0, 3)}) + {item.extras}</p>
                     <div className={css(styles.flex)}>
                         <p className={css(styles.p)}>R$ {item.price}</p>
                         <button type='button' className={css(styles.delete)} id={item.id} onClick={(e) => deleteItem(e)}>
@@ -24,7 +24,7 @@ const List = (props) => {
                 </div>
                 } else {
             return <div key={Math.random()} className={css(styles.item)}>
-                    <p className={css(styles.p)}>{item.title} ({item.flavour.substring(0, 3)})</p>
+                    <p className={css(styles.p)}><span className={css(styles.quantity)}>{item.quantity}</span>{item.title} ({item.flavour.substring(0, 3)})</p>
                     <div className={css(styles.flex)}>
                         <p className={css(styles.p)}>R$ {item.price}</p>
                         <button type='button' className={css(styles.delete)} id={item.id} onClick={(e) => deleteItem(e)}>
@@ -35,9 +35,9 @@ const List = (props) => {
                 }
             } else {
             return <div key={Math.random()} className={css(styles.item)}>
-                    <p className={css(styles.p)}>{item.title}</p>
+                    <p className={css(styles.p)}><span className={css(styles.quantity)}>{item.quantity}</span> {item.title}</p>
                     <div className={css(styles.flex)}>
-                        <p className={css(styles.p)}>R$ {item.price}</p>
+                        <span>R$ {item.price}</span>
                         <button type='button' className={css(styles.delete)} id={item.id} onClick={(e) => deleteItem(e)}>
                             <FontAwesomeIcon icon={faTrashAlt} />
                         </button>
@@ -96,9 +96,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: '1em',
     },
-    p: {
-        display: 'inline',
-    },
     delete: {
         border: 'none',
         background: 'none',
@@ -108,6 +105,13 @@ const styles = StyleSheet.create({
     },
     flex: {
         display: 'flex',
+    },
+    quantity: {
+        background: '#9f440085',
+        padding: '1px 4px',
+        borderRadius: '3px',
+        fontWeight: 'bold',
+        marginRight: '5px',
     }
 })
 
