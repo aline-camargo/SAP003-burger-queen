@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { db } from '../util/firebaseConfig';
-import ItemsButton from './buttons/itemsButtons';
+import IdButton from './buttons/idButton';
 import BurguerButton from './buttons/burguerItem';
 
 const TabContent = (props) => {
@@ -32,9 +32,9 @@ const TabContent = (props) => {
 
     const buttons = (itensArray) => { 
         return itensArray.map(item => {
-            return <ItemsButton
-            title={item.title}
-            price={item.price}
+            return <IdButton
+            class={css(styles.button)}
+            title={[item.title, <p key >{item.price}</p>]}
             id={item.id}
             key={item.id}
             onClick={props.onClickItem}
@@ -82,6 +82,18 @@ const styles = StyleSheet.create({
         padding: '1em 0',
         display: 'flex',
         flexWrap: 'wrap'
+    },
+    button: {
+        color: 'white',
+        background: '#9f4400',
+        border: 'none',
+        padding: '1em',
+        borderRadius: '6px',
+        marginRight: '10px',
+        margin: '0px 10px 10px 0',
+        ':hover':{
+            cursor: 'pointer',
+        }
     }
 })
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 import { StyleSheet, css } from 'aphrodite/no-important';
+import OrderedItem from './orderedItem';
 
 const List = (props) => {
     const deleteItem = (e) => {
@@ -23,39 +24,31 @@ const List = (props) => {
 
     const renderListItems = () => {
         return props.resume.map(item => {
-            if(item.title.includes('Hambúrguer')) {
-                if(item.extras !== 'Nenhum') {
-                    return <div key={Math.random()} className={css(styles.item)}>
-                    <p className={css(styles.p)}><span className={css(styles.quantity)}>{item.quantity}</span>{item.title} ({item.flavour.substring(0, 3)}) + {item.extras}</p>
-                    <div className={css(styles.flex)}>
-                        <p className={css(styles.p)}>R$ {item.price}</p>
-                        <button type='button' className={css(styles.delete)} id={item.id} onClick={(e) => deleteItem(e)}>
-                            <FontAwesomeIcon icon={faTrashAlt} />
-                        </button>
-                    </div>
-                </div>
-                } else {
-            return <div key={Math.random()} className={css(styles.item)}>
-                    <p className={css(styles.p)}><span className={css(styles.quantity)}>{item.quantity}</span>{item.title} ({item.flavour.substring(0, 3)})</p>
-                    <div className={css(styles.flex)}>
-                        <p className={css(styles.p)}>R$ {item.price}</p>
-                        <button type='button' className={css(styles.delete)} id={item.id} onClick={(e) => deleteItem(e)}>
-                            <FontAwesomeIcon icon={faTrashAlt} />
-                        </button>
-                    </div>
-                </div>
-                }
+            let title = '';
+            if(item.title.includes('Hambúrguer') && item.extras !== 'Nenhum') {
+                title = [item.title, '(', item.flavour.substring(0, 3), ')', ' + ', item.extras]
+            } else if (item.title.includes('Hambúrguer') && item.extras === 'Nenhum') {
+                title = [item.title, '(', item.flavour.substring(0, 3), ')']
             } else {
-            return <div key={Math.random()} className={css(styles.item)}>
-                    <p className={css(styles.p)}><span className={css(styles.quantity)}>{item.quantity}</span> {item.title}</p>
-                    <div className={css(styles.flex)}>
-                        <span>R$ {item.price}</span>
-                        <button type='button' className={css(styles.delete)} id={item.id} onClick={(e) => deleteItem(e)}>
-                            <FontAwesomeIcon icon={faTrashAlt} />
-                        </button>
-                    </div>
-                </div>
-        }})
+                title = item.title
+            }
+        return <OrderedItem 
+            class={{
+                item: css(styles.item),
+                p: css(styles.p),
+                quantity: css(styles.quantity),
+                flex: css(styles.flex),
+                delete: css(styles.delete),
+            }}
+            quantity={item.quantity}
+            title={title}
+            price={item.price}
+            id={item.id}
+            key={item.id}
+            onClick={deleteItem}
+            buttonTitle={<FontAwesomeIcon icon={faTrashAlt} />}
+        />
+    })
     }
 
     return (
