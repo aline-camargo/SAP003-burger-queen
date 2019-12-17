@@ -44,7 +44,7 @@ const ResumeArea = (props) => {
                 client: client,
                 table: table,
                 order: props.resume,
-                time: new Date().getTime(),
+                time: new Date(),
             })
             .then(() =>{
                 notification({
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
         height: '100%',
         padding: '1em 0',
         marginTop: '60px',
-        borderLeft: '5px solid #E17409',
         '@media (max-width: 768px)': {
             width: '65vw',
         }
@@ -135,6 +134,9 @@ const styles = StyleSheet.create({
         fontSize: '23px',
         borderRadius: '6px',
         marginTop: '4%',
+        ':hover':{
+            cursor: 'pointer',
+        }
     },
     title: {
         color: '#A62F03',
@@ -148,6 +150,9 @@ const styles = StyleSheet.create({
     },
     label: {
         color: '#A62F03',
+        ':hover':{
+            cursor: 'pointer',
+        }
     },
     input: {
         border: '1px solid gray',

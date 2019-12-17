@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
         borderRadius: '6px',
         marginRight: '10px',
         margin: '0px 10px 10px 0',
+        ':hover':{
+            cursor: 'pointer',
+        }
     }
 })
 

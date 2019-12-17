@@ -5,18 +5,22 @@ import Navbar from '../components/navbar/navbar';
 const Kitchen = () => {
     return (
         <>
-        <Navbar />
-        <div>
-        <h1 className={css(styles.title)}>oi</h1>
-        </div>
+            <Navbar />
+            <div className={css(styles.container)}>
+                <div className={css(styles.title)}>oi</div>
+            </div>
         </>
     );
 }
 
 const styles = StyleSheet.create({
     title: {
-        // marginTop: '60px',
         fontSize: '80px',
+    },
+    container: {
+        marginTop: '60px',
+        display: 'flex',
+        height: '90vh',
     }
 })
 

@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: '1em',
         position: 'fixed',
+        top: '0',
         width: '100%',
     },
     big: {
@@ -59,6 +60,9 @@ const styles = StyleSheet.create({
         height: 'max-content',
         background: 'none',
         border: 'none',
+        ':hover':{
+            cursor: 'pointer',
+        }
     },
     bigScreen: {
         '@media (min-width: 1025px)': {

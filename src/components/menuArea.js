@@ -64,6 +64,9 @@ const styles = StyleSheet.create({
         border: '2px solid #e17409',
         borderBottom: 'none',
         padding: '1em',
+        ':hover':{
+            cursor: 'pointer',
+        }
     },
     clicked: {
         background: '#e17409',
