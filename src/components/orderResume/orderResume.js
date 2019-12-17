@@ -44,7 +44,7 @@ const ResumeArea = (props) => {
                 client: client,
                 table: table,
                 order: props.resume,
-                time: new Date(),
+                time: new Date().getTime(),
             })
             .then(() =>{
                 notification({
