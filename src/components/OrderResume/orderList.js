@@ -5,8 +5,20 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 
 const List = (props) => {
     const deleteItem = (e) => {
-        const result = props.resume.filter(item => item.id !== +e.currentTarget.id)
-        props.onDelete(result);
+        const itemToDelete = props.resume.findIndex(elem => elem.id === +e.currentTarget.id);
+        if (props.resume[itemToDelete].quantity !== 1) {
+            const result = props.resume.map(item => {
+                if (item.id === +e.currentTarget.id) {
+                    item.quantity--
+                    item.price = Number(item.originalPrice) * item.quantity
+                }
+                return item
+            })
+            props.onDelete(result);
+        } else {
+            const result = props.resume.filter(item => item.id !== +e.currentTarget.id)
+            props.onDelete(result);
+        }
     }
 
     const renderListItems = () => {
