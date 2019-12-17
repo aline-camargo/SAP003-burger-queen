@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import BurguerButton from './burguerButton';
-import Brand from './brandTitle';
-import HeaderList from './headerList';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+import NavbarList from './navbarList';
+import Button from '../buttons/primaryButton';
+import Title from '../title';
 
 const Navbar = () => {
     const handleClick = (e) => {
@@ -19,11 +21,20 @@ const Navbar = () => {
     return (
         <header>
         <nav className={css(styles.navbar, styles.big)}>
-            <BurguerButton 
+            <Button 
+                name='nav-button'
+                class={css(styles.button, styles.bigScreen)}
                 onClick={handleClick}
+                title={<FontAwesomeIcon icon={faBars} 
+                    className={css(styles.icon)}
+                />}
             />
-            <Brand />
-            <HeaderList />
+            <Title 
+                class={css(styles.title)}
+                title='Burguer Queen'
+            />
+            <NavbarList />
+
         </nav>
         </header>
     );
@@ -43,6 +54,24 @@ const styles = StyleSheet.create({
         '@media (min-width: 1025px)': {
             justifyContent: 'space-between',
         }
+    },
+    button: {
+        height: 'max-content',
+        background: 'none',
+        border: 'none',
+    },
+    bigScreen: {
+        '@media (min-width: 1025px)': {
+            display: 'none',
+        }
+    },
+    icon: {
+        fontSize: '200%',
+        color: 'white',
+    },
+    title: {
+        marginLeft: '2vh',
+        color: 'white',
     }
 });
 

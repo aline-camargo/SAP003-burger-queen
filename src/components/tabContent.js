@@ -1,8 +1,8 @@
 import React, { useEffect, useState} from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import { db } from '../../util/firebaseConfig';
-import ItemsButton from '../buttons/itemsButtons';
-import BurguerButton from '../buttons/burguerItem';
+import { db } from '../util/firebaseConfig';
+import ItemsButton from './buttons/itemsButtons';
+import BurguerButton from './buttons/burguerItem';
 
 const TabContent = (props) => {
     const [cafeItems, setCafeItems] = useState([]);

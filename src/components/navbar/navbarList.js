@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { Link } from 'react-router-dom';
 
-const HeaderList = () => {    
+const NavbarList = () => {    
     return (
         <div className={css(styles.navList, styles.big)} id="navbarNav">
                 <ul className={css(styles.navbar)}>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         color: 'white',
         transition: '0.2s linear',
         ':hover': {
-            color: 'red',
+            color: 'rgb(225, 116, 9)',
         }
     },
     big: {
@@ -58,4 +58,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HeaderList;
+export default NavbarList;

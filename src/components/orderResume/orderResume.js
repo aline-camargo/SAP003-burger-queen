@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { store } from 'react-notifications-component';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { db } from '../../util/firebaseConfig';
-import Title from './title';
-import Input from './input';
+import Title from '../title';
+import Input from '../input';
 import List from './orderList';
-import Button from '../buttons/confirmButton';
+import Button from '../buttons/primaryButton';
 
 const ResumeArea = (props) => {
     const [ client, setClient ] = useState('');
@@ -26,8 +26,8 @@ const ResumeArea = (props) => {
                 }
               });
         }
-
-        if (client === '' || table === '' || props.resume === []) {
+        
+        if (client === '' || table === '' || props.resume.length === 0) {
             notification({
                 title: "Pedido inválido",
                 message: "Preencha todos os campos.",
@@ -68,12 +68,20 @@ const ResumeArea = (props) => {
     
     return (
         <aside className={css(styles.container)}>
-            <Title />
+            <Title 
+                class={css(styles.title)}
+                title='Resumo do Pedido'
+            />
             <Input 
                 id='clientName'
                 title='Nome'
                 value={client}
                 placeholder='Nome do Cliente'
+                class={{
+                    container: css(styles.InputContainer),
+                    input: css(styles.input),
+                    label: css(styles.label)
+                }}
                 onChange={(e) => setClient(e.target.value)}
             />
             <Input 
@@ -81,6 +89,11 @@ const ResumeArea = (props) => {
                 title='Mesa'
                 value={table}
                 placeholder='00'
+                class={{
+                    container: css(styles.InputContainer),
+                    input: css(styles.input),
+                    label: css(styles.label)
+                }}
                 onChange={(e) => setTable(e.target.value)}
             />
             <List 
@@ -88,8 +101,10 @@ const ResumeArea = (props) => {
                 onDelete={props.onUpdate}
             />
             <Button 
-                title='Enviar para a cozinha'
+                name='enviar-cozinha'
+                class={css(styles.button)}
                 onClick={handleSubmit}
+                title='Enviar para a cozinha'
             />
         </aside>
     );
@@ -109,6 +124,36 @@ const styles = StyleSheet.create({
         '@media (max-width: 768px)': {
             width: '65vw',
         }
+    },
+    button: {
+        background: '#57ad1c',
+        color: 'white',
+        border: 'none',
+        width: '90%',
+        height: '10%',
+        padding: '1%',
+        fontSize: '23px',
+        borderRadius: '6px',
+        marginTop: '4%',
+    },
+    title: {
+        color: '#A62F03',
+    },
+    InputContainer: {
+        width: '90%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: '10px',
+    },
+    label: {
+        color: '#A62F03',
+    },
+    input: {
+        border: '1px solid gray',
+        borderRadius: '6px',
+        padding: '2%',
+        width: '80%',
     }
 });
 
