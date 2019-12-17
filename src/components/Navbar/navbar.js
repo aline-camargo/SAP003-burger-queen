@@ -17,6 +17,7 @@ const Navbar = () => {
     }
 
     return (
+        <header>
         <nav className={css(styles.navbar, styles.big)}>
             <BurguerButton 
                 onClick={handleClick}
@@ -24,6 +25,7 @@ const Navbar = () => {
             <Brand />
             <HeaderList />
         </nav>
+        </header>
     );
 };
 

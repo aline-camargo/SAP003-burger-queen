@@ -94,9 +94,7 @@ const NewOrder = () => {
 
     return (
         <>
-        <header>
-            <Navbar />
-        </header>
+        <Navbar />
         <div className={css(styles.container)}>
             <MenuArea 
                 onClickItem={saveItems}
