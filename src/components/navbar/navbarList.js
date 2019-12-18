@@ -13,10 +13,10 @@ const NavbarList = () => {
                     <Link to='/cozinha' className={css(styles.link)}>Cozinha</Link>
                     </li>
                     <li className={css(styles.navItem, styles.bigItem)}>
-                        <span className="nav-link">Pedidos prontos</span>
+                    <Link to='/pedidos-prontos' className={css(styles.link)}>Pedidos prontos</Link>
                     </li>
                     <li className={css(styles.navItem, styles.bigItem)}>
-                        <span className="nav-link">Pedidos entregues</span>
+                    <Link to='/pedidos-entregues' className={css(styles.link)}>Pedidos entregues</Link>
                     </li>
                 </ul>
         </div>

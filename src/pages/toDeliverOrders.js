@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, css } from 'aphrodite/no-important'
-import { store } from 'react-notifications-component';
+import { StyleSheet, css } from 'aphrodite/no-important';
 import { db } from '../util/firebaseConfig';
+import { store } from 'react-notifications-component';
 import Navbar from '../components/navbar/navbar';
 import OrderCard from '../components/orderCard/orderCard';
 
-const Kitchen = () => {
+const ToDeliverOrders = () => {
     const [orders, setOrders] = useState([])
 
     const notification = (obj) => {
@@ -23,17 +23,8 @@ const Kitchen = () => {
           });
     }
 
-     // const counter =  setInterval(() => {
-        const newTime = orders.map(element => {
-                const now = new Date().getTime()
-                element.passed = Math.floor((now - element.time) / 60000)
-                return element
-            })
-        // setOrders(newTime);
-    // },60000)
-
     useEffect(() => {
-        db.collection('new-order').orderBy("time", "desc")
+        db.collection('to-deliver').orderBy("time", "desc")
         .onSnapshot((querySnapshot) => {
             const orders = [];
             querySnapshot.forEach(doc => {
@@ -55,31 +46,31 @@ const Kitchen = () => {
             type: "info",
         })
         
-        db.collection('to-deliver').add(orders[index])
+        db.collection('delivered').add(orders[index])
         .then(
-            db.collection('new-order').doc(id)
+            db.collection('to-deliver').doc(id)
             .delete().catch(error =>  {
                 notification({
-                    title: "Falha em remover da cozinha.",
+                    title: "Falha em remover da área de entrega.",
                     message: error,
                     type: "danger",
                 })
             })
         ).then(
             notification({
-                title: "Pedido enviado com sucesso!",
+                title: "Pedido finalizado com sucesso!",
                 message: "Obrigada!",
                 type: "success",
             })
         )
-    };
+    }
 
     return (
         <>
             <Navbar />
             <div className={css(styles.container)}>
-            <h1 className={css(styles.heading)}>Cozinha</h1>
-                {orders.map(element => {
+            <h1 className={css(styles.heading)}>Pedidos para entrega</h1>
+            {orders.map(element => {
                     return <OrderCard 
                         key={element.id}
                         id={element.id}
@@ -94,12 +85,9 @@ const Kitchen = () => {
             </div>
         </>
     );
-}
+};
 
 const styles = StyleSheet.create({
-    title: {
-        fontSize: '80px',
-    },
     container: {
         marginTop: '60px',
         display: 'flex',
@@ -115,4 +103,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Kitchen;
+export default ToDeliverOrders;

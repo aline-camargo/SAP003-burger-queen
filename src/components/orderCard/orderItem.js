@@ -1,11 +1,8 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import Checkbox from '../checkbox';
-
 
 const OrderItem = (props) => {
     return (
-        <div className={css(styles.container)}>
             <p className={css(styles.item)}>
                 <span className={css(styles.quantity)}>
                     {props.quantity}
@@ -14,8 +11,6 @@ const OrderItem = (props) => {
                     {props.title}
                 </span>
             </p>
-            <Checkbox />
-        </div>
     );
 };
 
@@ -27,17 +22,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginRight: '5px',
     },
-    container:{
-        marginBottom: '0.5em',
-        display: 'flex',
-        justifyContent: 'space-between',
-
-    },
     white: {
         color: 'white',
     },
     item: {
-        display: 'inline',
+        marginBottom: '0.5em',
     }
 })
 

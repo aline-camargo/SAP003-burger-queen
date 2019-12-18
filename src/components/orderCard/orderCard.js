@@ -27,7 +27,7 @@ const OrderCard = (props) => {
         <article key={props.id} className={css(styles.article)} data-index={props.index}>
             <div className={css(styles.title)}>
                 <h3 className={css(styles.header)}>{props.client}, {props.table}</h3>
-                <span>20m</span>
+                <span>{props.time}m</span>
             </div>
             <div className={css(styles.list)}>
             {renderListItems()}
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     article: {
         height: '300px',
         padding: '0.5em',
-        width: '330px',
+        width: '310px',
         background: '#9f4400',
         borderRadius: '6px',
         margin: '1.5%',
