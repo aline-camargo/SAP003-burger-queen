@@ -23,25 +23,28 @@ const Kitchen = () => {
           });
     }
 
-     // const counter =  setInterval(() => {
-        const newTime = orders.map(element => {
-                const now = new Date().getTime()
-                element.passed = Math.floor((now - element.time) / 60000)
-                return element
-            })
-        // setOrders(newTime);
-    // },60000)
+    // useEffect(() => {
+    //     const counter =  setInterval(() => {
+    //         const newTime = orders.map(element => {
+    //                 const now = new Date().getTime()
+    //                 element.passed = Math.floor((now - element.time) / 60000)
+    //                 return element
+    //             })
+    //         setOrders(newTime);
+    //     },60000)
+    //     return clearInterval(counter)
+    // }, '')
 
     useEffect(() => {
         db.collection('new-order').orderBy("time", "desc")
         .onSnapshot((querySnapshot) => {
-            const orders = [];
             querySnapshot.forEach(doc => {
                 const data = doc.data();
                 data.id = doc.id
-                orders.push(data)
+                const now = new Date().getTime()
+                data.passed = Math.floor((now - data.time) / 60000)
+                setOrders((currentState)=> [...currentState, data])
             })
-            setOrders(orders)
         })
     }, [])
 

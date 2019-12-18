@@ -12,21 +12,17 @@ const TabContent = (props) => {
     useEffect(() => {
         db.collection('menu').orderBy("title", "desc").get()
             .then((querySnapshot) => {
-                const cafeItems = [];  
-                const dayItems = [];
-                const burguers = [];
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     data.id = doc.id
                     if (data.breakfast) {
-                        cafeItems.push(data);
+                        setCafeItems((currentState)=> [...currentState, data])
                     } else {
-                        (data.flavour.length === 3) ? burguers.push(data) : dayItems.push(data);
+                        (data.flavour.length === 3) ?
+                        setBurguers((currentState)=> [...currentState, data])
+                        : setDayItems((currentState)=> [...currentState, data]);
                     }
                 });
-            setCafeItems(cafeItems);
-            setDayItems(dayItems);
-            setBurguers(burguers);
         })
     }, [])
 

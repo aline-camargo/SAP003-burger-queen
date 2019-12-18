@@ -26,13 +26,11 @@ const ToDeliverOrders = () => {
     useEffect(() => {
         db.collection('to-deliver').orderBy("time", "desc")
         .onSnapshot((querySnapshot) => {
-            const orders = [];
             querySnapshot.forEach(doc => {
                 const data = doc.data();
                 data.id = doc.id
-                orders.push(data)
+                setOrders((currentState)=> [...currentState, data])
             })
-            setOrders(orders)
         })
     }, [])
 
