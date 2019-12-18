@@ -43,6 +43,8 @@ const ToDeliverOrders = () => {
             message: "Pedido sendo enviado.",
             type: "info",
         })
+
+        orders[index].done = true;
         
         db.collection('delivered').add(orders[index])
         .then(

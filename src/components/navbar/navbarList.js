@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     navList: {
         width: '80vw',
         color: 'white',
-        display: 'none',
     }
 })
 

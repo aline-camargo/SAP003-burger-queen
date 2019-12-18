@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
@@ -7,38 +7,97 @@ import Button from '../buttons/primaryButton';
 import Title from '../title';
 
 const Navbar = () => {
-    const handleClick = (e) => {
-        const listDisplay = e.currentTarget.nextElementSibling.nextElementSibling.style;
-        if (!listDisplay.display || listDisplay.display === 'none') {
-            listDisplay.display = 'block';
-            // maxHeight: '200px';
-            // transition: 'max-height 1s ease-in-out';
-        } else {
-            listDisplay.display = 'none';
-        }
+    const size = useWindowSize()
+    const [show, setShow] = useState(false);
+    const handleClick = () => {
+        setShow(!show)
     }
+    console.log(size.width > 1025 || show);
+
 
     return (
         <header>
-        <nav className={css(styles.navbar, styles.big)}>
-            <Button 
-                name='nav-button'
-                class={css(styles.button, styles.bigScreen)}
-                onClick={handleClick}
-                title={<FontAwesomeIcon icon={faBars} 
-                    className={css(styles.icon)}
-                />}
-            />
-            <Title 
-                class={css(styles.title)}
-                title='Burguer Queen'
-            />
-            <NavbarList />
+            <nav className={css(styles.navbar, styles.big)}>
 
-        </nav>
+                <Button
+                    name='nav-button'
+                    class={css(styles.button, styles.bigScreen)}
+                    onClick={handleClick}
+                    title={<FontAwesomeIcon icon={faBars}
+                        className={css(styles.icon)}
+                    />}
+                />
+                <Title
+                    class={css(styles.title)}
+                    title='Burguer Queen'
+                />
+
+                {
+
+                (size.width > 1025 || show)
+                ? <NavbarList />
+                : null
+                }
+                
+            </nav>
         </header>
     );
 };
+
+
+function useWindowSize() {
+
+    const isClient = typeof window === 'object';
+  
+  
+  
+    function getSize() {
+  
+      return {
+  
+        width: isClient ? window.innerWidth : undefined,
+  
+        height: isClient ? window.innerHeight : undefined
+  
+      };
+  
+    }
+  
+  
+  
+    const [windowSize, setWindowSize] = useState(getSize);
+  
+  
+  
+    useEffect(() => {
+  
+      if (!isClient) {
+  
+        return false;
+  
+      }
+  
+      
+  
+      function handleResize() {
+  
+        setWindowSize(getSize());
+  
+      }
+  
+  
+  
+      window.addEventListener('resize', handleResize);
+  
+      return () => window.removeEventListener('resize', handleResize);
+  
+    }, []); // Empty array ensures that effect is only run on mount and unmount
+  
+  
+  
+    return windowSize;
+  
+  }
 
 const styles = StyleSheet.create({
     navbar: {
@@ -60,7 +119,7 @@ const styles = StyleSheet.create({
         height: 'max-content',
         background: 'none',
         border: 'none',
-        ':hover':{
+        ':hover': {
             cursor: 'pointer',
         }
     },

@@ -7,6 +7,8 @@ import OrderCard from '../components/orderCard/orderCard';
 
 const Kitchen = () => {
     const [orders, setOrders] = useState([])
+    const [time, setTime] = useState(new Date().getTime())
+
 
     const notification = (obj) => {
         store.addNotification({
@@ -23,29 +25,18 @@ const Kitchen = () => {
           });
     }
 
-    // useEffect(() => {
-    //     const counter =  setInterval(() => {
-    //         const newTime = orders.map(element => {
-    //                 const now = new Date().getTime()
-    //                 element.passed = Math.floor((now - element.time) / 60000)
-    //                 return element
-    //             })
-    //         setOrders(newTime);
-    //     },60000)
-    //     return clearInterval(counter)
-    // }, '')
-
     useEffect(() => {
         db.collection('new-order').orderBy("time", "desc")
         .onSnapshot((querySnapshot) => {
             querySnapshot.forEach(doc => {
                 const data = doc.data();
                 data.id = doc.id
-                const now = new Date().getTime()
-                data.passed = Math.floor((now - data.time) / 60000)
                 setOrders((currentState)=> [...currentState, data])
             })
         })
+
+        const counter = setInterval(() => setTime(new Date().getTime()),60000)
+        return () => clearInterval(counter)
     }, [])
 
     const handleClick = (e) => {
@@ -74,7 +65,7 @@ const Kitchen = () => {
                 message: "Obrigada!",
                 type: "success",
             })
-        )
+            ).then(setOrders([]))
     };
 
     return (
@@ -83,6 +74,7 @@ const Kitchen = () => {
             <div className={css(styles.container)}>
             <h1 className={css(styles.heading)}>Cozinha</h1>
                 {orders.map(element => {
+                    const banana = Math.floor((time - element.time) / 60000)
                     return <OrderCard 
                         key={element.id}
                         id={element.id}
@@ -91,7 +83,7 @@ const Kitchen = () => {
                         order={element.order}
                         onClick={handleClick}
                         index={orders.indexOf(element)}
-                        time={element.passed}
+                        time={banana}
                     />
                 })}
             </div>
