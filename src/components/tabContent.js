@@ -69,10 +69,10 @@ const TabContent = (props) => {
     }
     
     return (
-        <article className={css(styles.container)}>
+        <section className={css(styles.container)}>
             {renderMenu()}
             {burguersTemplate(burguers)}
-        </article>
+        </section>
     );
 };
 
