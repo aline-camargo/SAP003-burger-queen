@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import Tabs from '../Tabs/tabs';
-import TabContent from '../Tabs/tabContent';
+import Tabs from './buttons/primaryButton';
+import TabContent from './tabContent';
 
 const MenuArea = (props) => {
     const [showItems, setShowItems] = useState(true);
+    const [breakfest, setBreakfest] = useState(css(styles.clicked, styles.button))
+    const [lunch, setLunch] = useState(css(styles.initial, styles.button))
 
 
-    const handleClick = (e) => {   
-        if (e.target.id === '#cafe') {    
+
+    const handleClick = (e) => {
+        if (e.target.name === 'cafe') {
+            setBreakfest(css(styles.clicked, styles.button))
+            setLunch(css(styles.initial, styles.button))
             setShowItems(true)
         } else {
+            setLunch(css(styles.clicked, styles.button))
+            setBreakfest(css(styles.initial, styles.button))
             setShowItems(false)
         }
     }
@@ -19,16 +26,16 @@ const MenuArea = (props) => {
         <main className={css(styles.main)}>
             <div className={css(styles.ul)}>
                 <Tabs 
-                    id='#cafe'
+                    name='cafe'
                     title= 'Café da manhã'
+                    class={breakfest}
                     onClick={handleClick}
-                    active={true}
-                />
+                    />
                 <Tabs 
-                    id='#almoco'
+                    name='almoco'
                     title= 'Almoço e Jantar'
+                    class={lunch}
                     onClick={handleClick}
-                    active={false}
                 />
             </div>
             <TabContent 
@@ -51,6 +58,23 @@ const styles = StyleSheet.create({
     ul: {
         borderBottom: '2px solid #e17409',
         height: 'max-content'
+    },
+    button: {
+        display: 'inline',
+        border: '2px solid #e17409',
+        borderBottom: 'none',
+        padding: '1em',
+        ':hover':{
+            cursor: 'pointer',
+        }
+    },
+    clicked: {
+        background: '#e17409',
+        color: 'white',
+    },
+    initial: {
+        background: '#f7f5f5',
+        color: '#e17409',
     }
 })
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar/navbar';
-import ResumeArea from '../components/OrderResume/OrderResume';
-import MenuArea from '../components/MenuArea/MenuArea';
+import Navbar from '../components/navbar/navbar';
+import ResumeArea from '../components/orderResume/orderResume';
+import MenuArea from '../components/menuArea';
 import { StyleSheet, css } from 'aphrodite/no-important';
 
 const NewOrder = () => {
@@ -94,9 +94,7 @@ const NewOrder = () => {
 
     return (
         <>
-        <header>
-            <Navbar />
-        </header>
+        <Navbar />
         <div className={css(styles.container)}>
             <MenuArea 
                 onClickItem={saveItems}

@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import Filedset from '../fieldset/fieldset';
-import BurguerOptions from './burguerOption';
+import Button from './primaryButton';
 
 const BurguerButton = (props) => {
     return (
@@ -24,8 +26,11 @@ const BurguerButton = (props) => {
                     options={props.extras}
                     onChange={props.onChange}
                 />
-                <BurguerOptions
+                <Button
+                    name='burguer-options'
+                    class={css(styles.ckeckButton)}
                     onClick={props.functionOk}
+                    title={<FontAwesomeIcon icon={faCheck}/>}
                 />
             </div>
         </>
@@ -41,6 +46,9 @@ const styles = StyleSheet.create({
         borderRadius: '6px',
         marginRight: '10px',
         margin: '0px 10px 10px 0',
+        ':hover':{
+            cursor: 'pointer',
+        }
     },
     options: {
         display: 'none',
@@ -64,6 +72,20 @@ const styles = StyleSheet.create({
         color: 'white',
         marginBottom: '10px',
         width: '100%',
+    },
+    ckeckButton: {
+        color: 'white',
+        border: 'none',
+        padding: '0.2em 0.3em',
+        display: 'inline',
+        background: '#57ad1c',
+        fontSize: '31px',
+        borderRadius: '6px',
+        height: 'max-content',
+        alignSelf: 'self-end',
+        ':hover':{
+            cursor: 'pointer',
+        }
     }
 })
 
