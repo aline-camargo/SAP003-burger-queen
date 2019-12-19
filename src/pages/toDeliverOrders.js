@@ -1,27 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { db } from '../util/firebaseConfig';
-import { store } from 'react-notifications-component';
+import notification from '../components/notifications';
 import Navbar from '../components/navbar/navbar';
 import OrderCard from '../components/orderCard/orderCard';
 
 const ToDeliverOrders = () => {
     const [orders, setOrders] = useState([])
-
-    const notification = (obj) => {
-        store.addNotification({
-            title: obj.title,
-            message: obj.message,
-            type: obj.type,
-            insert: "top",
-            container: "top-center",
-            animationIn: ["animated", "fadeInDown"],
-            animationOut: ["animated", "fadeOutUp"],
-            dismiss: {
-              duration: 1500,
-            }
-          });
-    }
 
     useEffect(() => {
         db.collection('to-deliver').orderBy("time", "desc")

@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 import { StyleSheet, css } from 'aphrodite/no-important';
+import PropTypes from 'prop-types';
 import OrderedItem from './orderedItem';
 
 const List = (props) => {
@@ -63,6 +64,11 @@ const List = (props) => {
         </>
     );
 };
+
+List.propTypes = {
+    resume: PropTypes.array,
+    onDelete: PropTypes.func,
+}
 
 const styles = StyleSheet.create({
     list: {

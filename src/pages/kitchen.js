@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { store } from 'react-notifications-component';
+import notification from '../components/notifications';
 import { db } from '../util/firebaseConfig';
 import Navbar from '../components/navbar/navbar';
 import OrderCard from '../components/orderCard/orderCard';
@@ -8,22 +8,6 @@ import OrderCard from '../components/orderCard/orderCard';
 const Kitchen = () => {
     const [orders, setOrders] = useState([])
     const [time, setTime] = useState(new Date().getTime())
-
-
-    const notification = (obj) => {
-        store.addNotification({
-            title: obj.title,
-            message: obj.message,
-            type: obj.type,
-            insert: "top",
-            container: "top-center",
-            animationIn: ["animated", "fadeInDown"],
-            animationOut: ["animated", "fadeOutUp"],
-            dismiss: {
-              duration: 1500,
-            }
-          });
-    }
 
     useEffect(() => {
         db.collection('new-order').orderBy("time", "desc")

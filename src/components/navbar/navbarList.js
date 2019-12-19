@@ -23,8 +23,6 @@ const NavbarList = () => {
     );
 };
 
-// const className = css((window.innerWidth < 1025) ? styles.navList : styles.big)
-
 const styles = StyleSheet.create({
     navItem: {
         listStyle: 'none',

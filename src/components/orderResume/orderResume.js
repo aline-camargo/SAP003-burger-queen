@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { store } from 'react-notifications-component';
+import notification from '../notifications';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { db } from '../../util/firebaseConfig';
+import PropTypes from 'prop-types';
 import Title from '../title';
 import Input from '../input';
 import List from './orderList';
@@ -11,22 +12,7 @@ const ResumeArea = (props) => {
     const [ client, setClient ] = useState('');
     const [ table, setTable ] = useState('');
     
-    const handleSubmit = () => {
-        const notification = (obj) => {
-            store.addNotification({
-                title: obj.title,
-                message: obj.message,
-                type: obj.type,
-                insert: "top",
-                container: "top-center",
-                animationIn: ["animated", "fadeInDown"],
-                animationOut: ["animated", "fadeOutUp"],
-                dismiss: {
-                  duration: 1500,
-                }
-              });
-        }
-        
+    const handleSubmit = () => {    
         if (client === '' || table === '' || props.resume.length === 0) {
             notification({
                 title: "Pedido inválido",
@@ -110,6 +96,11 @@ const ResumeArea = (props) => {
         </aside>
     );
 };
+
+ResumeArea.propTypes = {
+    resume: PropTypes.array,
+    onUpdate: PropTypes.func,
+}
 
 const styles = StyleSheet.create({
     container: {

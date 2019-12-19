@@ -1,6 +1,7 @@
 import React from 'react';
-import IdButton from '../buttons/idButton';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import PropTypes from 'prop-types';
+import IdButton from '../buttons/idButton';
 import OrderItem from './orderItem';
 
 const OrderCard = (props) => {
@@ -52,6 +53,18 @@ const OrderCard = (props) => {
         </article>
     );
 };
+
+OrderCard.propTypes = {
+    order: PropTypes.array,
+    kitchen: PropTypes.bool,
+    done: PropTypes.bool,
+    id: PropTypes.string,
+    index: PropTypes.number,
+    client: PropTypes.string,
+    table: PropTypes.string,
+    time: PropTypes.number,
+    onClick: PropTypes.func,
+}
 
 const styles = StyleSheet.create({
     button: {

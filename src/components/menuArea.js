@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import PropTypes from 'prop-types';
 import Tabs from './buttons/primaryButton';
 import TabContent from './tabContent';
 
@@ -47,6 +48,12 @@ const MenuArea = (props) => {
         </main>
     );
 };
+
+MenuArea.propTypes = {
+    onClickItem: PropTypes.func,
+    onClickBurguer: PropTypes.func,
+    onChange: PropTypes.func,
+}
 
 const styles = StyleSheet.create({
     main: {

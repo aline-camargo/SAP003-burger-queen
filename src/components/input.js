@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Input = (props) => {
     return (
@@ -8,5 +9,14 @@ const Input = (props) => {
         </div>
     );
 };
+
+Input.propTypes = {
+    class: PropTypes.object,
+    id: PropTypes.string,
+    onChange: PropTypes.func,
+    value: PropTypes.string,
+    title: PropTypes.string,
+    placeholder: PropTypes.string,
+}
 
 export default Input;

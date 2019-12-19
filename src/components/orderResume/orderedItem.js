@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from  'prop-types';
 import IdButton from '../buttons/idButton';
 
 const OrderedItem = (props) =>{
@@ -22,6 +23,25 @@ const OrderedItem = (props) =>{
             </div>
         </div>
     )
+}
+
+OrderedItem.propTypes = {
+    quantity: PropTypes.number,
+    class: PropTypes.object,
+    title: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+    ]),
+    price: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
+    id: PropTypes.number,
+    onClick: PropTypes.func,
+    buttonTitle: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element,
+    ])
 }
 
 export default OrderedItem;

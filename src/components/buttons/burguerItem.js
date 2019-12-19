@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import Filedset from '../fieldset/fieldset';
@@ -36,6 +37,17 @@ const BurguerButton = (props) => {
         </>
     );
 };
+
+BurguerButton.propTypes = {
+    id: PropTypes.string,
+    onClick: PropTypes.func,
+    onChange: PropTypes.func,
+    functionOk: PropTypes.func,
+    title: PropTypes.string,
+    extras: PropTypes.array,
+    flavour: PropTypes.array,
+    price: PropTypes.string,
+}
 
 const styles = StyleSheet.create({
     button: {

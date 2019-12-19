@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { db } from '../util/firebaseConfig';
+import PropTypes from 'prop-types';
 import IdButton from './buttons/idButton';
 import BurguerButton from './buttons/burguerItem';
 
@@ -71,6 +72,14 @@ const TabContent = (props) => {
         </section>
     );
 };
+
+
+TabContent.propTypes = {
+    onClickItem: PropTypes.func,
+    onClickBurguer: PropTypes.func,
+    onChange: PropTypes.func,
+    show: PropTypes.bool,
+}
 
 
 const styles = StyleSheet.create({

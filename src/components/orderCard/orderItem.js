@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import PropTypes from 'prop-types';
 
 const OrderItem = (props) => {
     return (
@@ -20,6 +21,20 @@ const OrderItem = (props) => {
         </div>
     );
 };
+
+OrderItem.propTypes = {
+    quantity: PropTypes.number,
+    kitchen: PropTypes.bool,
+    done: PropTypes.bool,
+    title: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+    ]),
+    price: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ])
+}
 
 const styles = StyleSheet.create({
     quantity: {

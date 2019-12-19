@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import PropTypes from 'prop-types';
 import './style.css';
 
 const Filedset = (props) => {
@@ -21,6 +22,13 @@ const Filedset = (props) => {
         </fieldset>
     );
 };
+
+Filedset.propTypes = {
+    options: PropTypes.array,
+    title: PropTypes.string,
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+}
 
 const styles = StyleSheet.create({
     container: {
