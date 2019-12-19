@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         color: 'white',
         border: 'none',
+        '@media(max-width: 500px)': {
+            textAlign: 'center',
+            marginBottom: '1em',
+        }
     },
     radio: {
         width: '20px',
@@ -50,10 +54,11 @@ const styles = StyleSheet.create({
     },
     option: {
         display: 'flex',
-        marginTop: '10px',
+        marginTop: '1em',
     },
     legend: {
         fontWeight: 'bold',
+        width: '100%',
     }
 })
 

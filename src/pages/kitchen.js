@@ -12,7 +12,7 @@ const Kitchen = () => {
 
     useEffect(() => {
         db.collection('new-order').orderBy("time", "desc")
-        .onSnapshot((querySnapshot) => {
+        .onSnapshot({ includeMetadataChanges: true }, (querySnapshot) => {
             querySnapshot.forEach(doc => {
                 const data = doc.data();
                 data.id = doc.id

@@ -10,6 +10,23 @@ const firebaseConfig = {
     messagingSenderId: "109448070284",
     appId: "1:109448070284:web:494354e267034a5dfa27a9"
   };
+  
+  export const firebaseImpl = firebase.initializeApp(firebaseConfig);
+  firebase.firestore().enablePersistence()
+  .then(res=> console.log(res))
+  .catch(function(err) {
+    console.log(err.code);
+      if (err.code === 'failed-precondition') {
+        
+          // Multiple tabs open, persistence can only be enabled
+          // in one tab at a a time.
+          // ...
+      } else if (err.code === 'unimplemented') {
+          // The current browser does not support all of the
+          // features required to enable persistence
+          // ...
+      }
+  });
 
-export const firebaseImpl = firebase.initializeApp(firebaseConfig);
+
 export const db = firebase.firestore();

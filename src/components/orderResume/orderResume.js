@@ -26,6 +26,14 @@ const ResumeArea = (props) => {
                 type: "info",
             })
 
+            if (!navigator.onLine){
+                notification({
+                    title: "Sem conexão de internet.",
+                    message: "Seu pedido será salvo localmente no momento.",
+                    type: "warning",
+                })
+            }
+
             db.collection('new-order').add({
                 client: client,
                 table: table,
@@ -139,6 +147,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: '10px',
+        '@media (max-width: 500px)': {
+            flexDirection: 'column',
+        }
     },
     label: {
         color: '#A62F03',

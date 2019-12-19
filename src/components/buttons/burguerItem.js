@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
         borderRadius: '6px',
         height: 'max-content',
         alignSelf: 'self-end',
+        marginTop: '0.7em',
         ':hover':{
             cursor: 'pointer',
         }
