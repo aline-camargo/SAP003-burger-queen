@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import 'firebase/firestore';
+import 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCFhNiWC1U5hiG8fHXRU3Xa0hYCLRhDTro",
@@ -15,7 +16,6 @@ const firebaseConfig = {
   firebase.firestore().enablePersistence()
   .then(res=> console.log(res))
   .catch(function(err) {
-    console.log(err.code);
       if (err.code === 'failed-precondition') {
         
           // Multiple tabs open, persistence can only be enabled
@@ -30,3 +30,4 @@ const firebaseConfig = {
 
 
 export const db = firebase.firestore();
+export const auth = firebase.auth();

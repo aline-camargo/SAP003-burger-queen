@@ -7,7 +7,7 @@ const NavbarList = () => {
         <div className={css(styles.navList, styles.big)} id="navbarNav">
                 <ul className={css(styles.navbar)}>
                     <li className={css(styles.navItem, styles.bigItem)}>
-                    <Link to='/' className={css(styles.link)}>Novo pedido</Link>
+                    <Link to='/novo-pedido' className={css(styles.link)}>Novo pedido</Link>
                     </li>
                     <li className={css(styles.navItem, styles.bigItem)}>
                     <Link to='/cozinha' className={css(styles.link)}>Cozinha</Link>

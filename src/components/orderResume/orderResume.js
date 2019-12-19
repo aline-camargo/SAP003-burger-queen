@@ -69,9 +69,10 @@ const ResumeArea = (props) => {
             />
             <Input 
                 id='clientName'
-                title='Nome'
+                title='Nome:'
                 value={client}
                 placeholder='Nome do Cliente'
+                type='text'
                 class={{
                     container: css(styles.InputContainer),
                     input: css(styles.input),
@@ -81,9 +82,10 @@ const ResumeArea = (props) => {
             />
             <Input 
                 id='clientTable'
-                title='Mesa'
+                title='Mesa:'
                 value={table}
                 placeholder='00'
+                type='text'
                 class={{
                     container: css(styles.InputContainer),
                     input: css(styles.input),
