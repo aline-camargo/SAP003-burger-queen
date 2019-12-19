@@ -3,6 +3,7 @@ import { db } from '../util/firebaseConfig';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import Navbar from '../components/navbar/navbar';
 import OrderCard from '../components/orderCard/orderCard';
+import Title from '../components/title';
 
 const DeliveredOrders = () => {
     const [orders, setOrders] = useState([])
@@ -22,7 +23,9 @@ const DeliveredOrders = () => {
         <>
             <Navbar />
             <div className={css(styles.container)}>
-                <h1 className={css(styles.heading)}>Pedidos entregues</h1>
+            <Title 
+                title='Pedidos entregues'
+            />
                 {orders.map(element => {
                     return <OrderCard 
                         key={element.id}
@@ -46,13 +49,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         flexWrap: 'wrap',
-    },
-    heading: {
-        height: 'max-content',
-        width: '94%',
-        padding: '0.5em',
-        color: 'rgb(166, 47, 3)',
-        borderBottom: '2px solid rgb(225, 116, 9)',
     }
 })
 

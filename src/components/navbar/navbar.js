@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import NavbarList from './navbarList';
 import Button from '../buttons/primaryButton';
-import Title from '../title';
+import Subtitle from '../subtitle';
 
 const Navbar = () => {
     const size = useWindowSize()
@@ -25,7 +25,7 @@ const Navbar = () => {
                         className={css(styles.icon)}
                     />}
                 />
-                <Title
+                <Subtitle
                     class={css(styles.title)}
                     title='Burguer Queen'
                 />
@@ -45,32 +45,28 @@ const Navbar = () => {
 const  useWindowSize = () => {
 
     const isClient = typeof window === 'object';
-  
-    function getSize() {
-      return {
-        width: isClient ? window.innerWidth : undefined,
-        height: isClient ? window.innerHeight : undefined
-      };
+    
+    const getSize = () => {
+        return {
+            width: isClient ? window.innerWidth : undefined,
+            height: isClient ? window.innerHeight : undefined
+        };
     }  
-  
+    
     const [windowSize, setWindowSize] = useState(getSize);
   
     useEffect(() => {
-  
-      if (!isClient) {
+        if (!isClient) {
         return false;
-      }
-
-      const handleResize = () => {
+        }
+        const handleResize = () => {
         setWindowSize(getSize());
-      }
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-  
+        }
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
     
     return windowSize;
-  
 }
 
 const styles = StyleSheet.create({

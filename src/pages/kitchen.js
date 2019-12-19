@@ -4,6 +4,7 @@ import notification from '../components/notifications';
 import { db } from '../util/firebaseConfig';
 import Navbar from '../components/navbar/navbar';
 import OrderCard from '../components/orderCard/orderCard';
+import Title from '../components/title';
 
 const Kitchen = () => {
     const [orders, setOrders] = useState([])
@@ -59,7 +60,9 @@ const Kitchen = () => {
         <>
             <Navbar />
             <div className={css(styles.container)}>
-            <h1 className={css(styles.heading)}>Cozinha</h1>
+            <Title 
+                title='Cozinha'
+            />
                 {orders.map(element => {
                     const passedTime = Math.floor((time - element.time) / 60000)
                     return <OrderCard 
@@ -88,13 +91,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         flexWrap: 'wrap',
-    },
-    heading: {
-        height: 'max-content',
-        width: '94%',
-        padding: '0.5em',
-        color: 'rgb(166, 47, 3)',
-        borderBottom: '2px solid rgb(225, 116, 9)',
     }
 })
 

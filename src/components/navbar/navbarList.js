@@ -26,7 +26,7 @@ const NavbarList = () => {
 const styles = StyleSheet.create({
     navItem: {
         listStyle: 'none',
-        marginTop: '1%',
+        marginTop: '0.7em',
         fontSize:'1.2em',
     },
     link:{

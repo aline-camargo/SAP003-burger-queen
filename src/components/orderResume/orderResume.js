@@ -3,7 +3,7 @@ import notification from '../notifications';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { db } from '../../util/firebaseConfig';
 import PropTypes from 'prop-types';
-import Title from '../title';
+import Subtitle from '../subtitle';
 import Input from '../input';
 import List from './orderList';
 import Button from '../buttons/primaryButton';
@@ -55,7 +55,7 @@ const ResumeArea = (props) => {
     
     return (
         <aside className={css(styles.container)}>
-            <Title 
+            <Subtitle 
                 class={css(styles.title)}
                 title='Resumo do Pedido'
             />
