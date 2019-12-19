@@ -45,6 +45,7 @@ const ResumeArea = (props) => {
                 table: table,
                 order: props.resume,
                 time: new Date().getTime(),
+                kitchen: true,
             })
             .then(() =>{
                 notification({

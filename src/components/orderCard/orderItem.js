@@ -3,7 +3,8 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 
 const OrderItem = (props) => {
     return (
-            <p className={css(styles.item)}>
+        <div className={css(styles.item)}>
+            <p>
                 <span className={css(styles.quantity)}>
                     {props.quantity}
                 </span>
@@ -11,6 +12,12 @@ const OrderItem = (props) => {
                     {props.title}
                 </span>
             </p>
+            {
+                (props.done || !props.kitchen)
+                ? <span className={css(styles.white)}>R$ {props.price}</span>
+                : null
+            }
+        </div>
     );
 };
 
@@ -27,6 +34,8 @@ const styles = StyleSheet.create({
     },
     item: {
         marginBottom: '0.5em',
+        display: 'flex',
+        justifyContent: 'space-between',
     }
 })
 

@@ -49,6 +49,9 @@ const Kitchen = () => {
             type: "info",
         })
         
+        orders[index].passedTime = Math.floor((time - orders[index].time) / 60000)
+        orders[index].kitchen = false;
+        
         db.collection('to-deliver').add(orders[index])
         .then(
             db.collection('new-order').doc(id)
@@ -74,7 +77,7 @@ const Kitchen = () => {
             <div className={css(styles.container)}>
             <h1 className={css(styles.heading)}>Cozinha</h1>
                 {orders.map(element => {
-                    const banana = Math.floor((time - element.time) / 60000)
+                    const passedTime = Math.floor((time - element.time) / 60000)
                     return <OrderCard 
                         key={element.id}
                         id={element.id}
@@ -82,8 +85,9 @@ const Kitchen = () => {
                         table={element.table}
                         order={element.order}
                         onClick={handleClick}
+                        kitchen={element.kitchen}
                         index={orders.indexOf(element)}
-                        time={banana}
+                        time={passedTime}
                     />
                 })}
             </div>

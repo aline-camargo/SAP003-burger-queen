@@ -62,7 +62,7 @@ const ToDeliverOrders = () => {
                 message: "Obrigada!",
                 type: "success",
             })
-        )
+        ).then(setOrders([]))
     }
 
     return (
