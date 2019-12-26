@@ -11,10 +11,10 @@ const OrderCard = (props) => {
     const renderListItems = () => {
         return props.order.map(item => {
             let title = '';
-            if(item.title.includes('Hambúrguer') && item.extras !== 'Nenhum') {
-                title = [item.title, '(', item.flavour.substring(0, 3), ')', ' + ', item.extras]
+            if(item.title.includes('Hambúrguer') && item.extrass !== 'Nenhum') {
+                title = [item.title, '(', item.flavourr.substring(0, 3), ')', ' + ', item.extrass]
             } else if (item.title.includes('Hambúrguer') && item.extras === 'Nenhum') {
-                title = [item.title, '(', item.flavour.substring(0, 3), ')']
+                title = [item.title, '(', item.flavourr.substring(0, 3), ')']
             } else {
                 title = item.title
             }

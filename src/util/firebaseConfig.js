@@ -14,7 +14,9 @@ const firebaseConfig = {
   
   export const firebaseImpl = firebase.initializeApp(firebaseConfig);
   firebase.firestore().enablePersistence()
-  .then(res=> console.log(res))
+  .then(res => {
+    // console.log(res)
+  })
   .catch(function(err) {
       if (err.code === 'failed-precondition') {
         
