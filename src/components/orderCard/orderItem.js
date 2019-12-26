@@ -15,7 +15,7 @@ const OrderItem = (props) => {
             </p>
             {
                 (props.done || !props.kitchen)
-                ? <span className={css(styles.white)}>R$ {props.price}</span>
+                ? <span className={css(styles.white)}>R$ {props.price * props.quantity}</span>
                 : null
             }
         </div>

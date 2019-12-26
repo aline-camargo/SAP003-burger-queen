@@ -11,7 +11,7 @@ const ToDeliverOrders = () => {
 
     useEffect(() => {
         db.collection('to-deliver').orderBy("time", "desc")
-        .onSnapshot({ includeMetadataChanges: true }, (querySnapshot) => {
+        .onSnapshot({ includeMetadataChanges: !navigator.onLine }, (querySnapshot) => {
             querySnapshot.forEach(doc => {
                 const data = doc.data();
                 data.id = doc.id

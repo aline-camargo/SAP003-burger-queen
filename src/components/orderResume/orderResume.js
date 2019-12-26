@@ -96,6 +96,7 @@ const ResumeArea = (props) => {
             <List 
                 resume={props.resume}
                 onDelete={props.onUpdate}
+                total={props.total}
             />
             <Button 
                 name='enviar-cozinha'

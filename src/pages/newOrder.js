@@ -31,63 +31,32 @@ const NewOrder = () => {
         setOrder(resume)
     }
 
-    const saveItems = (e) => {
-        const pseudoId = new Date().getTime();
-        if (e.currentTarget.name) {
-            const value = e.currentTarget.parentElement.firstElementChild.textContent.split('R$ ');
-            const isRepeatedBurg = order.findIndex(elem => elem.title === value[0] && elem.flavour === flavour && elem.extras === extras);
+    const saveItems = (e, item) => {
+        if (item.title.includes('Hambúrguer')) {
+            const isRepeatedBurg = order.findIndex(elem => elem.title === item.title && elem.flavourr === flavour && elem.extrass === extras);
             if (isRepeatedBurg !== -1){
-                const repeatedBurg = order.map(item => {
-                    if (order.indexOf(item) === isRepeatedBurg) {
-                        item.quantity++
-                        item.price = Number(item.originalPrice) * item.quantity
-                    } 
-                    return item;
-                });
-                setOrder(repeatedBurg)
+                order[isRepeatedBurg].quantity++
+                setOrder([...order])
             } else {
+                const newItem = Object.assign({
+                    id: item.id+new Date().getTime(),
+                    extrass: extras,
+                    flavourr: flavour,
+                }, item)
                 if (extras !== 'Nenhum') {
-                    value[1]++
-                } 
-                    setOrder([
-                        ...order,
-                        {
-                            title: value[0],
-                            price: value[1],
-                            originalPrice: value[1],
-                            quantity: 1,
-                            flavour: flavour,
-                            extras: extras,
-                            id: pseudoId,
-                        }
-                    ])
+                    newItem.price++
+                }
+                setOrder([...order, newItem])
             }
-           
             e.currentTarget.parentElement.style.display = 'none';
         } else {
-            const value = e.currentTarget.textContent.split('R$ ');
-            const isRepeated = order.findIndex(elem => elem.title === value[0]);
-
+            const isRepeated = order.findIndex(elem => elem.title === item.title);
             if (isRepeated !== -1){
-                const repeated = order.map(item => {
-                    if (order.indexOf(item) === isRepeated) {
-                        item.quantity++
-                        item.price = Number(item.originalPrice) * item.quantity
-                    } 
-                    return item;
-                });
-                setOrder(repeated)
+                order[isRepeated].quantity++
+                setOrder([...order])
             } else {
-                setOrder([
-                    ...order,
-                    {
-                        title: value[0],
-                        price: value[1],
-                        originalPrice: value[1],
-                        quantity: 1,
-                        id: pseudoId,
-                    }
-                ])
+                const newItem = Object.assign({}, item)
+                setOrder([...order, newItem])
             }
         }
     }

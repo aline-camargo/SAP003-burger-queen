@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Input = (props) => {
-    console.log(props.class)
     return (
         <div className={props.class.container}>
             <label className={props.class.label} htmlFor={props.id}>{props.title}</label>

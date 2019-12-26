@@ -11,10 +11,10 @@ const BurguerButton = (props) => {
         <>
             <button className={css(styles.button)} key={props.id} id={props.id} onClick={props.onClick}>
                 {props.title}
-                <p>{props.price}</p>
+                <p>R$ {props.price}</p>
             </button>
             <div className={css(styles.options)}>
-                <h3 className={css(styles.header)}>{props.title} {props.price}</h3>
+                <h3 className={css(styles.header)}>{props.title} R$ {props.price}</h3>
                 <Filedset 
                     name={'flavour' + props.id}
                     title='Sabor'
@@ -46,7 +46,7 @@ BurguerButton.propTypes = {
     title: PropTypes.string,
     extras: PropTypes.array,
     flavour: PropTypes.array,
-    price: PropTypes.string,
+    price: PropTypes.number,
 }
 
 const styles = StyleSheet.create({
