@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
 import IdButton from '../buttons/idButton';
 import OrderItem from './orderItem';
 
@@ -27,14 +29,18 @@ const OrderCard = (props) => {
     })
     }
 
+    const spanClass = css(
+        props.time > 15 ? styles.red : styles.regular
+    );
+
     return (
         <article key={props.id} className={css(styles.article)} data-index={props.index}>
             <div className={css(styles.title)}>
                 <h3 className={css(styles.header)}>{props.client}, {props.table}</h3>
                 {
                     (props.kitchen || props.done) 
-                    ? <span>{props.time}m</span>
-                    : <span>Total R$ {props.order.reduce((acc, curr) => acc + Number(curr.price), 0)}</span>
+                    ? <span className={spanClass}>{props.time}m <FontAwesomeIcon icon={faClock}/></span>
+                    : <span className={css(styles.regular)}>Total R$ {props.order.reduce((acc, curr) => acc + curr.price*curr.quantity, 0)}</span>
                 }
             </div>
             <div className={css(styles.list)}>
@@ -42,7 +48,7 @@ const OrderCard = (props) => {
             </div>
             {
                 props.done 
-                ? <p className={css(styles.total)}>Total R$ {props.order.reduce((acc, curr) => acc + Number(curr.price), 0)}</p>
+                ? <p className={css(styles.total)}>Total R$ {props.order.reduce((acc, curr) => acc + curr.price*curr.quantity, 0)}</p>
                 : <IdButton
                     id={props.id}
                     class={css(styles.button)}
@@ -97,7 +103,7 @@ const styles = StyleSheet.create({
         borderRadius: '6px',
         padding: '0.5em',
         width: '100%',
-        height: '75%',
+        height: '72%',
    },
    title: {
         display: 'flex',
@@ -114,6 +120,15 @@ const styles = StyleSheet.create({
         borderRadius: '6px',    
         color: 'white',    
         background: 'rgb(203, 96, 35)',
+   }, 
+   regular: {
+    padding: '0.3em',
+    borderRadius: '6px',
+   }, 
+   red: {
+    padding: '0.3em',
+    borderRadius: '6px',
+    background: '#e61f1f',
    }
 })
 

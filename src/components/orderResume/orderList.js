@@ -7,18 +7,12 @@ import OrderedItem from './orderedItem';
 
 const List = (props) => {
     const deleteItem = (e) => {
-        const itemToDelete = props.resume.findIndex(elem => elem.id === +e.currentTarget.id);
+        const itemToDelete = props.resume.findIndex(elem => elem.id === e.currentTarget.id);
         if (props.resume[itemToDelete].quantity !== 1) {
-            const result = props.resume.map(item => {
-                if (item.id === +e.currentTarget.id) {
-                    item.quantity--
-                    item.price = Number(item.originalPrice) * item.quantity
-                }
-                return item
-            })
-            props.onDelete(result);
+            props.resume[itemToDelete].quantity--
+            props.onDelete([...props.resume]);
         } else {
-            const result = props.resume.filter(item => item.id !== +e.currentTarget.id)
+            const result = props.resume.filter(elem => elem.id !== e.currentTarget.id)
             props.onDelete(result);
         }
     }
@@ -26,10 +20,10 @@ const List = (props) => {
     const renderListItems = () => {
         return props.resume.map(item => {
             let title = '';
-            if(item.title.includes('Hambúrguer') && item.extras !== 'Nenhum') {
-                title = [item.title, '(', item.flavour.substring(0, 3), ')', ' + ', item.extras]
-            } else if (item.title.includes('Hambúrguer') && item.extras === 'Nenhum') {
-                title = [item.title, '(', item.flavour.substring(0, 3), ')']
+            if(item.title.includes('Hambúrguer') && item.extrass !== 'Nenhum') {
+                title = [item.title, '(', item.flavourr.substring(0, 3), ')', ' + ', item.extrass]
+            } else if (item.title.includes('Hambúrguer') && item.extrass === 'Nenhum') {
+                title = [item.title, '(', item.flavourr.substring(0, 3), ')']
             } else {
                 title = item.title
             }
@@ -59,7 +53,7 @@ const List = (props) => {
             </div>
             <div className={css(styles.total)}>
                 <p className={css(styles.title)}>Total:</p>
-                <p className={css(styles.result)}>R$ {props.resume.reduce((acc, curr) => acc + Number(curr.price), 0)}</p>
+                <p className={css(styles.result)}>R$ {props.resume.reduce((acc, curr) => acc + curr.price* curr.quantity, 0)}</p>
             </div>
         </>
     );

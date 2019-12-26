@@ -59,12 +59,12 @@ const Register = () => {
 const styles = StyleSheet.create({
     section: {
         background: '#A62F03',
-        width: '50vw',
         height: '100vh',
         display: 'flex',
         verticalAlign: 'middle',
         justifyContent: 'center',
         alignItems: 'center',
+        clipPath: 'polygon(0px 0px, 45vw 0px, 65vw 100%, 0px 100%)',
     },
     container: {
         display: 'flex',

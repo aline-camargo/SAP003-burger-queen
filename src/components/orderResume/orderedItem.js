@@ -12,7 +12,7 @@ const OrderedItem = (props) =>{
                 {props.title}
             </p>
             <div className={props.class.flex}>
-                <p className={props.class.p}>R$ {props.price}</p>
+                <p className={props.class.p}>R$ {props.price * props.quantity}</p>
                 <IdButton 
                     class={props.class.delete}
                     id={props.id}
@@ -36,7 +36,7 @@ OrderedItem.propTypes = {
         PropTypes.string,
         PropTypes.number,
     ]),
-    id: PropTypes.number,
+    id: PropTypes.string,
     onClick: PropTypes.func,
     buttonTitle: PropTypes.oneOfType([
         PropTypes.string,

@@ -15,7 +15,8 @@ const TabContent = (props) => {
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    data.id = doc.id
+                    data.id = doc.id;
+                    data.quantity = 1;
                     if (data.breakfast) {
                         setCafeItems((currentState)=> [...currentState, data])
                     } else {
@@ -31,10 +32,10 @@ const TabContent = (props) => {
         return itensArray.map(item => {
             return <IdButton
             class={css(styles.button)}
-            title={[item.title, <p key >{item.price}</p>]}
+            title={[item.title, <p key >R$ {item.price}</p>]}
             id={item.id}
             key={item.id}
-            onClick={props.onClickItem}
+            onClick={(e)=>props.onClickItem(e, item)}
             />
     })
     }
@@ -50,7 +51,7 @@ const TabContent = (props) => {
             extras={item.extras}
             flavour={item.flavour}
             onClick={props.onClickBurguer}
-            functionOk={props.onClickItem}
+            functionOk={(e)=>props.onClickItem(e, item)}
             onChange={props.onChange}
             />
         })
