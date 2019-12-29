@@ -5,7 +5,7 @@ import notification from '../components/notifications';
 import Input from '../components/input';
 import Button from '../components/buttons/primaryButton';
 import logo from '../images/burguer-queen.png';
-import Select from '../components/select';
+import Select from '../components/select/select';
 
 const Register = () => {
 

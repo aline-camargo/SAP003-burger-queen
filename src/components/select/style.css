@@ -1,0 +1,14 @@
+.select {
+-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  color: #a62f03;
+  background: url(../../images/v.png) no-repeat white;
+  background-position: right;
+  background-size: 32px;
+  border-radius: 4px;
+  padding: 0.7em;
+  font-size: 1em;
+  margin: 1em 0;
+}
