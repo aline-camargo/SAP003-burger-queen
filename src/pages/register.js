@@ -11,13 +11,19 @@ const Register = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [type, setType] = useState('false');
+    const [type, setType] = useState('title');
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        if (type === 'title') {
+            notification({
+                title: 'Selecione sua área.',
+                message: 'Escolha um tipo de atendimento.',
+                type: 'danger',
+            })
+        } else {
         auth.createUserWithEmailAndPassword(email, password)
         .then((user) => {
-            db.collection('users').add({
-                uid: user.user.uid,
+            db.collection('users').doc(user.user.uid).set({
                 kitchen: type === 'true' ? true : false,
             })
             notification({
@@ -25,6 +31,14 @@ const Register = () => {
                 message: 'Você será redirecionado.',
                 type: 'success',
             })
+            db.collection('users').doc(user.user.uid)
+                .get().then(querySnapshot => {
+                    if(querySnapshot.data().kitchen) {
+                        window.location.pathname = 'cozinha';
+                    } else {
+                        window.location.pathname = 'novo-pedido';
+                    }
+                })
         })
         .catch((error)=> {
             const errorCode = error.code;
@@ -35,12 +49,13 @@ const Register = () => {
                 type: 'danger',
             })
           });
+        }
     }    
 
     return (
         <main className={css(styles.div)}>
         <section className={css(styles.section)}>
-            <div className={css(styles.bigContainer)}>
+            <form className={css(styles.bigContainer)}>
                 <div className={css(styles.container)}>
                         <Input 
                             class={{
@@ -76,9 +91,9 @@ const Register = () => {
                         class={css(styles.button)}
                         title='Cadastrar'
                         name='register'
-                        onClick={handleClick}
+                        onClick={(e) => handleClick(e)}
                     />
-            </div>
+            </form>
         </section>
         <img src={logo} className={css(styles.img)} alt='Logo Burguer Queen'></img>
         </main>

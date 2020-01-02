@@ -1,21 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { Link } from 'react-router-dom';
+import { auth, db } from '../../util/firebaseConfig';
 
-const NavbarList = () => {    
+const NavbarList = () => {
+    const [user, setUser] = useState(false);
+
+    useEffect(() => {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+              db.collection('users').doc(user.uid)
+              .get().then(querySnapshot => {
+                if (querySnapshot.data().kitchen) {
+                    setUser(true)
+                } else {
+                    setUser(false)
+                }
+              })
+            }
+          });
+    }, [])
+
     return (
-        <div className={css(styles.navList, styles.big)} id="navbarNav">
+        <div className={css(styles.navList)} id="navbarNav">
                 <ul className={css(styles.navbar)}>
-                    <li className={css(styles.navItem, styles.bigItem)}>
-                    <Link to='/novo-pedido' className={css(styles.link)}>Novo pedido</Link>
-                    </li>
-                    <li className={css(styles.navItem, styles.bigItem)}>
-                    <Link to='/cozinha' className={css(styles.link)}>Cozinha</Link>
-                    </li>
-                    <li className={css(styles.navItem, styles.bigItem)}>
-                    <Link to='/pedidos-prontos' className={css(styles.link)}>Pedidos prontos</Link>
-                    </li>
-                    <li className={css(styles.navItem, styles.bigItem)}>
+                    {
+                        user ? null
+                        : <li className={css(styles.navItem)}>
+                        <Link to='/novo-pedido' className={css(styles.link)}>Novo pedido</Link>
+                        </li>
+                    }
+                    {
+                        user ? <li className={css(styles.navItem)}>
+                        <Link to='/cozinha' className={css(styles.link)}>Cozinha</Link>
+                        </li>
+                        : null
+                    }
+                    {
+                        user ? null
+                        : <li className={css(styles.navItem)}>
+                        <Link to='/pedidos-prontos' className={css(styles.link)}>Pedidos prontos</Link>
+                        </li>
+                    }
+                    <li className={css(styles.navItem)}>
                     <Link to='/pedidos-entregues' className={css(styles.link)}>Pedidos entregues</Link>
                     </li>
                 </ul>
@@ -28,6 +55,10 @@ const styles = StyleSheet.create({
         listStyle: 'none',
         marginTop: '0.7em',
         fontSize:'1.2em',
+        '@media (min-width: 1025px)': {
+            display: 'inline',
+            marginRight: '15px',
+        }
     },
     link:{
         textDecoration: 'none',
@@ -35,23 +66,18 @@ const styles = StyleSheet.create({
         transition: '0.2s linear',
         ':hover': {
             color: 'rgb(225, 116, 9)',
-        }
+        },
     },
-    big: {
-        '@media (min-width: 1025px)': {
-            display: 'block',
-            width: 'max-content',
-        }
-    },
-    bigItem: {
-        '@media (min-width: 1025px)': {
-            display: 'inline',
-            marginRight: '15px',
-        }
+    disabledLink: {
+        pointerEvents: 'none',
     },
     navList: {
         width: '80vw',
         color: 'white',
+        '@media (min-width: 1025px)': {
+            display: 'block',
+            width: 'max-content',
+        }
     }
 })
 
