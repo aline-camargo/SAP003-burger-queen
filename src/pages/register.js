@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { auth, db } from '../util/firebaseConfig';
 import { StyleSheet, css} from 'aphrodite/no-important';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import notification from '../components/notifications';
 import Input from '../components/input';
 import Button from '../components/buttons/primaryButton';
@@ -9,15 +11,16 @@ import Select from '../components/select/select';
 
 const Register = () => {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
     const [type, setType] = useState('title');
 
-    const handleClick = (e) => {
-        if (type === 'title') {
+    const handleClick = () => {
+        if (type === 'title' || name === '') {
             notification({
-                title: 'Selecione sua área.',
-                message: 'Escolha um tipo de atendimento.',
+                title: 'Preencha todos os campos.',
+                message: 'Não se esqueça do Nome e Área.',
                 type: 'danger',
             })
         } else {
@@ -25,6 +28,7 @@ const Register = () => {
         .then((user) => {
             db.collection('users').doc(user.user.uid).set({
                 kitchen: type === 'true' ? true : false,
+                name,
             })
             notification({
                 title: 'Usuário criado com sucesso!',
@@ -50,13 +54,33 @@ const Register = () => {
             })
           });
         }
-    }    
+    }
+    
+    const goBack = () => {
+        window.location.pathname = '';
+    }
 
     return (
         <main className={css(styles.div)}>
         <section className={css(styles.section)}>
             <form className={css(styles.bigContainer)}>
+            <div className={css(styles.iconContainer)}>
+                <FontAwesomeIcon icon={faArrowLeft} className={css(styles.icon)} onClick={goBack}/>
+            </div>
                 <div className={css(styles.container)}>
+                        <Input 
+                            class={{
+                                    container: css(styles.container),
+                                    input: css(styles.input),
+                                    label: css(styles.label)
+                            }}
+                            id='nome'
+                            type='text'
+                            value={name}
+                            title='Nome'
+                            placeholder='Nome aqui'
+                            onChange={(e)=> setName(e.target.value)}
+                        />
                         <Input 
                             class={{
                                     container: css(styles.container),
@@ -91,7 +115,7 @@ const Register = () => {
                         class={css(styles.button)}
                         title='Cadastrar'
                         name='register'
-                        onClick={(e) => handleClick(e)}
+                        onClick={handleClick}
                     />
             </form>
         </section>
@@ -144,7 +168,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         borderRadius: '4px',
         fontSize: '1em',
-        marginTop: '50px',
+        marginTop: '2.5em',
+        cursor: 'pointer',
    }, 
    div: {
     display: 'flex',
@@ -158,6 +183,7 @@ const styles = StyleSheet.create({
     margin: '0.3em 0',
     fontSize: '1.4em',
     color: 'white',
+    cursor: 'pointer',
    },
    img: {
        height: '330px',
@@ -168,6 +194,15 @@ const styles = StyleSheet.create({
        '@media (max-width: 975px)': {
         marginRight: '0'
        },
+   },
+   iconContainer: {
+        width: '300px',
+        fontSize: '2em',
+        color: 'white',
+        paddingBottom: '1em',
+   },
+   icon: {
+    cursor: 'pointer',
    }
 
 })

@@ -21,6 +21,13 @@ const NavbarList = () => {
           });
     }, [])
 
+    const logout = () => {
+        auth.signOut()
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+
     return (
         <div className={css(styles.navList)} id="navbarNav">
                 <ul className={css(styles.navbar)}>
@@ -44,6 +51,9 @@ const NavbarList = () => {
                     }
                     <li className={css(styles.navItem)}>
                     <Link to='/pedidos-entregues' className={css(styles.link)}>Pedidos entregues</Link>
+                    </li>
+                    <li className={css(styles.navItem)} onClick={logout}>
+                    <Link to='/' className={css(styles.link)}>Sair</Link>
                     </li>
                 </ul>
         </div>

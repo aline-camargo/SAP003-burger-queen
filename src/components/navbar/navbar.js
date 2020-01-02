@@ -5,10 +5,24 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import NavbarList from './navbarList';
 import Button from '../buttons/primaryButton';
 import Subtitle from '../subtitle';
+import { auth, db } from '../../util/firebaseConfig';
 
 const Navbar = () => {
     const size = useWindowSize()
     const [show, setShow] = useState(false);
+    const [name, setName] = useState(false);
+
+    useEffect(() => {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+              db.collection('users').doc(user.uid)
+              .get().then(querySnapshot => {
+                setName(querySnapshot.data().name)
+              })
+            }
+          });
+    }, [])
+
     const handleClick = () => {
         setShow(!show)
     }
@@ -27,9 +41,8 @@ const Navbar = () => {
                 />
                 <Subtitle
                     class={css(styles.title)}
-                    title='Burguer Queen'
+                    title={['Burguer Queen, ', name]}
                 />
-
                 {
                     (size.width > 1025 || show)
                     ? <NavbarList />
