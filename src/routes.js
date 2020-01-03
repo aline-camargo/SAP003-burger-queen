@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { auth, db } from './util/firebaseConfig';
+// import { auth, db } from './util/firebaseConfig';
 import NewOrder from './pages/newOrder';
 import Kitchen from './pages/kitchen';
 import ToDeliverOrders from './pages/toDeliverOrders';
@@ -9,23 +9,32 @@ import Register from './pages/register';
 import Login from './pages/login';
 
 const Routes = () => {
-    // auth.onAuthStateChanged((user) => {
-    //     if (user) {
-    //       db.collection('users').doc(user.uid)
-    //       .get().then(querySnapshot => {
-    //         if (querySnapshot.data().kitchen) {
-    //             console.log('cozinha')
-    //             // window.location.pathname = 'cozinha'
+    // const [user, setUser] = useState(false)
+    // const [kitchen, setKitchen] = useState(false)
+
+    // useEffect(() => {
+    //     auth.onAuthStateChanged((user) => {
+    //         if (user) {
+    //             setUser(true)
     //         } else {
-    //             console.log('salão')
-    //             // window.location.pathname = 'novo-pedido'
+    //             setUser(false)
     //         }
-    //       })
-    //     } else {
-    //         window.location.pathname = ''
-    //     }
-    //   });
+    //       });
+    // }, [])
       
+    
+    // const rdPorra = () => {
+    //     console.log(user, kitchen)
+    //       console.log('chegou')
+    //       if (user && kitchen) {
+    //           return <Redirect  to='/cozinha' />
+    //       } else if (user && !kitchen){
+    //           return <Redirect  to='/novo-pedido' />
+    //       } else {
+    //           return <Login />
+    //       }
+    //   }
+
     return (
         <BrowserRouter>
             <Switch>

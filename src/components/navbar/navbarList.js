@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { Link } from 'react-router-dom';
 import { auth, db } from '../../util/firebaseConfig';
+import notification from '../notifications';
 
 const NavbarList = () => {
     const [user, setUser] = useState(false);
@@ -24,7 +25,11 @@ const NavbarList = () => {
     const logout = () => {
         auth.signOut()
         .catch((error) => {
-            console.log(error);
+            notification({
+                title: error.code,
+                message: error.message,
+                type: 'danger',
+            })
         });
     };
 

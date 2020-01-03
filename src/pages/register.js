@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { auth, db } from '../util/firebaseConfig';
+import { useHistory } from "react-router-dom";
 import { StyleSheet, css} from 'aphrodite/no-important';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +12,7 @@ import Select from '../components/select/select';
 
 const Register = () => {
 
+    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -30,19 +32,12 @@ const Register = () => {
                 kitchen: type === 'true' ? true : false,
                 name,
             })
-            notification({
-                title: 'Usuário criado com sucesso!',
-                message: 'Você será redirecionado.',
-                type: 'success',
-            })
-            db.collection('users').doc(user.user.uid)
-                .get().then(querySnapshot => {
-                    if(querySnapshot.data().kitchen) {
-                        window.location.pathname = 'cozinha';
-                    } else {
-                        window.location.pathname = 'novo-pedido';
-                    }
-                })
+            
+            if(type === 'true') {
+                history.push('/cozinha');
+            } else {
+                history.push('/novo-pedido');
+            }
         })
         .catch((error)=> {
             const errorCode = error.code;

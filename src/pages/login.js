@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { auth, db } from '../util/firebaseConfig';
+import { useHistory } from "react-router-dom";
 import { StyleSheet, css} from 'aphrodite/no-important';
 import notification from '../components/notifications';
 import Input from '../components/input';
@@ -8,28 +9,27 @@ import logo from '../images/burguer-queen.png';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+  let history = useHistory();
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
-    const handleClick = () => {
-        auth.signInWithEmailAndPassword(email, password)
-        .then(user => {
-            db.collection('users').doc(user.user.uid)
-                .get().then(querySnapshot => {
-                    if(querySnapshot.data().kitchen) {
-                        window.location.pathname = 'cozinha';
-                    } else {
-                        window.location.pathname = 'novo-pedido';
-                    }
-                })
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  
+  const handleClick = () => {
+      auth.signInWithEmailAndPassword(email, password)
+      .then(user => {
+          db.collection('users').doc(user.user.uid)
+          .get().then(querySnapshot => {
+            if(querySnapshot.data().kitchen) {
+                history.push('/cozinha');
+            } else {
+                history.push('/novo-pedido');                      
+            }
+          })
         })
         .catch((error)=> {
-            const errorCode = error.code;
-            const errorMessage = error.message;
             notification({
-                title: errorCode,
-                message: errorMessage,
+                title: error.code,
+                message: error.message,
                 type: 'danger',
             })
           });
