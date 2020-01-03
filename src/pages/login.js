@@ -5,7 +5,7 @@ import { StyleSheet, css} from 'aphrodite/no-important';
 import notification from '../components/notifications';
 import Input from '../components/input';
 import Button from '../components/buttons/primaryButton';
-import logo from '../images/burguer-queen.png';
+import logo from '../images/bq.png';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
    },
    img: {
-       height: '330px',
+    //    height: '330px',
        marginRight: '7.5%',
        '@media (max-width: 414px)' : {
         height: '215px',

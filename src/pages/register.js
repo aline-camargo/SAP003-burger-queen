@@ -7,7 +7,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import notification from '../components/notifications';
 import Input from '../components/input';
 import Button from '../components/buttons/primaryButton';
-import logo from '../images/burguer-queen.png';
+import logo from '../images/bq.png';
 import Select from '../components/select/select';
 
 const Register = () => {

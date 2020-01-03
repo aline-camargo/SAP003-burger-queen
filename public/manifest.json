@@ -2,6 +2,18 @@
   "name": "Burguer Queen",
   "short_name": "BQ",
   "theme_color": "#a62f03",
+  "icons": [
+    {
+      "src": "../src/images/192pxLogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "../src/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
   "background_color": "#f7f5f5",
   "display": "standalone",
   "scope": "/",
