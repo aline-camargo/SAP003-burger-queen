@@ -3,7 +3,7 @@ import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 import Routes from '../../routes';
 
-function App() {
+const App = () => {
   return (
     <>
       <ReactNotification />

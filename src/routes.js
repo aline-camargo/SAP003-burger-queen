@@ -1,42 +1,38 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-// import { auth, db } from './util/firebaseConfig';
+import React, { useEffect, useState } from 'react';
+import { Route, Switch, useHistory } from "react-router-dom";
+import { auth, db } from './util/firebaseConfig';
 import NewOrder from './pages/newOrder';
 import Kitchen from './pages/kitchen';
 import ToDeliverOrders from './pages/toDeliverOrders';
 import DeliveredOrders from './pages/deliveredOrders';
 import Register from './pages/register';
 import Login from './pages/login';
+// import Denied from './pages/denied';
 
 const Routes = () => {
-    // const [user, setUser] = useState(false)
-    // const [kitchen, setKitchen] = useState(false)
+    let history = useHistory();
+    // const [kitchen, setKitchen] = useState('');
 
-    // useEffect(() => {
-    //     auth.onAuthStateChanged((user) => {
-    //         if (user) {
-    //             setUser(true)
-    //         } else {
-    //             setUser(false)
-    //         }
-    //       });
-    // }, [])
-      
-    
-    // const rdPorra = () => {
-    //     console.log(user, kitchen)
-    //       console.log('chegou')
-    //       if (user && kitchen) {
-    //           return <Redirect  to='/cozinha' />
-    //       } else if (user && !kitchen){
-    //           return <Redirect  to='/novo-pedido' />
-    //       } else {
-    //           return <Login />
-    //       }
-    //   }
+    useEffect(() => {
+        auth.onAuthStateChanged((online) => {
+            if (online) {
+                db.collection('users').doc(online.uid)
+                .get().then(querySnapshot => {
+                    if(querySnapshot.data().kitchen) {
+                        history.push('/cozinha');
+                        // setKitchen(true)
+                    } else {
+                        // setKitchen(false)
+                        history.push('/novo-pedido');
+                    }
+                })
+            } else {
+                history.push('/');
+            }
+          });
+    }, [])
 
     return (
-        <BrowserRouter>
             <Switch>
                 <Route exact path='/' component={Login} />
                 <Route path='/registro' component={Register} />
@@ -44,8 +40,9 @@ const Routes = () => {
                 <Route path='/cozinha' component={Kitchen} />
                 <Route path='/pedidos-prontos' component={ToDeliverOrders} />
                 <Route path='/pedidos-entregues' component={DeliveredOrders} />
+                {/* <Route path='/cozinha' render={ () => user ? <Kitchen /> : <Redirect to='/' /> } /> */}
+                {/* <Route path='/cozinha' render={() => kitchen ?  <Kitchen/> : <Denied />} /> */}
             </Switch>
-        </BrowserRouter>
     )
 }
 

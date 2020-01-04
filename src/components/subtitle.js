@@ -9,7 +9,10 @@ const Subtitle = (props) => {
 
 Subtitle.propTypes = {
     class: PropTypes.string,
-    title: PropTypes.string,
+    title: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+    ])
 }
 
 export default Subtitle;

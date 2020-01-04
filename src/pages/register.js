@@ -32,12 +32,6 @@ const Register = () => {
                 kitchen: type === 'true' ? true : false,
                 name,
             })
-            
-            if(type === 'true') {
-                history.push('/cozinha');
-            } else {
-                history.push('/novo-pedido');
-            }
         })
         .catch((error)=> {
             const errorCode = error.code;
@@ -52,7 +46,7 @@ const Register = () => {
     }
     
     const goBack = () => {
-        window.location.pathname = '';
+        history.push('/');
     }
 
     return (
@@ -128,7 +122,7 @@ const styles = StyleSheet.create({
         '@media (max-width: 975px)': {
             clipPath:'polygon(0 0, 100% 0, 100% 100%, 0% 100%)',
             width: '100vw',
-            height: '74vh',
+            height: '80vh',
         },
     },
     bigContainer: {
