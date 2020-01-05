@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import notification from '../notifications';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import { db } from '../../util/firebaseConfig';
+import { db, auth } from '../../util/firebaseConfig';
 import PropTypes from 'prop-types';
 import Subtitle from '../subtitle';
 import Input from '../input';
@@ -35,6 +35,7 @@ const ResumeArea = (props) => {
             }
 
             db.collection('new-order').add({
+                atendent: auth.currentUser.displayName,
                 client: client,
                 table: table,
                 order: props.resume,

@@ -36,11 +36,15 @@ const OrderCard = (props) => {
     return (
         <article key={props.id} className={css(styles.article)} data-index={props.index}>
             <div className={css(styles.title)}>
-                <h3 className={css(styles.header)}>{props.client}, {props.table}</h3>
+                <h4 className={css(styles.header)}>
+                Cliente: {props.client}, {props.table}
+                <br></br>
+                Atendente: {props.atendent}
+                </h4>
                 {
                     (props.kitchen || props.done) 
                     ? <span className={spanClass}>{props.time}m <FontAwesomeIcon icon={faClock}/></span>
-                    : <span className={css(styles.regular)}>Total R$ {props.order.reduce((acc, curr) => acc + curr.price*curr.quantity, 0)}</span>
+                    : <span className={css(styles.regular)}>Total <br></br> R$ {props.order.reduce((acc, curr) => acc + curr.price*curr.quantity, 0)}</span>
                 }
             </div>
             <div className={css(styles.list)}>
@@ -93,6 +97,9 @@ const styles = StyleSheet.create({
         background: '#9f4400',
         borderRadius: '6px',
         margin: '1.5%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
    },
    header: {
         display: 'inline',
@@ -103,12 +110,12 @@ const styles = StyleSheet.create({
         borderRadius: '6px',
         padding: '0.5em',
         width: '100%',
-        height: '72%',
+        height: '69%',
    },
    title: {
         display: 'flex',
         justifyContent: 'space-between',
-        marginBottom: '0.5em',
+        alignItems: 'center',
         color: 'white',
    },
    total: {
@@ -116,7 +123,6 @@ const styles = StyleSheet.create({
         padding: '0.1em',    
         fontSize: '1.5em',    
         border: '2px solid rgb(203, 96, 35)',    
-        marginTop: '0.25em',    
         borderRadius: '6px',    
         color: 'white',    
         background: 'rgb(203, 96, 35)',
@@ -124,6 +130,7 @@ const styles = StyleSheet.create({
    regular: {
     padding: '0.3em',
     borderRadius: '6px',
+    textAlign: 'center'
    }, 
    red: {
     padding: '0.3em',

@@ -27,8 +27,11 @@ const Register = () => {
             })
         } else {
         auth.createUserWithEmailAndPassword(email, password)
-        .then((user) => {
-            db.collection('users').doc(user.user.uid).set({
+        .then((cred) => {
+            cred.user.updateProfile({
+                displayName: name,
+            });
+            db.collection('users').doc(cred.user.uid).set({
                 kitchen: type === 'true' ? true : false,
                 name,
             })

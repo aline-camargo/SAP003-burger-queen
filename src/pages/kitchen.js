@@ -13,13 +13,15 @@ const Kitchen = () => {
     useEffect(() => {
         db.collection('new-order').orderBy("time", "desc")
         .onSnapshot({ includeMetadataChanges: !navigator.onLine }, (querySnapshot) => {
+            const totalOrders = [];
             querySnapshot.forEach(doc => {
                 const data = doc.data();
                 data.id = doc.id
-                setOrders((currentState)=> [...currentState, data])
+                totalOrders.push(data)
             })
+            setOrders(totalOrders)
         })
-
+        
         const counter = setInterval(() => setTime(new Date().getTime()),60000)
         return () => clearInterval(counter)
     }, [])
@@ -64,16 +66,18 @@ const Kitchen = () => {
                 title='Cozinha'
             />
                 {orders.map(element => {
-                    const passedTime = Math.floor((time - element.time) / 60000)
+                    let passedTime = Math.floor((time - element.time) / 60000)
+                    const check = passedTime <= 0 ? passedTime = 0 : null;
                     return <OrderCard 
                         key={element.id}
                         id={element.id}
                         client={element.client}
                         table={element.table}
                         order={element.order}
-                        onClick={handleClick}
+                        atendent={element.atendent}
                         kitchen={element.kitchen}
                         index={orders.indexOf(element)}
+                        onClick={handleClick}
                         time={passedTime}
                     />
                 })}

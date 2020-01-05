@@ -29,13 +29,13 @@ const DeliveredOrders = () => {
                 {orders.map(element => {
                     return <OrderCard 
                         key={element.id}
+                        time={element.passedTime}
                         id={element.id}
                         client={element.client}
                         table={element.table}
                         order={element.order}
                         done={element.done}
                         index={orders.indexOf(element)}
-                        time={element.passedTime}
                     />
                 })}
             </div>

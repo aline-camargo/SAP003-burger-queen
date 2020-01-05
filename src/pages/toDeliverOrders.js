@@ -12,11 +12,13 @@ const ToDeliverOrders = () => {
     useEffect(() => {
         db.collection('to-deliver').orderBy("time", "desc")
         .onSnapshot({ includeMetadataChanges: !navigator.onLine }, (querySnapshot) => {
+            const totalOrders = [];
             querySnapshot.forEach(doc => {
                 const data = doc.data();
                 data.id = doc.id
-                setOrders((currentState)=> [...currentState, data])
+                totalOrders.push(data)
             })
+            setOrders(totalOrders)
         })
     }, [])
 
@@ -61,13 +63,13 @@ const ToDeliverOrders = () => {
             {orders.map(element => {
                     return <OrderCard 
                         key={element.id}
+                        time={element.passed}
                         id={element.id}
                         client={element.client}
                         table={element.table}
                         order={element.order}
                         onClick={handleClick}
                         index={orders.indexOf(element)}
-                        time={element.passed}
                     />
                 })}
             </div>
