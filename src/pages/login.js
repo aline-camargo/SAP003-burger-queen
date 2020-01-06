@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
-import { auth } from '../util/firebaseConfig';
+import { auth, db } from '../util/firebaseConfig';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import notification from '../components/notifications';
 import Input from '../components/input';
 import Button from '../components/buttons/primaryButton';
 import logo from '../images/bq.png';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Login = () => {
+    let history = useHistory();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const handleClick = () => {
         auth.signInWithEmailAndPassword(email, password)
+        .then(user => {
+            db.collection('users').doc(user.user.uid)
+                .get().then(querySnapshot => {
+                    if(querySnapshot.data().kitchen) {
+                        history.push('/cozinha');
+                    } else {
+                        history.push('/novo-pedido');
+                    }
+        })
+    })
             .catch((error) => {
                 notification({
                     title: error.code,
