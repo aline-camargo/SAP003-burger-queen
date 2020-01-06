@@ -20,10 +20,10 @@ const List = (props) => {
     const renderListItems = () => {
         return props.resume.map(item => {
             let title = '';
-            if(item.title.includes('Hambúrguer') && item.extrass !== 'Nenhum') {
-                title = [item.title, '(', item.flavourr.substring(0, 3), ')', ' + ', item.extrass]
-            } else if (item.title.includes('Hambúrguer') && item.extrass === 'Nenhum') {
-                title = [item.title, '(', item.flavourr.substring(0, 3), ')']
+            if(item.title.includes('Hambúrguer') && item.selectedExtras !== 'Nenhum') {
+                title = [item.title, '(', item.selectedFlavour.substring(0, 3), ')', ' + ', item.selectedExtras]
+            } else if (item.title.includes('Hambúrguer') && item.selectedExtras === 'Nenhum') {
+                title = [item.title, '(', item.selectedFlavour.substring(0, 3), ')']
             } else {
                 title = item.title
             }

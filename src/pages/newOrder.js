@@ -40,8 +40,8 @@ const NewOrder = () => {
             } else {
                 const newItem = Object.assign({
                     id: item.id+new Date().getTime(),
-                    extrass: extras,
-                    flavourr: flavour,
+                    selectedExtras: extras,
+                    selectedFlavour: flavour,
                 }, item)
                 if (extras !== 'Nenhum') {
                     newItem.price++
