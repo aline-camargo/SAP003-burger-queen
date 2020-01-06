@@ -9,7 +9,7 @@ import OrderItem from './orderItem';
 const OrderCard = (props) => {
 
     const renderListItems = () => {
-        return props.order.map(item => {
+        return props.element.order.map(item => {
             let title = '';
             if(item.title.includes('Hambúrguer') && item.extrass !== 'Nenhum') {
                 title = [item.title, '(', item.flavourr.substring(0, 3), ')', ' + ', item.extrass]
@@ -19,8 +19,8 @@ const OrderCard = (props) => {
                 title = item.title
             }
         return <OrderItem
-            kitchen={props.kitchen}
-            done={props.done}
+            kitchen={props.element.kitchen}
+            done={props.element.done}
             price={item.price}
             quantity={item.quantity}
             title={title}
@@ -34,27 +34,27 @@ const OrderCard = (props) => {
     );
 
     return (
-        <article key={props.id} className={css(styles.article)} data-index={props.index}>
+        <article key={props.element.id} className={css(styles.article)}>
             <div className={css(styles.title)}>
                 <h4 className={css(styles.header)}>
-                Cliente: {props.client}, {props.table}
+                Cliente: {props.element.client}, {props.element.table}
                 <br></br>
-                Atendente: {props.atendent}
+                Atendente: {props.element.atendent}
                 </h4>
                 {
-                    (props.kitchen || props.done) 
+                    (props.element.kitchen || props.element.done) 
                     ? <span className={spanClass}>{props.time}m <FontAwesomeIcon icon={faClock}/></span>
-                    : <span className={css(styles.regular)}>Total <br></br> R$ {props.order.reduce((acc, curr) => acc + curr.price*curr.quantity, 0)}</span>
+                    : <span className={css(styles.regular)}>Total <br></br> R$ {props.element.order.reduce((acc, curr) => acc + curr.price*curr.quantity, 0)}</span>
                 }
             </div>
             <div className={css(styles.list)}>
             {renderListItems()}
             </div>
             {
-                props.done 
-                ? <p className={css(styles.total)}>Total R$ {props.order.reduce((acc, curr) => acc + curr.price*curr.quantity, 0)}</p>
+                props.element.done 
+                ? <p className={css(styles.total)}>Total R$ {props.element.order.reduce((acc, curr) => acc + curr.price*curr.quantity, 0)}</p>
                 : <IdButton
-                    id={props.id}
+                    id={props.element.id}
                     class={css(styles.button)}
                     onClick={props.onClick}
                     title='Pronto'
@@ -65,15 +65,9 @@ const OrderCard = (props) => {
 };
 
 OrderCard.propTypes = {
-    order: PropTypes.array,
-    kitchen: PropTypes.bool,
-    done: PropTypes.bool,
-    id: PropTypes.string,
-    index: PropTypes.number,
-    client: PropTypes.string,
-    table: PropTypes.string,
     time: PropTypes.number,
     onClick: PropTypes.func,
+    element: PropTypes.object,
 }
 
 const styles = StyleSheet.create({

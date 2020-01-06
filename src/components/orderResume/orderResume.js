@@ -34,7 +34,7 @@ const ResumeArea = (props) => {
                 })
             }
 
-            db.collection('new-order').add({
+            db.collection('kitchen').add({
                 atendent: auth.currentUser.displayName,
                 client: client,
                 table: table,

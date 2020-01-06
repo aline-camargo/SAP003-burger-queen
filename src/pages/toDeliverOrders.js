@@ -22,10 +22,8 @@ const ToDeliverOrders = () => {
         })
     }, [])
 
-    const handleClick = (e) => {
-        const id = e.target.id;
-        const index = e.target.parentElement.dataset.index;
-
+    const handleClick = (id, index) => {
+       
         notification({
             title: "Aguarde",
             message: "Pedido sendo enviado.",
@@ -57,21 +55,16 @@ const ToDeliverOrders = () => {
         <>
             <Navbar />
             <div className={css(styles.container)}>
-            <Title 
-                title='Pedidos para entrega'
-            />
-            {orders.map(element => {
-                    return <OrderCard 
-                        key={element.id}
-                        time={element.passed}
-                        id={element.id}
-                        client={element.client}
-                        table={element.table}
-                        order={element.order}
-                        onClick={handleClick}
-                        index={orders.indexOf(element)}
-                    />
-                })}
+                <Title 
+                    title='Pedidos para entrega'
+                />
+                {orders.map(element => {
+                        return <OrderCard 
+                            element={element}
+                            key={element.id}
+                            onClick={() => handleClick(element.id, orders.indexOf(element))}
+                        />
+                    })}
             </div>
         </>
     );

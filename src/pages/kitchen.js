@@ -11,7 +11,7 @@ const Kitchen = () => {
     const [time, setTime] = useState(new Date().getTime())
 
     useEffect(() => {
-        db.collection('new-order').orderBy("time", "desc")
+        db.collection('kitchen').orderBy("time", "desc")
         .onSnapshot({ includeMetadataChanges: !navigator.onLine }, (querySnapshot) => {
             const totalOrders = [];
             querySnapshot.forEach(doc => {
@@ -26,9 +26,7 @@ const Kitchen = () => {
         return () => clearInterval(counter)
     }, [])
 
-    const handleClick = (e) => {
-        const id = e.target.id;
-        const index = e.target.parentElement.dataset.index;
+    const handleClick = (id, index) => {
 
         notification({
             title: "Aguarde",
@@ -41,7 +39,7 @@ const Kitchen = () => {
         
         db.collection('to-deliver').add(orders[index])
         .then(
-            db.collection('new-order').doc(id)
+            db.collection('kitchen').doc(id)
             .delete().catch(error =>  {
                 notification({
                     title: "Falha em remover da cozinha.",
@@ -62,25 +60,19 @@ const Kitchen = () => {
         <>
             <Navbar />
             <div className={css(styles.container)}>
-            <Title 
-                title='Cozinha'
-            />
-                {orders.map(element => {
-                    let passedTime = Math.floor((time - element.time) / 60000)
-                    const check = passedTime <= 0 ? passedTime = 0 : null;
-                    return <OrderCard 
-                        key={element.id}
-                        id={element.id}
-                        client={element.client}
-                        table={element.table}
-                        order={element.order}
-                        atendent={element.atendent}
-                        kitchen={element.kitchen}
-                        index={orders.indexOf(element)}
-                        onClick={handleClick}
-                        time={passedTime}
-                    />
-                })}
+                <Title 
+                    title='Cozinha'
+                />
+                    {orders.map(element => {
+                        let passedTime = Math.floor((time - element.time) / 60000)
+                        const check = passedTime <= 0 ? passedTime = 0 : null;
+                        return <OrderCard 
+                            element={element}
+                            key={element.id}
+                            onClick={() => handleClick(element.id, orders.indexOf(element))}
+                            time={passedTime}
+                        />
+                    })}
             </div>
         </>
     );

@@ -28,13 +28,9 @@ const DeliveredOrders = () => {
             />
                 {orders.map(element => {
                     return <OrderCard 
+                        element={element}
                         key={element.id}
                         time={element.passedTime}
-                        id={element.id}
-                        client={element.client}
-                        table={element.table}
-                        order={element.order}
-                        done={element.done}
                         index={orders.indexOf(element)}
                     />
                 })}
