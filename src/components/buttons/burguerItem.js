@@ -23,7 +23,7 @@ const BurguerButton = (props) => {
                 />
                 <Filedset 
                     name={'extras' + props.id}
-                    title='Adicionais (+ R$ 1)'
+                    title='Adicionais'
                     options={props.extras}
                     onChange={props.onChange}
                 />
