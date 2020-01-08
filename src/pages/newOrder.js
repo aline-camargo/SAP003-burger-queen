@@ -33,7 +33,7 @@ const NewOrder = () => {
 
     const saveItems = (e, item) => {
         if (item.title.includes('Hambúrguer')) {
-            const isRepeatedBurg = order.findIndex(elem => elem.title === item.title && elem.flavourr === flavour && elem.extrass === extras);
+            const isRepeatedBurg = order.findIndex(elem => elem.title === item.title && elem.selectedFlavour === flavour && elem.selectedExtras === extras);
             if (isRepeatedBurg !== -1){
                 order[isRepeatedBurg].quantity++
                 setOrder([...order])

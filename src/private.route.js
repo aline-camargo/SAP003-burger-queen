@@ -31,7 +31,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
               setUser(false);
             }
             setLoad(false);
-            console.log('opa')
           });
       } else {
         setLoad(false);
