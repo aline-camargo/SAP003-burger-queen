@@ -7,76 +7,85 @@ import OrderCard from '../components/orderCard/orderCard';
 import Title from '../components/title';
 
 const ToDeliverOrders = () => {
-    const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState([]);
 
-    useEffect(() => {
-        db.collection('to-deliver').orderBy("time", "desc")
-        .onSnapshot({ includeMetadataChanges: !navigator.onLine }, (querySnapshot) => {
-            const totalOrders = [];
-            querySnapshot.forEach(doc => {
-                const data = doc.data();
-                data.id = doc.id
-                totalOrders.push(data)
-            })
-            setOrders(totalOrders)
-        })
-    }, [])
+  useEffect(() => {
+    db.collection('to-deliver')
+      .orderBy('time', 'desc')
+      .onSnapshot(
+        { includeMetadataChanges: !navigator.onLine },
+        querySnapshot => {
+          const totalOrders = [];
+          querySnapshot.forEach(doc => {
+            const data = doc.data();
+            data.id = doc.id;
+            totalOrders.push(data);
+          });
+          setOrders(totalOrders);
+        }
+      );
+  }, []);
 
-    const handleClick = (id, index) => {
-       
-        notification({
-            title: "Aguarde",
-            message: "Pedido sendo enviado.",
-            type: "info",
-        })
+  const handleClick = (id, index) => {
+    notification({
+      title: 'Aguarde',
+      message: 'Pedido sendo enviado.',
+      type: 'info'
+    });
 
-        orders[index].done = true;
-        
-        db.collection('delivered').add(orders[index])
-        .then(
-            db.collection('to-deliver').doc(id)
-            .delete().catch(error =>  {
-                notification({
-                    title: "Falha em remover da área de entrega.",
-                    message: error,
-                    type: "danger",
-                })
-            })
-        ).then(
+    orders[index].done = true;
+
+    db.collection('delivered')
+      .add(orders[index])
+      .then(
+        db
+          .collection('to-deliver')
+          .doc(id)
+          .delete()
+          .catch(error => {
             notification({
-                title: "Pedido finalizado com sucesso!",
-                message: "Obrigada!",
-                type: "success",
-            })
-        ).then(setOrders([]))
-    }
+              title: 'Falha em remover da área de entrega.',
+              message: error,
+              type: 'danger'
+            });
+          })
+      )
+      .then(
+        notification({
+          title: 'Pedido finalizado com sucesso!',
+          message: 'Obrigada!',
+          type: 'success'
+        })
+      )
+      .then(setOrders([]));
+  };
 
-    return (
-        <>
-            <Navbar />
-            <div className={css(styles.container)}>
-                <Title 
-                    title='Pedidos para entrega'
-                />
-                {orders.map(element => {
-                        return <OrderCard 
-                            element={element}
-                            key={element.id}
-                            onClick={() => handleClick(element.id, orders.indexOf(element))}
-                        />
-                    })}
-            </div>
-        </>
-    );
+  return (
+    <>
+      <Navbar />
+      <div className={css(styles.container)}>
+        <Title title='Pedidos para entrega' />
+        {orders.map(element => {
+          return (
+            <OrderCard
+              element={element}
+              key={element.id}
+              onClick={() => handleClick(element.id, orders.indexOf(element))}
+            />
+          );
+        })}
+      </div>
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: '60px',
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-    }
-})
+  container: {
+    marginTop: '60px',
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap'
+  }
+});
 
 export default ToDeliverOrders;

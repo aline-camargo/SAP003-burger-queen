@@ -10,7 +10,7 @@ const notification = (obj) => {
         animationIn: ["animated", "fadeInDown"],
         animationOut: ["animated", "fadeOutUp"],
         dismiss: {
-          duration: 1500,
+          duration: 2500,
         }
       });
 }

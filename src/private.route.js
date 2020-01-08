@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Route, Redirect } from 'react-router-dom';
 import { auth, db } from './util/firebaseConfig';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  // console.log(props)
-  let history = useHistory();
   const [load, setLoad] = useState(true);
   const [user, setUser] = useState(false);
 
@@ -17,19 +14,18 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           .get()
           .then(querySnapshot => {
             let kitchen = false;
-
             if (querySnapshot.data().kitchen) {
               kitchen = true;
             }
 
-            const kitchenAccess = Component.name === 'Kitchen' && kitchen;
-            const saloonAccess = Component.name !== 'Kitchen' && !kitchen;
+            const kitchenAccess =
+              (rest.path === '/cozinha' ||
+                rest.path === '/pedidos-entregues') &&
+              kitchen;
+            const saloonAccess = rest.path !== '/cozinha' && !kitchen;
 
-            if (kitchenAccess || saloonAccess) {
-              setUser(true);
-            } else {
-              setUser(false);
-            }
+            kitchenAccess || saloonAccess ? setUser(true) : setUser(false);
+
             setLoad(false);
           });
       } else {
