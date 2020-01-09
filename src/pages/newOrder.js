@@ -14,10 +14,10 @@ const NewOrder = () => {
   useEffect(() => {
     db.collection('kitchen').onSnapshot(
       { includeMetadataChanges: !navigator.onLine },
-      querySnapshot => {
+      (querySnapshot) => {
         const added = querySnapshot
           .docChanges()
-          .findIndex(change => change.type === 'removed');
+          .findIndex((change) => change.type === 'removed');
         if (added !== -1) {
           notification({
             title: 'Pedido pronto.',
@@ -29,17 +29,15 @@ const NewOrder = () => {
     );
   }, []);
 
-  const onChangeRadio = e => {
-    const type =
-      e.target.parentElement.parentElement.firstElementChild.textContent;
-    if (type === 'Sabor:') {
-      setFlavour(e.target.id);
+  const onChangeRadio = (selected, type) => {
+    if (type === 'Sabor') {
+      setFlavour(selected);
     } else {
-      setExtras(e.target.id);
+      setExtras(selected);
     }
   };
 
-  const handleBurguerClick = e => {
+  const handleBurguerClick = (e) => {
     const optionsStyle = e.currentTarget.nextElementSibling.style;
     if (!optionsStyle.display || optionsStyle.display === 'none') {
       optionsStyle.display = 'flex';
@@ -48,14 +46,14 @@ const NewOrder = () => {
     }
   };
 
-  const updateItems = resume => {
+  const updateItems = (resume) => {
     setOrder(resume);
   };
 
   const saveItems = (e, item) => {
     if (item.title.includes('Hambúrguer')) {
       const isRepeatedBurg = order.findIndex(
-        elem =>
+        (elem) =>
           elem.title === item.title &&
           elem.selectedFlavour === flavour &&
           elem.selectedExtras === extras
@@ -66,11 +64,13 @@ const NewOrder = () => {
       } else {
         const newItem = Object.assign(
           {
-            id: item.id + new Date().getTime(),
             selectedExtras: extras,
             selectedFlavour: flavour
           },
-          item
+          item,
+          {
+            id: item.id + new Date().getTime()
+          }
         );
         if (extras !== 'Nenhum') {
           newItem.price++;
@@ -79,7 +79,7 @@ const NewOrder = () => {
       }
       e.currentTarget.parentElement.style.display = 'none';
     } else {
-      const isRepeated = order.findIndex(elem => elem.title === item.title);
+      const isRepeated = order.findIndex((elem) => elem.title === item.title);
       if (isRepeated !== -1) {
         order[isRepeated].quantity++;
         setOrder([...order]);

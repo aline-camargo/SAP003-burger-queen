@@ -8,15 +8,15 @@ const Filedset = (props) => {
         <fieldset className={css(styles.container)}>
             <legend className={css(styles.legend)}>{props.title}:</legend>
             <div className={css(styles.option)}>
-                <input onChange={props.onChange} className={css(styles.radio)} type="radio" name={props.name} id={props.options[0].title} defaultChecked></input>
+                <input onChange={()=> props.onChange(props.options[0].title, props.title)} className={css(styles.radio)} type="radio" name={props.name} id={props.options[0].title} defaultChecked></input>
                 <label htmlFor={props.options[0].title}>{props.options[0].title} {props.options[0].price}</label>
             </div>
             <div className={css(styles.option)}>
-                <input onChange={props.onChange} className={css(styles.radio)} type="radio" name={props.name} id={props.options[1].title}></input>
+                <input onChange={()=>props.onChange(props.options[1].title, props.title)} className={css(styles.radio)} type="radio" name={props.name} id={props.options[1].title}></input>
                 <label htmlFor={props.options[1].title}>{props.options[1].title} {props.options[1].price}</label>
             </div>
             <div className={css(styles.option)}>
-                <input onChange={props.onChange} className={css(styles.radio)} type="radio" name={props.name} id={props.options[2].title}></input>
+                <input onChange={()=>props.onChange(props.options[2].title, props.title)} className={css(styles.radio)} type="radio" name={props.name} id={props.options[2].title}></input>
                 <label htmlFor={props.options[2].title}>{props.options[2].title} {props.options[2].price}</label>
             </div>
         </fieldset>

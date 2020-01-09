@@ -1,29 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import { db } from '../util/firebaseConfig';
 import notification from '../components/notifications';
 import Navbar from '../components/navbar/navbar';
 import OrderCard from '../components/orderCard/orderCard';
 import Title from '../components/title';
+import { onSnapshot, forward } from '../onsnapshot';
 
 const ToDeliverOrders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    db.collection('to-deliver')
-      .orderBy('time', 'desc')
-      .onSnapshot(
-        { includeMetadataChanges: !navigator.onLine },
-        querySnapshot => {
-          const totalOrders = [];
-          querySnapshot.forEach(doc => {
-            const data = doc.data();
-            data.id = doc.id;
-            totalOrders.push(data);
-          });
-          setOrders(totalOrders);
-        }
-      );
+    onSnapshot('to-deliver', setOrders);
   }, []);
 
   const handleClick = (id, index) => {
@@ -35,29 +22,7 @@ const ToDeliverOrders = () => {
 
     orders[index].done = true;
 
-    db.collection('delivered')
-      .add(orders[index])
-      .then(
-        db
-          .collection('to-deliver')
-          .doc(id)
-          .delete()
-          .catch(error => {
-            notification({
-              title: 'Falha em remover da área de entrega.',
-              message: error,
-              type: 'danger'
-            });
-          })
-      )
-      .then(
-        notification({
-          title: 'Pedido finalizado com sucesso!',
-          message: 'Obrigada!',
-          type: 'success'
-        })
-      )
-      .then(setOrders([]));
+    forward('delivered', 'to-deliver', orders[index], id, 'área de entrega', setOrders);
   };
 
   return (
@@ -65,7 +30,7 @@ const ToDeliverOrders = () => {
       <Navbar />
       <div className={css(styles.container)}>
         <Title title='Pedidos para entrega' />
-        {orders.map(element => {
+        {orders.map((element) => {
           return (
             <OrderCard
               element={element}

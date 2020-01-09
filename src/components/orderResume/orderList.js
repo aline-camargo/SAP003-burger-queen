@@ -6,16 +6,16 @@ import PropTypes from 'prop-types';
 import OrderedItem from './orderedItem';
 
 const List = props => {
-  const deleteItem = e => {
+  const deleteItem = id => {
     const itemToDelete = props.resume.findIndex(
-      elem => elem.id === e.currentTarget.id
+      elem => elem.id === id
     );
     if (props.resume[itemToDelete].quantity !== 1) {
       props.resume[itemToDelete].quantity--;
       props.onDelete([...props.resume]);
     } else {
       const result = props.resume.filter(
-        elem => elem.id !== e.currentTarget.id
+        elem => elem.id !== id
       );
       props.onDelete(result);
     }

@@ -16,7 +16,7 @@ const OrderedItem = (props) =>{
                 <IdButton 
                     class={props.class.delete}
                     id={props.id}
-                    onClick={props.onClick}
+                    onClick={() => props.onClick(props.id)}
                     key={props.id}
                     title={props.buttonTitle}
                 />
