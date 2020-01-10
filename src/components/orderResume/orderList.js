@@ -5,24 +5,20 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
 import OrderedItem from './orderedItem';
 
-const List = props => {
-  const deleteItem = id => {
-    const itemToDelete = props.resume.findIndex(
-      elem => elem.id === id
-    );
+const List = (props) => {
+  const deleteItem = (id) => {
+    const itemToDelete = props.resume.findIndex((elem) => elem.id === id);
     if (props.resume[itemToDelete].quantity !== 1) {
       props.resume[itemToDelete].quantity--;
       props.onDelete([...props.resume]);
     } else {
-      const result = props.resume.filter(
-        elem => elem.id !== id
-      );
+      const result = props.resume.filter((elem) => elem.id !== id);
       props.onDelete(result);
     }
   };
 
   const renderListItems = () => {
-    return props.resume.map(item => {
+    return props.resume.map((item) => {
       let title = '';
       if (
         item.title.includes('Hambúrguer') &&

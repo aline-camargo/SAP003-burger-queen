@@ -14,12 +14,12 @@ const Navbar = () => {
   const [name, setName] = useState(false);
 
   useEffect(() => {
-    auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged((user) => {
       if (user) {
         db.collection('users')
           .doc(user.uid)
           .get()
-          .then(querySnapshot => {
+          .then((querySnapshot) => {
             setName(querySnapshot.data().name);
           });
       }

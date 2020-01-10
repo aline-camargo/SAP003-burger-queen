@@ -77,6 +77,8 @@ const NewOrder = () => {
         }
         setOrder([...order, newItem]);
       }
+      setFlavour('Bovino');
+      setExtras('Queijo');
       e.currentTarget.parentElement.style.display = 'none';
     } else {
       const isRepeated = order.findIndex((elem) => elem.title === item.title);

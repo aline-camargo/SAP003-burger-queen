@@ -6,46 +6,48 @@ import OrderCard from '../components/orderCard/orderCard';
 import Title from '../components/title';
 
 const DeliveredOrders = () => {
-    const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState([]);
 
-    useEffect(() => {
-        db.collection('delivered').orderBy("time", "desc").get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach(doc => {
-                const data = doc.data();
-                data.id = doc.id
-                setOrders((currentState)=> [...currentState, data])
-            })
-        })
-    }, [])
+  useEffect(() => {
+    db.collection('delivered')
+      .orderBy('time', 'desc')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          data.id = doc.id;
+          setOrders((currentState) => [...currentState, data]);
+        });
+      });
+  }, []);
 
-    return (
-        <>
-            <Navbar />
-            <div className={css(styles.container)}>
-            <Title 
-                title='Pedidos entregues'
+  return (
+    <>
+      <Navbar />
+      <div className={css(styles.container)}>
+        <Title title='Pedidos entregues' />
+        {orders.map((element) => {
+          return (
+            <OrderCard
+              element={element}
+              key={element.id}
+              time={element.passedTime}
+              index={orders.indexOf(element)}
             />
-                {orders.map(element => {
-                    return <OrderCard 
-                        element={element}
-                        key={element.id}
-                        time={element.passedTime}
-                        index={orders.indexOf(element)}
-                    />
-                })}
-            </div>
-        </>
-    );
+          );
+        })}
+      </div>
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: '60px',
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-    }
-})
+  container: {
+    marginTop: '60px',
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap'
+  }
+});
 
 export default DeliveredOrders;

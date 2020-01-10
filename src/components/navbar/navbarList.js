@@ -60,9 +60,8 @@ const NavbarList = () => {
                 Pedidos prontos
               </Link>
             </li>
-          </> 
-        ) : null
-        }
+          </>
+        ) : null}
 
         <li className={css(styles.navItem)}>
           <Link to='/pedidos-entregues' className={css(styles.link)}>

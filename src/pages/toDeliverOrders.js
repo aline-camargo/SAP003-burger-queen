@@ -22,7 +22,14 @@ const ToDeliverOrders = () => {
 
     orders[index].done = true;
 
-    forward('delivered', 'to-deliver', orders[index], id, 'área de entrega', setOrders);
+    forward(
+      'delivered',
+      'to-deliver',
+      orders[index],
+      id,
+      'área de entrega',
+      setOrders
+    );
   };
 
   return (
