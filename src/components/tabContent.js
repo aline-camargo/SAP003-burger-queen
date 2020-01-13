@@ -4,6 +4,7 @@ import { db } from '../util/firebaseConfig';
 import PropTypes from 'prop-types';
 import IdButton from './buttons/idButton';
 import BurguerButton from './buttons/burguerItem';
+import BurguerOptions from './burguerOptions';
 
 const TabContent = (props) => {
   const [cafeItems, setCafeItems] = useState([]);
@@ -55,7 +56,7 @@ const TabContent = (props) => {
             key={item.id}
             extras={item.extras}
             flavour={item.flavour}
-            onClick={props.onClickBurguer}
+            onClick={() => props.onClickBurguer(item)}
             functionOk={(e) => props.onClickItem(e, item)}
             onChange={props.onChange}
           />
@@ -76,6 +77,15 @@ const TabContent = (props) => {
     <section className={css(styles.container)}>
       {renderMenu()}
       {burguersTemplate(burguers)}
+      {props.burguer.show ? (
+        <BurguerOptions
+          hamburguer={props.burguer.item}
+          // flavour={burguers[0].flavour}
+          // extras={burguers[0].extras}
+          onChange={props.onChange}
+          functionOk={(e) => props.onClickItem(e, burguers[0])}
+        />
+      ) : null}
     </section>
   );
 };

@@ -11,8 +11,8 @@ const MenuArea = (props) => {
   );
   const [lunch, setLunch] = useState(css(styles.initial, styles.button));
 
-  const handleClick = (e) => {
-    if (e.target.name === 'cafe') {
+  const handleClick = (type) => {
+    if (type === 'cafe') {
       setBreakfest(css(styles.clicked, styles.button));
       setLunch(css(styles.initial, styles.button));
       setShowItems(true);
@@ -30,13 +30,13 @@ const MenuArea = (props) => {
           name='cafe'
           title='Café da manhã'
           class={breakfest}
-          onClick={handleClick}
+          onClick={() => handleClick('cafe')}
         />
         <Tabs
           name='almoco'
           title='Almoço e Jantar'
           class={lunch}
-          onClick={handleClick}
+          onClick={() => handleClick('almoco')}
         />
       </div>
       <TabContent
@@ -44,6 +44,7 @@ const MenuArea = (props) => {
         onClickItem={props.onClickItem}
         onClickBurguer={props.onClickBurguer}
         onChange={props.onChange}
+        burguer={props.burguer}
       />
     </main>
   );

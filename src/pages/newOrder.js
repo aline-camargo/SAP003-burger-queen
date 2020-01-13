@@ -10,6 +10,7 @@ const NewOrder = () => {
   const [order, setOrder] = useState([]);
   const [flavour, setFlavour] = useState('Bovino');
   const [extras, setExtras] = useState('Queijo');
+  const [showBurguer, setShowBurguer] = useState({show: false, item:{}});
 
   useEffect(() => {
     db.collection('kitchen').onSnapshot(
@@ -37,12 +38,11 @@ const NewOrder = () => {
     }
   };
 
-  const handleBurguerClick = (e) => {
-    const optionsStyle = e.currentTarget.nextElementSibling.style;
-    if (!optionsStyle.display || optionsStyle.display === 'none') {
-      optionsStyle.display = 'flex';
+  const handleBurguerClick = (choice) => {
+    if(showBurguer.item == choice) {
+      setShowBurguer(state => ({...state, show: !showBurguer.show}));
     } else {
-      optionsStyle.display = 'none';
+      setShowBurguer(state => ({...state, item: choice }));
     }
   };
 
@@ -100,6 +100,7 @@ const NewOrder = () => {
           onClickItem={saveItems}
           onClickBurguer={handleBurguerClick}
           onChange={onChangeRadio}
+          burguer={showBurguer}
         />
         <ResumeArea resume={order} onUpdate={updateItems} />
       </div>
