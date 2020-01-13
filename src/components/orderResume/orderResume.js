@@ -6,14 +6,13 @@ import PropTypes from 'prop-types';
 import Subtitle from '../subtitle';
 import Input from '../input';
 import List from './orderList';
-import Button from '../buttons/primaryButton';
+import Button from '../primaryButton';
 
 const ResumeArea = (props) => {
-  const [client, setClient] = useState('');
-  const [table, setTable] = useState('');
+  const [client, setClient] = useState({ name: '', table: '' });
 
   const handleSubmit = () => {
-    if (client === '' || table === '' || props.resume.length === 0) {
+    if (client.name === '' || client.table === '' || props.resume.length === 0) {
       notification({
         title: 'Pedido inválido',
         message: 'Preencha todos os campos.',
@@ -37,8 +36,10 @@ const ResumeArea = (props) => {
       db.collection('kitchen')
         .add({
           atendent: auth.currentUser.displayName,
-          client: client,
-          table: table,
+          client: {
+            name: client.name,
+            table: client.table
+          },
           order: props.resume,
           time: new Date().getTime(),
           kitchen: true
@@ -49,8 +50,7 @@ const ResumeArea = (props) => {
             message: 'Obrigada!',
             type: 'success'
           });
-          setClient('');
-          setTable('');
+          setClient({ name: '', table: '' });
           props.onUpdate([]);
         })
         .catch((error) => {
@@ -69,7 +69,7 @@ const ResumeArea = (props) => {
       <Input
         id='clientName'
         title='Nome:'
-        value={client}
+        value={client.name}
         placeholder='Nome do Cliente'
         type='text'
         class={{
@@ -77,12 +77,15 @@ const ResumeArea = (props) => {
           input: css(styles.input),
           label: css(styles.label)
         }}
-        onChange={(e) => setClient(e.target.value)}
+        onChange={(e) => {
+          setClient((state) => ({ ...state, name: e.target.value }));
+          e.persist();
+        }}
       />
       <Input
         id='clientTable'
         title='Mesa:'
-        value={table}
+        value={client.table}
         placeholder='00'
         type='text'
         class={{
@@ -90,7 +93,10 @@ const ResumeArea = (props) => {
           input: css(styles.input),
           label: css(styles.label)
         }}
-        onChange={(e) => setTable(e.target.value)}
+        onChange={(e) => {
+          setClient((state) => ({ ...state, table: e.target.value }));
+          e.persist();
+        }}
       />
       <List
         resume={props.resume}
@@ -131,8 +137,7 @@ const styles = StyleSheet.create({
     color: 'white',
     border: 'none',
     width: '90%',
-    height: '10%',
-    padding: '1%',
+    padding: '0.5em',
     fontSize: '23px',
     borderRadius: '6px',
     marginTop: '4%',
@@ -155,6 +160,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: '#A62F03',
+    fontSize: '1.4em',
     ':hover': {
       cursor: 'pointer'
     }
@@ -163,6 +169,7 @@ const styles = StyleSheet.create({
     border: '1px solid gray',
     borderRadius: '6px',
     padding: '2%',
+    fontSize: '1em',
     width: '80%'
   }
 });

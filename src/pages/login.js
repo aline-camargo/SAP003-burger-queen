@@ -3,21 +3,20 @@ import { auth, db } from '../util/firebaseConfig';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import notification from '../components/notifications';
 import Input from '../components/input';
-import Button from '../components/buttons/primaryButton';
+import Button from '../components/primaryButton';
 import logo from '../images/bq.png';
 import { Link, useHistory } from 'react-router-dom';
 
 const Login = () => {
-  let history = useHistory();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const history = useHistory();
+  const [user, setUser] = useState({ email: '', password: '' });
 
   const handleClick = () => {
     auth
-      .signInWithEmailAndPassword(email, password)
-      .then((user) => {
+      .signInWithEmailAndPassword(user.email, user.password)
+      .then((cred) => {
         db.collection('users')
-          .doc(user.user.uid)
+          .doc(cred.user.uid)
           .get()
           .then((querySnapshot) => {
             if (querySnapshot.data().kitchen) {
@@ -49,10 +48,13 @@ const Login = () => {
               }}
               id='email'
               type='text'
-              value={email}
+              value={user.email}
               title='Email'
               placeholder='exemplo@mail.com'
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setUser((state) => ({...state, email: e.target.value}))
+                e.persist()
+                }}
             />
             <Input
               class={{
@@ -62,10 +64,13 @@ const Login = () => {
               }}
               id='senha'
               type='password'
-              value={password}
+              value={user.password}
               title='Senha'
               placeholder='senhaexemplo123'
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setUser((state) => ({...state, password: e.target.value}))
+                e.persist()
+                }}
             />
           </div>
           <Button

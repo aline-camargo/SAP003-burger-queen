@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { auth, db } from './util/firebaseConfig';
+import { auth, db } from '../util/firebaseConfig';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const [load, setLoad] = useState(true);
@@ -33,7 +33,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         setUser(false);
       }
     });
-  }, []);
+  }, [rest.path]);
 
   if (load) {
     return null;

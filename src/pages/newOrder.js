@@ -8,18 +8,17 @@ import notification from '../components/notifications';
 
 const NewOrder = () => {
   const [order, setOrder] = useState([]);
-  const [flavour, setFlavour] = useState('Bovino');
-  const [extras, setExtras] = useState('Queijo');
-  const [showBurguer, setShowBurguer] = useState({show: false, item:{}});
+  const [showBurguer, setShowBurguer] = useState({ show: false, item: {} });
+  const [options, setOptions] = useState({ extras: 'Queijo', flavour: 'Bovino' });
 
   useEffect(() => {
     db.collection('kitchen').onSnapshot(
       { includeMetadataChanges: !navigator.onLine },
       (querySnapshot) => {
-        const added = querySnapshot
+        const removed = querySnapshot
           .docChanges()
           .findIndex((change) => change.type === 'removed');
-        if (added !== -1) {
+        if (removed !== -1) {
           notification({
             title: 'Pedido pronto.',
             message: 'Um pedido aguarda para ser entregue.',
@@ -31,18 +30,16 @@ const NewOrder = () => {
   }, []);
 
   const onChangeRadio = (selected, type) => {
-    if (type === 'Sabor') {
-      setFlavour(selected);
-    } else {
-      setExtras(selected);
-    }
+    setOptions((state) => ({ ...state, [type]: selected }));
   };
 
   const handleBurguerClick = (choice) => {
-    if(showBurguer.item == choice) {
-      setShowBurguer(state => ({...state, show: !showBurguer.show}));
+    if (showBurguer.item === choice) {
+      setShowBurguer((state) => ({ ...state, show: !showBurguer.show }));
+    } else if (showBurguer.item.price === undefined) {
+      setShowBurguer({ show: true, item: choice });
     } else {
-      setShowBurguer(state => ({...state, item: choice }));
+      setShowBurguer((state) => ({ ...state, item: choice }));
     }
   };
 
@@ -50,13 +47,13 @@ const NewOrder = () => {
     setOrder(resume);
   };
 
-  const saveItems = (e, item) => {
+  const saveItems = (item) => {
     if (item.title.includes('Hambúrguer')) {
       const isRepeatedBurg = order.findIndex(
         (elem) =>
           elem.title === item.title &&
-          elem.selectedFlavour === flavour &&
-          elem.selectedExtras === extras
+          elem.selectedFlavour === options.flavour &&
+          elem.selectedExtras === options.extras
       );
       if (isRepeatedBurg !== -1) {
         order[isRepeatedBurg].quantity++;
@@ -64,22 +61,21 @@ const NewOrder = () => {
       } else {
         const newItem = Object.assign(
           {
-            selectedExtras: extras,
-            selectedFlavour: flavour
+            selectedExtras: options.extras,
+            selectedFlavour: options.flavour
           },
           item,
           {
             id: item.id + new Date().getTime()
           }
         );
-        if (extras !== 'Nenhum') {
+        if (options.extras !== 'Nenhum') {
           newItem.price++;
         }
         setOrder([...order, newItem]);
       }
-      setFlavour('Bovino');
-      setExtras('Queijo');
-      e.currentTarget.parentElement.style.display = 'none';
+      setShowBurguer({ show: false, item: {} });
+      setOptions({ extras: 'Queijo', flavour: 'Bovino' });
     } else {
       const isRepeated = order.findIndex((elem) => elem.title === item.title);
       if (isRepeated !== -1) {

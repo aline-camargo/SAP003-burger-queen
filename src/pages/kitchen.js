@@ -4,7 +4,7 @@ import notification from '../components/notifications';
 import Navbar from '../components/navbar/navbar';
 import OrderCard from '../components/orderCard/orderCard';
 import Title from '../components/title';
-import { onSnapshot, forward } from '../onsnapshot';
+import { onSnapshot, forward } from '../util/onSnapshot';
 
 const Kitchen = () => {
   const [orders, setOrders] = useState([]);
@@ -27,7 +27,14 @@ const Kitchen = () => {
     orders[index].passedTime = Math.floor((time - orders[index].time) / 60000);
     orders[index].kitchen = false;
 
-    forward('to-deliver', 'kitchen', orders[index], id, 'cozinha', setOrders);
+    forward(
+      'to-deliver',
+      orders[index],
+      'kitchen',
+      id,
+      'cozinha',
+      setOrders
+    );
   };
 
   return (
@@ -36,14 +43,13 @@ const Kitchen = () => {
       <div className={css(styles.container)}>
         <Title title='Cozinha' />
         {orders.map((element) => {
-          let passedTime = Math.floor((time - element.time) / 60000);
-          const check = passedTime <= 0 ? (passedTime = 0) : null;
+          const passedTime = Math.floor((time - element.time) / 60000);
           return (
             <OrderCard
               element={element}
               key={element.id}
               onClick={() => handleClick(element.id, orders.indexOf(element))}
-              time={passedTime}
+              time={passedTime <= 0 ? 0 : passedTime}
             />
           );
         })}

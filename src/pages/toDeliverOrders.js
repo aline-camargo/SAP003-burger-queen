@@ -4,7 +4,7 @@ import notification from '../components/notifications';
 import Navbar from '../components/navbar/navbar';
 import OrderCard from '../components/orderCard/orderCard';
 import Title from '../components/title';
-import { onSnapshot, forward } from '../onsnapshot';
+import { onSnapshot, forward } from '../util/onSnapshot';
 
 const ToDeliverOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -24,8 +24,8 @@ const ToDeliverOrders = () => {
 
     forward(
       'delivered',
-      'to-deliver',
       orders[index],
+      'to-deliver',
       id,
       'área de entrega',
       setOrders

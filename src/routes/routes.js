@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import NewOrder from './pages/newOrder';
-import Kitchen from './pages/kitchen';
-import ToDeliverOrders from './pages/toDeliverOrders';
-import DeliveredOrders from './pages/deliveredOrders';
-import Register from './pages/register';
-import Login from './pages/login';
-import Denied from './pages/denied';
-import PrivateRoute from './private.route';
+import NewOrder from '../pages/newOrder';
+import Kitchen from '../pages/kitchen';
+import ToDeliverOrders from '../pages/toDeliverOrders';
+import DeliveredOrders from '../pages/deliveredOrders';
+import Register from '../pages/register';
+import Login from '../pages/login';
+import Denied from '../pages/denied';
+import PrivateRoute from './privateRoute';
 
 const Routes = () => {
   return (

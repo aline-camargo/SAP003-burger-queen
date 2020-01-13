@@ -3,8 +3,8 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
-import IdButton from '../buttons/idButton';
 import OrderItem from './orderItem';
+import Button from '../primaryButton';
 
 const OrderCard = (props) => {
   const renderListItems = () => {
@@ -49,7 +49,7 @@ const OrderCard = (props) => {
     <article key={props.element.id} className={css(styles.article)}>
       <div className={css(styles.title)}>
         <h4 className={css(styles.header)}>
-          Cliente: {props.element.client}, {props.element.table}
+          Cliente: {props.element.client.name}, {props.element.client.table}
           <br></br>
           Atendente: {props.element.atendent}
         </h4>
@@ -77,7 +77,7 @@ const OrderCard = (props) => {
           )}
         </p>
       ) : (
-        <IdButton
+        <Button
           id={props.element.id}
           class={css(styles.button)}
           onClick={props.onClick}

@@ -1,8 +1,8 @@
-import { db } from './util/firebaseConfig';
-import notification from './components/notifications';
+import { db } from './firebaseConfig';
+import notification from '../components/notifications';
 
 export const onSnapshot = (location, setState) => {
-  db.collection(location)
+  db.collection(location) 
     .orderBy('time', 'desc')
     .onSnapshot(
       { includeMetadataChanges: !navigator.onLine },
@@ -18,7 +18,7 @@ export const onSnapshot = (location, setState) => {
     );
 };
 
-export const forward = (to, from, doc, id, message, setState) => {
+export const forward = (to, doc, from, id, message, setState) => { 
   db.collection(to)
     .add(doc)
     .then(

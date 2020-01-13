@@ -3,10 +3,10 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import NavbarList from './navbarList';
-import Button from '../buttons/primaryButton';
+import Button from '../primaryButton';
 import Subtitle from '../subtitle';
 import { auth, db } from '../../util/firebaseConfig';
-import useWindowSize from './window.size';
+import useWindowSize from './windowSize';
 
 const Navbar = () => {
   const size = useWindowSize();

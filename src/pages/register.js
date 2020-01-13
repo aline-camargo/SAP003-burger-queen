@@ -6,19 +6,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import notification from '../components/notifications';
 import Input from '../components/input';
-import Button from '../components/buttons/primaryButton';
+import Button from '../components/primaryButton';
 import logo from '../images/bq.png';
 import Select from '../components/select/select';
 
 const Register = () => {
   const history = useHistory();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [type, setType] = useState('title');
+
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+    name: '',
+    type: 'title'
+  });
 
   const handleClick = () => {
-    if (type === 'title' || name === '') {
+    console.log(user);
+
+    if (user.type === 'title' || user.name === '') {
       notification({
         title: 'Preencha todos os campos.',
         message: 'Não se esqueça do Nome e Área.',
@@ -26,17 +31,28 @@ const Register = () => {
       });
     } else {
       auth
-        .createUserWithEmailAndPassword(email, password)
+        .createUserWithEmailAndPassword(user.email, user.password)
         .then((cred) => {
           cred.user.updateProfile({
-            displayName: name
+            displayName: user.name
           });
           db.collection('users')
             .doc(cred.user.uid)
             .set({
-              kitchen: type === 'true' ? true : false,
-              name
+              kitchen: user.type === 'true' ? true : false,
+              name: user.name
             });
+          notification({
+            title: 'Usuário criado com sucesso!',
+            message: 'Volte à pagina de login para entrar.',
+            type: 'success'
+          });
+          setUser({
+            email: '',
+            password: '',
+            name: '',
+            type: 'title'
+          });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -74,10 +90,13 @@ const Register = () => {
               }}
               id='nome'
               type='text'
-              value={name}
+              value={user.name}
               title='Nome'
               placeholder='Nome aqui'
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setUser((state) => ({ ...state, name: e.target.value }));
+                e.persist();
+              }}
             />
             <Input
               class={{
@@ -87,10 +106,13 @@ const Register = () => {
               }}
               id='email'
               type='text'
-              value={email}
+              value={user.email}
               title='Email'
               placeholder='exemplo@mail.com'
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setUser((state) => ({ ...state, email: e.target.value }));
+                e.persist();
+              }}
             />
             <Input
               class={{
@@ -100,12 +122,20 @@ const Register = () => {
               }}
               id='senha'
               type='password'
-              value={password}
+              value={user.password}
               title='Senha'
               placeholder='senhaexemplo123'
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setUser((state) => ({ ...state, password: e.target.value }));
+                e.persist();
+              }}
             />
-            <Select onChange={(e) => setType(e.target.value)} />
+            <Select
+              onChange={(e) => {
+                setUser((state) => ({ ...state, type: e.target.value }));
+                e.persist();
+              }}
+            />
           </div>
           <Button
             class={css(styles.button)}

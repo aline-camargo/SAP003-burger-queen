@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import IdButton from '../buttons/idButton';
+import Button from '../primaryButton';
 
 const OrderedItem = (props) => {
   return (
@@ -11,7 +11,7 @@ const OrderedItem = (props) => {
       </p>
       <div className={props.class.flex}>
         <p className={props.class.p}>R$ {props.price * props.quantity}</p>
-        <IdButton
+        <Button
           class={props.class.delete}
           id={props.id}
           onClick={() => props.onClick(props.id)}

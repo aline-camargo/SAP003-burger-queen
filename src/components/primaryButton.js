@@ -16,7 +16,12 @@ const Button = (props) => {
 
 Button.propTypes = {
   class: PropTypes.string,
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.element
+  ]),
   name: PropTypes.string,
   onClick: PropTypes.func
 };
