@@ -31,6 +31,7 @@ const DeliveredOrders = () => {
             <OrderCard
               element={element}
               key={element.id}
+              client={element.client}
               time={element.passedTime}
               index={orders.indexOf(element)}
             />

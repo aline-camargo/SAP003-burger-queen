@@ -47,6 +47,7 @@ const Kitchen = () => {
           return (
             <OrderCard
               element={element}
+              client={element.client}
               key={element.id}
               onClick={() => handleClick(element.id, orders.indexOf(element))}
               time={passedTime <= 0 ? 0 : passedTime}

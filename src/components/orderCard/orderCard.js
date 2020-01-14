@@ -49,7 +49,7 @@ const OrderCard = (props) => {
     <article key={props.element.id} className={css(styles.article)}>
       <div className={css(styles.title)}>
         <h4 className={css(styles.header)}>
-          Cliente: {props.element.client.name}, {props.element.client.table}
+          Cliente: {props.client.name}, {props.client.table}
           <br></br>
           Atendente: {props.element.atendent}
         </h4>
@@ -91,7 +91,8 @@ const OrderCard = (props) => {
 OrderCard.propTypes = {
   time: PropTypes.number,
   onClick: PropTypes.func,
-  element: PropTypes.object
+  element: PropTypes.object,
+  client: PropTypes.object
 };
 
 const styles = StyleSheet.create({

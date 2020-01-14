@@ -42,6 +42,7 @@ const ToDeliverOrders = () => {
             <OrderCard
               element={element}
               key={element.id}
+              client={element.client}
               onClick={() => handleClick(element.id, orders.indexOf(element))}
             />
           );
