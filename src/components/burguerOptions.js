@@ -1,43 +1,45 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
-import Filedset from './fieldset/fieldset';
+import Fieldset from './fieldset/fieldset';
 import Button from './primaryButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-const BurguerOptions = (props) => {
+const BurguerOptions = ({hamburguer, onChange, functionOk}) => {
   return (
     <div className={css(styles.options)}>
       <h3 className={css(styles.header)}>
-        {props.hamburguer.title} R$ {props.hamburguer.price}
+        {hamburguer.title} R$ {hamburguer.price}
       </h3>
-      <Filedset
+      <Fieldset
         name={'flavour'}
-        title='Sabor'
-        options={props.hamburguer.flavour}
-        onChange={props.onChange}
-      />
-      <Filedset
+        options={hamburguer.flavour}
+        onChange={onChange}
+      >
+        Sabor
+      </Fieldset>
+      <Fieldset
         name={'extras'}
-        title='Adicionais'
-        options={props.hamburguer.extras}
-        onChange={props.onChange}
-      />
+        options={hamburguer.extras}
+        onChange={onChange}
+      >
+        Adicionais
+      </Fieldset>
       <Button
-        name='burguer-options'
-        class={css(styles.ckeckButton)}
-        onClick={props.functionOk}
-        title={<FontAwesomeIcon icon={faCheck} />}
-      />
+        style={css(styles.ckeckButton)}
+        onClick={functionOk}
+      >
+        <FontAwesomeIcon icon={faCheck} />
+      </Button>
     </div>
   );
 };
 
 BurguerOptions.propTypes = {
-    functionOk: PropTypes.func,
-    onChange: PropTypes.func,
-    hamburguer: PropTypes.object,
+    functionOk: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    hamburguer: PropTypes.object.isRequired,
   };
 
 const styles = StyleSheet.create({
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: '31px',
     borderRadius: '6px',
     height: 'max-content',
-    alignSelf: 'self-end',
+    alignSelf: 'flex-end',
     marginTop: '0.7em',
     ':hover': {
       cursor: 'pointer'

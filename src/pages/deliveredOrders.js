@@ -13,11 +13,12 @@ const DeliveredOrders = () => {
       .orderBy('time', 'desc')
       .get()
       .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
+        const dbOrders = querySnapshot.docs.map((doc) => {
           const data = doc.data();
           data.id = doc.id;
-          setOrders((currentState) => [...currentState, data]);
+          return data;
         });
+        setOrders(dbOrders);
       });
   }, []);
 
@@ -25,15 +26,14 @@ const DeliveredOrders = () => {
     <>
       <Navbar />
       <div className={css(styles.container)}>
-        <Title title='Pedidos entregues' />
+        <Title>Pedidos entregues</Title>
         {orders.map((element) => {
           return (
             <OrderCard
-              element={element}
               key={element.id}
+              element={element}
               client={element.client}
               time={element.passedTime}
-              index={orders.indexOf(element)}
             />
           );
         })}

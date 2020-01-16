@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Subtitle = (props) => {
-  return <h2 className={props.class}>{props.title}</h2>;
+const Subtitle = ({style, children}) => {
+  return <h2 className={style}>{children}</h2>;
 };
 
 Subtitle.propTypes = {
-  class: PropTypes.string,
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+  style: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired
 };
 
 export default Subtitle;

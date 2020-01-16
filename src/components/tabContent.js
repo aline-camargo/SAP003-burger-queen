@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import BurguerOptions from './burguerOptions';
 import Button from './primaryButton';
 
-const TabContent = (props) => {
+const TabContent = ({ show, onClickItem, onClickBurguer, onChange, burguer }) => {
   const [cafeItems, setCafeItems] = useState([]);
   const [dayItems, setDayItems] = useState([]);
   const [burguers, setBurguers] = useState([]);
@@ -15,18 +15,17 @@ const TabContent = (props) => {
       .orderBy('title', 'desc')
       .get()
       .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
+        const addingID = querySnapshot.docs.map(doc => {
           const data = doc.data();
           data.id = doc.id;
-          data.quantity = 1;
-          if (data.breakfast) {
-            setCafeItems((currentState) => [...currentState, data]);
-          } else {
-            data.flavour.length === 3
-              ? setBurguers((currentState) => [...currentState, data])
-              : setDayItems((currentState) => [...currentState, data]);
-          }
-        });
+          return data;
+        })
+        const cafe = addingID.filter(doc => doc.breakfast);
+        const day = addingID.filter(doc => !doc.breakfast && doc.flavour.length === 1);
+        const burguers = addingID.filter(doc => doc.flavour.length === 3);
+        setCafeItems(cafe);
+        setBurguers(burguers);
+        setDayItems(day);
       });
   }, []);
 
@@ -34,32 +33,36 @@ const TabContent = (props) => {
     return itensArray.map((item) => {
       return (
         <Button
-          class={css(styles.button)}
-          title={[item.title, <p key>R$ {item.price}</p>]}
           key={item.id}
-          onClick={() => props.onClickItem(item)}
-        />
+          style={css(styles.button)}
+          onClick={() => onClickItem(item)}
+        >
+          {item.title}
+          <p>R$ {item.price}</p>
+        </Button>
       );
     });
   };
 
   const burguersTemplate = (itensArray) => {
-    if (!props.show) {
+    if (!show) {
       return itensArray.map((item) => {
         return (
           <Button
             key={item.id}
-            class={css(styles.button)}
-            title={[item.title, <p key>R$ {item.price}</p>]}
-            onClick={() => props.onClickBurguer(item)}
-          />
+            style={css(styles.button)}
+            onClick={() => onClickBurguer(item)}
+          >
+            {item.title}
+            <p>R$ {item.price}</p>
+          </Button>
         );
       });
     }
   };
 
   const renderMenu = () => {
-    if (props.show) {
+    if (show) {
       return buttons(cafeItems);
     } else {
       return buttons(dayItems);
@@ -70,11 +73,11 @@ const TabContent = (props) => {
     <section className={css(styles.container)}>
       {renderMenu()}
       {burguersTemplate(burguers)}
-      {props.burguer.show ? (
+      {burguer.show ? (
         <BurguerOptions
-          hamburguer={props.burguer.item}
-          onChange={props.onChange}
-          functionOk={() => props.onClickItem(props.burguer.item)}
+          hamburguer={burguer.item}
+          onChange={onChange}
+          functionOk={() => onClickItem(burguer.item)}
         />
       ) : null}
     </section>
@@ -82,11 +85,11 @@ const TabContent = (props) => {
 };
 
 TabContent.propTypes = {
-  onClickItem: PropTypes.func,
-  onClickBurguer: PropTypes.func,
-  onChange: PropTypes.func,
-  show: PropTypes.bool,
-  burguer: PropTypes.object,
+  onClickItem: PropTypes.func.isRequired,
+  onClickBurguer: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+  burguer: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -103,6 +106,7 @@ const styles = StyleSheet.create({
     borderRadius: '6px',
     marginRight: '10px',
     margin: '0px 10px 10px 0',
+    fontSize: '0.9em',
     ':hover': {
       cursor: 'pointer'
     },

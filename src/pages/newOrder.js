@@ -35,7 +35,7 @@ const NewOrder = () => {
 
   const handleBurguerClick = (choice) => {
     if (showBurguer.item === choice) {
-      setShowBurguer((state) => ({ ...state, show: !showBurguer.show }));
+      setShowBurguer({ show: !showBurguer.show, item: {} });
     } else if (showBurguer.item.price === undefined) {
       setShowBurguer({ show: true, item: choice });
     } else {

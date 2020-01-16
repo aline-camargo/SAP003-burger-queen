@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import Option from './option';
 import './style.css';
 
-const Filedset = (props) => {
+const Filedset = ({ name, onChange, options, children }) => {
   return (
     <fieldset className={css(styles.container)}>
-      <legend className={css(styles.legend)}>{props.title}:</legend>
-      {props.options.map((option, index) => (
+      <legend className={css(styles.legend)}>{children}:</legend>
+      {options.map((option, index) => (
         <Option
           key={option.title}
           option={option}
-          type={props.name}
-          onChange={props.onChange}
-          default={index === 0}
+          type={name}
+          onChange={onChange}
+          isChecked={index === 0}
         />
       ))}
     </fieldset>
@@ -22,10 +22,10 @@ const Filedset = (props) => {
 };
 
 Filedset.propTypes = {
-  options: PropTypes.array,
-  title: PropTypes.string,
-  name: PropTypes.string,
-  onChange: PropTypes.func
+  options: PropTypes.array.isRequired,
+  children: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

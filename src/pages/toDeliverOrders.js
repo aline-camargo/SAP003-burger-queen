@@ -20,7 +20,7 @@ const ToDeliverOrders = () => {
       type: 'info'
     });
 
-    orders[index].done = true;
+    orders[index].location = 'delivered';
 
     forward(
       'delivered',
@@ -36,14 +36,14 @@ const ToDeliverOrders = () => {
     <>
       <Navbar />
       <div className={css(styles.container)}>
-        <Title title='Pedidos para entrega' />
-        {orders.map((element) => {
+        <Title>Pedidos para entrega</Title>
+        {orders.map((element,index) => {
           return (
             <OrderCard
-              element={element}
               key={element.id}
+              element={element}
               client={element.client}
-              onClick={() => handleClick(element.id, orders.indexOf(element))}
+              onClick={() => handleClick(element.id, index)}
             />
           );
         })}

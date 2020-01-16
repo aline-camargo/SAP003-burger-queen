@@ -8,11 +8,11 @@ import Input from '../input';
 import List from './orderList';
 import Button from '../primaryButton';
 
-const ResumeArea = (props) => {
+const ResumeArea = ({ resume, onUpdate }) => {
   const [client, setClient] = useState({ name: '', table: '' });
 
   const handleSubmit = () => {
-    if (client.name === '' || client.table === '' || props.resume.length === 0) {
+    if (client.name === '' || client.table === '' || resume.length === 0) {
       notification({
         title: 'Pedido inválido',
         message: 'Preencha todos os campos.',
@@ -40,9 +40,9 @@ const ResumeArea = (props) => {
             name: client.name,
             table: client.table
           },
-          order: props.resume,
+          order: resume,
           time: new Date().getTime(),
-          kitchen: true
+          location: 'kitchen'
         })
         .then(() => {
           notification({
@@ -51,7 +51,7 @@ const ResumeArea = (props) => {
             type: 'success'
           });
           setClient({ name: '', table: '' });
-          props.onUpdate([]);
+          onUpdate([]);
         })
         .catch((error) => {
           notification({
@@ -65,14 +65,13 @@ const ResumeArea = (props) => {
 
   return (
     <aside className={css(styles.container)}>
-      <Subtitle class={css(styles.title)} title='Resumo do Pedido' />
+      <Subtitle style={css(styles.title)}>Resumo do Pedido</Subtitle>
       <Input
         id='clientName'
-        title='Nome:'
         value={client.name}
         placeholder='Nome do Cliente'
         type='text'
-        class={{
+        style={{
           container: css(styles.InputContainer),
           input: css(styles.input),
           label: css(styles.label)
@@ -81,14 +80,15 @@ const ResumeArea = (props) => {
           setClient((state) => ({ ...state, name: e.target.value }));
           e.persist();
         }}
-      />
+      >
+        Nome:
+      </Input>
       <Input
         id='clientTable'
-        title='Mesa:'
         value={client.table}
         placeholder='00'
         type='text'
-        class={{
+        style={{
           container: css(styles.InputContainer),
           input: css(styles.input),
           label: css(styles.label)
@@ -97,25 +97,26 @@ const ResumeArea = (props) => {
           setClient((state) => ({ ...state, table: e.target.value }));
           e.persist();
         }}
-      />
+      >
+        Mesa:
+      </Input>
       <List
-        resume={props.resume}
-        onDelete={props.onUpdate}
-        total={props.total}
+        resume={resume}
+        onDelete={onUpdate}
       />
       <Button
-        name='enviar-cozinha'
-        class={css(styles.button)}
+        style={css(styles.button)}
         onClick={handleSubmit}
-        title='Enviar para a cozinha'
-      />
+      >
+        Enviar para a cozinha
+      </Button>
     </aside>
   );
 };
 
 ResumeArea.propTypes = {
-  resume: PropTypes.array,
-  onUpdate: PropTypes.func
+  resume: PropTypes.array.isRequired,
+  onUpdate: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({

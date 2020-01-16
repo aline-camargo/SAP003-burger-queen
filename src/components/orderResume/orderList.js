@@ -2,75 +2,48 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import itemsTitle from '../parsingTitle';
 import PropTypes from 'prop-types';
-import OrderedItem from './orderedItem';
+import OrderItem from '../orderCard/orderItem';
 
-const List = (props) => {
+const List = ({ resume, onDelete }) => {
   const deleteItem = (id) => {
-    const itemToDelete = props.resume.findIndex((elem) => elem.id === id);
-    if (props.resume[itemToDelete].quantity !== 1) {
-      props.resume[itemToDelete].quantity--;
-      props.onDelete([...props.resume]);
+    const itemToDelete = resume.findIndex((elem) => elem.id === id);
+    if (resume[itemToDelete].quantity !== 1) {
+      resume[itemToDelete].quantity--;
+      onDelete([...resume]);
     } else {
-      const result = props.resume.filter((elem) => elem.id !== id);
-      props.onDelete(result);
+      const result = resume.filter((elem) => elem.id !== id);
+      onDelete(result);
     }
-  };
-
-  const renderListItems = () => {
-    return props.resume.map((item) => {
-      let title = '';
-      if (
-        item.title.includes('Hambúrguer') &&
-        item.selectedExtras !== 'Nenhum'
-      ) {
-        title = [
-          item.title,
-          ' (',
-          item.selectedFlavour.substring(0, 3),
-          ')',
-          ' + ',
-          item.selectedExtras
-        ];
-      } else if (
-        item.title.includes('Hambúrguer') &&
-        item.selectedExtras === 'Nenhum'
-      ) {
-        title = [item.title, ' (', item.selectedFlavour.substring(0, 3), ')'];
-      } else {
-        title = item.title;
-      }
-      return (
-        <OrderedItem
-          class={{
-            item: css(styles.item),
-            p: css(styles.p),
-            quantity: css(styles.quantity),
-            flex: css(styles.flex),
-            delete: css(styles.delete)
-          }}
-          quantity={item.quantity}
-          title={title}
-          price={item.price}
-          id={item.id}
-          key={item.id}
-          onClick={deleteItem}
-          buttonTitle={<FontAwesomeIcon icon={faTrashAlt} />}
-        />
-      );
-    });
   };
 
   return (
     <>
       <div id='orderList' className={css(styles.list)}>
-        {renderListItems()}
+        {resume.map((item, index) => {
+          return <OrderItem
+            key={item.id}
+            style={{
+              item: css(styles.item),
+              title: css(styles.itemTitle),
+              quantity: css(styles.quantity),
+              flex: css(styles.flex),
+              delete: css(styles.delete)
+            }}
+            item={item}
+            onClick={() => deleteItem(item.id)}
+            buttonTitle={<FontAwesomeIcon icon={faTrashAlt} />}
+          >
+            {itemsTitle(resume)[index]}
+          </OrderItem>
+        })}
       </div>
       <div className={css(styles.total)}>
         <p className={css(styles.title)}>Total:</p>
         <p className={css(styles.result)}>
-          R${' '}
-          {props.resume.reduce(
+          R${''}
+          {resume.reduce(
             (acc, curr) => acc + curr.price * curr.quantity,
             0
           )}
@@ -81,8 +54,8 @@ const List = (props) => {
 };
 
 List.propTypes = {
-  resume: PropTypes.array,
-  onDelete: PropTypes.func
+  resume: PropTypes.array.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

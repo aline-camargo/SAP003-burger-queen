@@ -34,12 +34,12 @@ const Navbar = () => {
     <header>
       <nav className={css(styles.navbar, styles.big)}>
         <Button
-          name='nav-button'
-          class={css(styles.button, styles.bigScreen)}
+          style={css(styles.button, styles.bigScreen)}
           onClick={handleClick}
-          title={<FontAwesomeIcon icon={faBars} className={css(styles.icon)} />}
-        />
-        <Subtitle class={css(styles.title)} title={['Burguer Queen, ', name]} />
+        >
+          <FontAwesomeIcon icon={faBars} className={css(styles.icon)} />
+        </Button>
+        <Subtitle style={css(styles.title)}>Burguer Queen, {name}</Subtitle>
         {size.width > 1025 || show ? <NavbarList /> : null}
       </nav>
     </header>

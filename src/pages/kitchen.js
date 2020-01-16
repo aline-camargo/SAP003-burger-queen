@@ -25,7 +25,7 @@ const Kitchen = () => {
     });
 
     orders[index].passedTime = Math.floor((time - orders[index].time) / 60000);
-    orders[index].kitchen = false;
+    orders[index].location = 'to-deliver';
 
     forward(
       'to-deliver',
@@ -41,16 +41,16 @@ const Kitchen = () => {
     <>
       <Navbar />
       <div className={css(styles.container)}>
-        <Title title='Cozinha' />
-        {orders.map((element) => {
+        <Title>Cozinha</Title>
+        {orders.map((element, index) => {
           const passedTime = Math.floor((time - element.time) / 60000);
           return (
             <OrderCard
+              key={element.id}
               element={element}
               client={element.client}
-              key={element.id}
-              onClick={() => handleClick(element.id, orders.indexOf(element))}
               time={passedTime <= 0 ? 0 : passedTime}
+              onClick={() => handleClick(element.id, index)}
             />
           );
         })}

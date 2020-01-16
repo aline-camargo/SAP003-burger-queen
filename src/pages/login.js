@@ -41,7 +41,7 @@ const Login = () => {
         <form className={css(styles.bigContainer)}>
           <div className={css(styles.container)}>
             <Input
-              class={{
+              style={{
                 container: css(styles.container),
                 input: css(styles.input),
                 label: css(styles.label)
@@ -49,15 +49,16 @@ const Login = () => {
               id='email'
               type='text'
               value={user.email}
-              title='Email'
               placeholder='exemplo@mail.com'
               onChange={(e) => {
-                setUser((state) => ({...state, email: e.target.value}))
+                setUser((state) => ({ ...state, email: e.target.value }))
                 e.persist()
-                }}
-            />
+              }}
+            >
+              Email
+            </Input>
             <Input
-              class={{
+              style={{
                 container: css(styles.container),
                 input: css(styles.input),
                 label: css(styles.label)
@@ -65,20 +66,21 @@ const Login = () => {
               id='senha'
               type='password'
               value={user.password}
-              title='Senha'
               placeholder='senhaexemplo123'
               onChange={(e) => {
-                setUser((state) => ({...state, password: e.target.value}))
+                setUser((state) => ({ ...state, password: e.target.value }))
                 e.persist()
-                }}
-            />
+              }}
+            >
+              Senha
+            </Input>
           </div>
           <Button
-            class={css(styles.button)}
-            title='Entrar'
-            name='login'
+            style={css(styles.button)}
             onClick={handleClick}
-          />
+          >
+            Entrar
+          </Button>
           <p className={css(styles.text)}>
             Ainda não tem cadastro?{' '}
             <Link to='/registro' className={css(styles.link)}>

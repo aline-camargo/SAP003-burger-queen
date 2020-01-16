@@ -1,29 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = (props) => {
+const Button = ({ style, onClick, children}) => {
   return (
     <button
       type='button'
-      name={props.name}
-      className={props.class}
-      onClick={props.onClick}
+      className={style}
+      onClick={onClick}
     >
-      {props.title}
+      {children}
     </button>
   );
 };
 
 Button.propTypes = {
-  class: PropTypes.string,
-  title: PropTypes.oneOfType([
+  style: PropTypes.string,
+  children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
     PropTypes.array,
     PropTypes.element
-  ]),
-  name: PropTypes.string,
-  onClick: PropTypes.func
+  ]).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Button;

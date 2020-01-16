@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
 
-const Title = (props) => {
-  return <h1 className={css(styles.heading)}>{props.title}</h1>;
+const Title = ({ children }) => {
+  return <h1 className={css(styles.heading)}>{children}</h1>;
 };
 
 Title.propTypes = {
-  title: PropTypes.string
+  children: PropTypes.string.isRequired
 };
 
 const styles = StyleSheet.create({

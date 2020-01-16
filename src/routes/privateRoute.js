@@ -24,8 +24,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
               kitchen;
             const saloonAccess = rest.path !== '/cozinha' && !kitchen;
 
-            kitchenAccess || saloonAccess ? setUser(true) : setUser(false);
-
+            setUser(kitchenAccess || saloonAccess);
             setLoad(false);
           });
       } else {
@@ -45,10 +44,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           user ? (
             <Component />
           ) : (
-            <Redirect
-              to={{ pathname: '/negado', state: { from: rest.location } }}
-            />
-          )
+              <Redirect
+                to={{ pathname: '/negado', state: { from: rest.location } }}
+              />
+            )
         }
       />
     );

@@ -1,57 +1,53 @@
 import React from 'react';
-import { StyleSheet, css } from 'aphrodite/no-important';
+import Button from '../primaryButton';
 import PropTypes from 'prop-types';
 
-const OrderItem = (props) => {
-  return (
-    <div className={css(styles.item)}>
-      <p>
-        <span className={css(styles.quantity)}>{props.quantity}</span>
-        <span className={css(styles.white, styles.title)}>{props.title}</span>
-      </p>
-      {props.done || !props.kitchen ? (
-        <span className={css(styles.white, styles.price)}>
-          R$ {props.price * props.quantity}
+const OrderItem = ({ location, style, onClick, buttonTitle, children, item }) => {
+  const checkItem = () => {
+    if (location === 'to-deliver' || location === 'delivered') {
+      return (
+        <span className={style.price}>
+          R$ {item.price * item.quantity}
         </span>
-      ) : null}
+      )
+    } else if (!location) {
+      return (
+        <div className={style.flex}>
+          <p className={style.title}>R$ {item.price * item.quantity}</p>
+          <Button
+            style={style.delete}
+            onClick={onClick}
+          >
+            {buttonTitle}
+          </Button>
+        </div>
+      )
+    } else {
+      return null;
+    }
+  }
+  return (
+    <div className={style.item}>
+      <p>
+        <span className={style.quantity}>
+          {item.quantity}
+        </span>
+        <span className={style.title}>
+          {children}
+        </span>
+      </p>
+      {checkItem()}
     </div>
   );
 };
 
 OrderItem.propTypes = {
-  quantity: PropTypes.number,
-  kitchen: PropTypes.bool,
-  done: PropTypes.bool,
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  location: PropTypes.any,
+  style: PropTypes.object,
+  children: PropTypes.string.isRequired,
+  item: PropTypes.object,
+  onClick: PropTypes.func,
+  buttonTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
-
-const styles = StyleSheet.create({
-  quantity: {
-    background: '#f7f5f5',
-    padding: '1px 4px',
-    borderRadius: '3px',
-    fontWeight: 'bold',
-    marginRight: '5px'
-  },
-  white: {
-    color: 'white'
-  },
-  item: {
-    // marginBottom: '0.5em',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0.5em',
-    borderBottom: '1px solid #ffffff26'
-  },
-  title: {
-    lineHeight: '1.5em'
-  },
-  price: {
-    width: '75px',
-    textAlign: 'end'
-  }
-});
 
 export default OrderItem;

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-const Select = (props) => {
+const Select = ({ onChange }) => {
   return (
-    <select onChange={props.onChange} className='select' defaultValue='title'>
+    <select onChange={onChange} className='select' defaultValue='title'>
       <option value='title' disabled>
         Selecione sua área
       </option>
@@ -15,7 +15,7 @@ const Select = (props) => {
 };
 
 Select.propTypes = {
-  onChange: PropTypes.func
+  onChange: PropTypes.func.isRequired
 };
 
 export default Select;

@@ -21,8 +21,6 @@ const Register = () => {
   });
 
   const handleClick = () => {
-    console.log(user);
-
     if (user.type === 'title' || user.name === '') {
       notification({
         title: 'Preencha todos os campos.',
@@ -83,7 +81,7 @@ const Register = () => {
           </div>
           <div className={css(styles.container)}>
             <Input
-              class={{
+              style={{
                 container: css(styles.container),
                 input: css(styles.input),
                 label: css(styles.label)
@@ -91,15 +89,16 @@ const Register = () => {
               id='nome'
               type='text'
               value={user.name}
-              title='Nome'
               placeholder='Nome aqui'
               onChange={(e) => {
                 setUser((state) => ({ ...state, name: e.target.value }));
                 e.persist();
               }}
-            />
+            >
+              Nome
+            </Input>
             <Input
-              class={{
+              style={{
                 container: css(styles.container),
                 input: css(styles.input),
                 label: css(styles.label)
@@ -107,15 +106,16 @@ const Register = () => {
               id='email'
               type='text'
               value={user.email}
-              title='Email'
               placeholder='exemplo@mail.com'
               onChange={(e) => {
                 setUser((state) => ({ ...state, email: e.target.value }));
                 e.persist();
               }}
-            />
+            >
+              Email
+            </Input>
             <Input
-              class={{
+              style={{
                 container: css(styles.container),
                 input: css(styles.input),
                 label: css(styles.label)
@@ -123,13 +123,14 @@ const Register = () => {
               id='senha'
               type='password'
               value={user.password}
-              title='Senha'
               placeholder='senhaexemplo123'
               onChange={(e) => {
                 setUser((state) => ({ ...state, password: e.target.value }));
                 e.persist();
               }}
-            />
+            >
+              Senha
+            </Input>
             <Select
               onChange={(e) => {
                 setUser((state) => ({ ...state, type: e.target.value }));
@@ -138,11 +139,11 @@ const Register = () => {
             />
           </div>
           <Button
-            class={css(styles.button)}
-            title='Cadastrar'
-            name='register'
+            style={css(styles.button)}
             onClick={handleClick}
-          />
+          >
+            Cadastrar
+          </Button>
         </form>
       </section>
       <img

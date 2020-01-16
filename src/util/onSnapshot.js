@@ -7,11 +7,10 @@ export const onSnapshot = (location, setState) => {
     .onSnapshot(
       { includeMetadataChanges: !navigator.onLine },
       (querySnapshot) => {
-        const totalOrders = [];
-        querySnapshot.forEach((doc) => {
+        const totalOrders = querySnapshot.docs.map((doc) => {
           const data = doc.data();
           data.id = doc.id;
-          totalOrders.push(data);
+          return data;
         });
         setState(totalOrders);
       }

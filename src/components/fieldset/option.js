@@ -2,29 +2,29 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
 
-const Option = (props) => {
+const Option = ({ option, type, onChange, isChecked }) => {
   return (
     <div className={css(styles.option)}>
       <input
-        onChange={() => props.onChange(props.option.title, props.type)}
+        onChange={() => onChange(option.title, type)}
         className={css(styles.radio)}
         type='radio'
-        name={props.type}
-        id={props.option.title}
-        defaultChecked={props.default}
+        name={type}
+        id={option.title}
+        defaultChecked={isChecked}
       ></input>
-      <label htmlFor={props.option.title}>
-        {props.option.title} {props.option.price}
+      <label htmlFor={option.title}>
+        {option.title} {option.price}
       </label>
     </div>
   );
 };
 
 Option.propTypes = {
-  option: PropTypes.object,
-  type: PropTypes.string,
-  onChange: PropTypes.func,
-  default: PropTypes.bool
+  option: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  isChecked: PropTypes.bool.isRequired,
 };
 
 const styles = StyleSheet.create({

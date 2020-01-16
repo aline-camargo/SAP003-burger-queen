@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
-import Tabs from './primaryButton';
+import Button from './primaryButton';
 import TabContent from './tabContent';
 
-const MenuArea = (props) => {
+const MenuArea = ({ onClickItem, onClickBurguer, onChange, burguer }) => {
   const [showItems, setShowItems] = useState(true);
   const [breakfest, setBreakfest] = useState(
     css(styles.clicked, styles.button)
@@ -26,35 +26,35 @@ const MenuArea = (props) => {
   return (
     <main className={css(styles.main)}>
       <div className={css(styles.ul)}>
-        <Tabs
-          name='cafe'
-          title='Café da manhã'
-          class={breakfest}
+        <Button
+          style={breakfest}
           onClick={() => handleClick('cafe')}
-        />
-        <Tabs
-          name='almoco'
-          title='Almoço e Jantar'
-          class={lunch}
+        >
+          Café da manhã
+        </Button>
+        <Button
+          style={lunch}
           onClick={() => handleClick('almoco')}
-        />
+        >
+          Almoço e Jantar
+        </Button>
       </div>
       <TabContent
         show={showItems}
-        onClickItem={props.onClickItem}
-        onClickBurguer={props.onClickBurguer}
-        onChange={props.onChange}
-        burguer={props.burguer}
+        onClickItem={onClickItem}
+        onClickBurguer={onClickBurguer}
+        onChange={onChange}
+        burguer={burguer}
       />
     </main>
   );
 };
 
 MenuArea.propTypes = {
-  onClickItem: PropTypes.func,
-  onClickBurguer: PropTypes.func,
-  onChange: PropTypes.func,
-  burguer: PropTypes.object,
+  onClickItem: PropTypes.func.isRequired,
+  onClickBurguer: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  burguer: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     border: '2px solid #e17409',
     borderBottom: 'none',
     padding: '1em',
+    fontSize: '0.9em',
     ':hover': {
       cursor: 'pointer'
     }

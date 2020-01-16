@@ -5,85 +5,66 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import OrderItem from './orderItem';
 import Button from '../primaryButton';
+import itemsTitle from '../parsingTitle';
 
-const OrderCard = (props) => {
-  const renderListItems = () => {
-    return props.element.order.map((item) => {
-      let title = '';
-      if (
-        item.title.includes('Hambúrguer') &&
-        item.selectedExtras !== 'Nenhum'
-      ) {
-        title = [
-          item.title,
-          ' (',
-          item.selectedFlavour.substring(0, 3),
-          ')',
-          ' + ',
-          item.selectedExtras
-        ];
-      } else if (
-        item.title.includes('Hambúrguer') &&
-        item.selectedExtras === 'Nenhum'
-      ) {
-        title = [item.title, ' (', item.selectedFlavour.substring(0, 3), ')'];
-      } else {
-        title = item.title;
-      }
-      return (
-        <OrderItem
-          kitchen={props.element.kitchen}
-          done={props.element.done}
-          price={item.price}
-          quantity={item.quantity}
-          title={title}
-          key={item.id}
-        />
-      );
-    });
-  };
-
-  const spanClass = css(props.time > 15 ? styles.red : styles.regular);
+const OrderCard = ({ element, client, time, onClick }) => {
+  const spanClass = css(time > 15 ? styles.red : styles.regular);
 
   return (
-    <article key={props.element.id} className={css(styles.article)}>
+    <article key={element.id} className={css(styles.article)}>
       <div className={css(styles.title)}>
         <h4 className={css(styles.header)}>
-          Cliente: {props.client.name}, {props.client.table}
+          Cliente: {client.name}, {client.table}
           <br></br>
-          Atendente: {props.element.atendent}
+          Atendente: {element.atendent}
         </h4>
-        {props.element.kitchen || props.element.done ? (
+        {element.location === 'kitchen' || element.location === 'delivered' ? (
           <span className={spanClass}>
-            {props.time}m <FontAwesomeIcon icon={faClock} />
+            {time}m <FontAwesomeIcon icon={faClock} />
           </span>
         ) : (
-          <span className={css(styles.regular)}>
-            Total <br></br> R${' '}
-            {props.element.order.reduce(
-              (acc, curr) => acc + curr.price * curr.quantity,
-              0
-            )}
-          </span>
-        )}
+            <span className={css(styles.regular)}>
+              Total <br></br> R${' '}
+              {element.order.reduce(
+                (acc, curr) => acc + curr.price * curr.quantity,
+                0
+              )}
+            </span>
+          )}
       </div>
-      <div className={css(styles.list)}>{renderListItems()}</div>
-      {props.element.done ? (
+      <div className={css(styles.list)}>
+        {element.order.map((item, index) => {
+          return <OrderItem
+            key={item.id}
+            style={{
+              quantity: css(styles.quantity),
+              item: css(styles.item),
+              title: css(styles.titleItem),
+              price: css(styles.price),
+            }}
+            location={element.location}
+            item={item}
+          >
+            {itemsTitle(element.order)[index]}
+          </OrderItem>
+        })}
+      </div>
+      {element.location === 'delivered' ? (
         <p className={css(styles.total)}>
           Total R${' '}
-          {props.element.order.reduce(
+          {element.order.reduce(
             (acc, curr) => acc + curr.price * curr.quantity,
             0
           )}
         </p>
       ) : (
-        <Button
-          id={props.element.id}
-          class={css(styles.button)}
-          onClick={props.onClick}
-          title='Pronto'
-        />
-      )}
+          <Button
+            style={css(styles.button)}
+            onClick={onClick}
+          >
+            Pronto
+        </Button>
+        )}
     </article>
   );
 };
@@ -91,8 +72,8 @@ const OrderCard = (props) => {
 OrderCard.propTypes = {
   time: PropTypes.number,
   onClick: PropTypes.func,
-  element: PropTypes.object,
-  client: PropTypes.object
+  element: PropTypes.object.isRequired,
+  client: PropTypes.object.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -154,6 +135,29 @@ const styles = StyleSheet.create({
     padding: '0.3em',
     borderRadius: '6px',
     background: '#e61f1f'
+  },
+  quantity: {
+    background: '#f7f5f5',
+    padding: '1px 4px',
+    borderRadius: '3px',
+    fontWeight: 'bold',
+    marginRight: '5px'
+  },
+  item: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '0.5em',
+    borderBottom: '1px solid #ffffff26'
+  },
+  titleItem: {
+    color: 'white',
+    lineHeight: '1.5em'
+  },
+  price: {
+    color: 'white',
+    width: '75px',
+    textAlign: 'end'
   }
 });
 

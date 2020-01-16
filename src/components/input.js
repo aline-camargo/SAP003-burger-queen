@@ -1,32 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = (props) => {
+const Input = ({style, onChange, value, type, placeholder, id, children}) => {
   return (
-    <div className={props.class.container}>
-      <label className={props.class.label} htmlFor={props.id}>
-        {props.title}
+    <div className={style.container}>
+      <label className={style.label} htmlFor={id}>
+        {children}
       </label>
       <input
-        onChange={props.onChange}
-        value={props.value}
-        className={props.class.input}
-        type={props.type}
-        placeholder={props.placeholder}
-        id={props.id}
+        onChange={onChange}
+        value={value}
+        className={style.input}
+        type={type}
+        placeholder={placeholder}
+        id={id}
       ></input>
     </div>
   );
 };
 
 Input.propTypes = {
-  class: PropTypes.object,
-  id: PropTypes.string,
-  onChange: PropTypes.func,
-  value: PropTypes.string,
-  title: PropTypes.string,
-  placeholder: PropTypes.string,
-  type: PropTypes.string
+  style: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default Input;
