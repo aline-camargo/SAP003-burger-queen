@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
-import Button from './primaryButton';
+import Button from '../../components/primaryButton';
 import TabContent from './tabContent';
 
 const MenuArea = ({ onClickItem, onClickBurguer, onChange, burguer }) => {

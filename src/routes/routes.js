@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import NewOrder from '../pages/newOrder';
+import NewOrder from '../pages/newOrder/newOrder';
 import Kitchen from '../pages/kitchen';
 import ToDeliverOrders from '../pages/toDeliverOrders';
 import DeliveredOrders from '../pages/deliveredOrders';

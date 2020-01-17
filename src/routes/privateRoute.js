@@ -13,10 +13,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           .doc(online.uid)
           .get()
           .then(querySnapshot => {
-            let kitchen = false;
-            if (querySnapshot.data().kitchen) {
-              kitchen = true;
-            }
+            const kitchen = querySnapshot.data().kitchen;
 
             const kitchenAccess =
               (rest.path === '/cozinha' ||

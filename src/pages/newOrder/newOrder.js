@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/navbar/navbar';
-import ResumeArea from '../components/orderResume/orderResume';
-import MenuArea from '../components/menuArea';
+import Navbar from '../../components/navbar/navbar';
+import ResumeArea from './orderResume/orderResume';
+import MenuArea from './menuArea';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import { db } from '../util/firebaseConfig';
-import notification from '../components/notifications';
+import { db } from '../../util/firebaseConfig';
+import notification from '../../components/notifications';
 
 const NewOrder = () => {
   const [order, setOrder] = useState([]);
@@ -43,8 +43,15 @@ const NewOrder = () => {
     }
   };
 
-  const updateItems = (resume) => {
-    setOrder(resume);
+  const deleteItem = (id) => {
+    const itemToDelete = order.findIndex((elem) => elem.id === id);
+    if (order[itemToDelete].quantity !== 1) {
+      order[itemToDelete].quantity--;
+      setOrder([...order]);
+    } else {
+      const result = order.filter((elem) => elem.id !== id);
+      setOrder(result);
+    }
   };
 
   const saveItems = (item) => {
@@ -98,7 +105,7 @@ const NewOrder = () => {
           onChange={onChangeRadio}
           burguer={showBurguer}
         />
-        <ResumeArea resume={order} onUpdate={updateItems} />
+        <ResumeArea resume={order} onDelete={deleteItem} setState={setOrder}/>
       </div>
     </>
   );

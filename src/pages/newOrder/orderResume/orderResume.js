@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import notification from '../notifications';
+import notification from '../../../components/notifications';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import { db, auth } from '../../util/firebaseConfig';
+import { db, auth } from '../../../util/firebaseConfig';
 import PropTypes from 'prop-types';
-import Subtitle from '../subtitle';
-import Input from '../input';
+import Subtitle from '../../../components/subtitle';
+import Input from '../../../components/input';
 import List from './orderList';
-import Button from '../primaryButton';
+import Button from '../../../components/primaryButton';
 
-const ResumeArea = ({ resume, onUpdate }) => {
+const ResumeArea = ({ resume, onDelete, setState }) => {
   const [client, setClient] = useState({ name: '', table: '' });
 
   const handleSubmit = () => {
@@ -51,7 +51,7 @@ const ResumeArea = ({ resume, onUpdate }) => {
             type: 'success'
           });
           setClient({ name: '', table: '' });
-          onUpdate([]);
+          setState([]);
         })
         .catch((error) => {
           notification({
@@ -102,7 +102,7 @@ const ResumeArea = ({ resume, onUpdate }) => {
       </Input>
       <List
         resume={resume}
-        onDelete={onUpdate}
+        onDelete={onDelete}
       />
       <Button
         style={css(styles.button)}
@@ -116,7 +116,8 @@ const ResumeArea = ({ resume, onUpdate }) => {
 
 ResumeArea.propTypes = {
   resume: PropTypes.array.isRequired,
-  onUpdate: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  setState: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

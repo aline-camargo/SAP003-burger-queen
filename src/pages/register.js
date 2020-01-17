@@ -64,10 +64,6 @@ const Register = () => {
     }
   };
 
-  const goBack = () => {
-    history.push('/');
-  };
-
   return (
     <main className={css(styles.div)}>
       <section className={css(styles.section)}>
@@ -76,7 +72,7 @@ const Register = () => {
             <FontAwesomeIcon
               icon={faArrowLeft}
               className={css(styles.icon)}
-              onClick={goBack}
+              onClick={() => history.push('/')}
             />
           </div>
           <div className={css(styles.container)}>

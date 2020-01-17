@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { db } from '../util/firebaseConfig';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import Navbar from '../components/navbar/navbar';
 import OrderCard from '../components/orderCard/orderCard';
 import Title from '../components/title';
+import { onSnapshot } from '../util/onSnapshot';
 
 const DeliveredOrders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    db.collection('delivered')
-      .orderBy('time', 'desc')
-      .get()
-      .then((querySnapshot) => {
-        const dbOrders = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          data.id = doc.id;
-          return data;
-        });
-        setOrders(dbOrders);
-      });
+    onSnapshot('delivered', setOrders);
   }, []);
 
   return (

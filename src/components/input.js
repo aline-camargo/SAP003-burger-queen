@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({style, onChange, value, type, placeholder, id, children}) => {
+const Input = ({style, onChange, value, type, placeholder, id, children, ref}) => {
   return (
     <div className={style.container}>
       <label className={style.label} htmlFor={id}>
         {children}
       </label>
       <input
+        ref={ref}
         onChange={onChange}
         value={value}
         className={style.input}
@@ -27,6 +28,7 @@ Input.propTypes = {
   children: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  ref: PropTypes.string,
 };
 
 export default Input;

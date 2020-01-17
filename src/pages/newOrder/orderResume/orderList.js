@@ -1,23 +1,12 @@
 import React from 'react';
+import { StyleSheet, css } from 'aphrodite/no-important';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
-import { StyleSheet, css } from 'aphrodite/no-important';
-import itemsTitle from '../parsingTitle';
-import PropTypes from 'prop-types';
-import OrderItem from '../orderCard/orderItem';
+import itemsTitle from '../../../components/parsingTitle';
+import OrderItem from '../../../components/orderCard/orderItem';
 
 const List = ({ resume, onDelete }) => {
-  const deleteItem = (id) => {
-    const itemToDelete = resume.findIndex((elem) => elem.id === id);
-    if (resume[itemToDelete].quantity !== 1) {
-      resume[itemToDelete].quantity--;
-      onDelete([...resume]);
-    } else {
-      const result = resume.filter((elem) => elem.id !== id);
-      onDelete(result);
-    }
-  };
-
   return (
     <>
       <div id='orderList' className={css(styles.list)}>
@@ -32,7 +21,7 @@ const List = ({ resume, onDelete }) => {
               delete: css(styles.delete)
             }}
             item={item}
-            onClick={() => deleteItem(item.id)}
+            onClick={() => onDelete(item.id)}
             buttonTitle={<FontAwesomeIcon icon={faTrashAlt} />}
           >
             {itemsTitle(resume)[index]}
