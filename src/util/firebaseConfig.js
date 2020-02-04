@@ -13,21 +13,19 @@ const firebaseConfig = {
 };
 
 export const firebaseImpl = firebase.initializeApp(firebaseConfig);
+
+// Data persistency offline
 firebase
   .firestore()
   .enablePersistence()
   .then((res) => {
-    // console.log(res)
+    console.log(res)
   })
   .catch(function(err) {
     if (err.code === 'failed-precondition') {
-      // Multiple tabs open, persistence can only be enabled
-      // in one tab at a a time.
-      // ...
+      console.log(err)
     } else if (err.code === 'unimplemented') {
-      // The current browser does not support all of the
-      // features required to enable persistence
-      // ...
+      console.log(err)
     }
   });
 
