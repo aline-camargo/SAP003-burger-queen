@@ -3,6 +3,14 @@
 >Interface de pedidos _serverless_ para restaurante fast-food em React.js.
 >
 > _Projeto realizado durante o bootcamp da Laboratória._
+>
+> #### Logins de teste:
+>
+> *Acesso da cozinha: cozinha<span>@mail.com</span>*
+>
+> *Acesso do salão: salao<span>@mail.com</span>*
+>
+> ***Senha de ambos**: 123456*
 
 ## Índice
 
@@ -153,15 +161,20 @@ O acordado abaixo deve acontecer para dizer que a história está terminada:
 ***
 ## 3. Interface
 
+#### Página de novo pedido
 ![Página de novo pedido](public/images/novo-pedido.gif)
+
+#### Página da cozinha
 ![Página da Cozinha](public/images/kitchen-sh.png)
-![Página da Cozinha](public/images/color.png)
+
+#### Paleta de cores utilizada
+![Palheta de cores](public/images/color.png)
 
 ***
 
 ## 4. Considerações Gerais
 
-* Interface deve ser pensada específicamente para rodar em **tablets**.
+* Interface foi pensada específicamente para rodar em **tablets**.
 * Aplicativo Web **responsivo**.
 * O aplicativo é um _Single Page App_.
 * Segue as recomendações de PWAs.
